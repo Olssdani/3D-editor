@@ -4,9 +4,11 @@ layout(triangle_strip, max_vertices = 3) out;
 in vec3 pos[3];
 in vec3 normal[3];
 in vec2 st[3];
+in vec3 V[3];
 out vec3 posG;
 out vec3 NormalG;
 out vec2 stG;
+out vec3 VG;
 void main()
 {
 	//Check if the triangel has normal otherwise calculate them
@@ -30,6 +32,7 @@ void main()
 	 	NormalG = Normal;
 	 	posG = pos[i];
 	 	stG = st[i];
+	 	VG = V[i];
 	 	EmitVertex();
 	}
 	EndPrimitive();

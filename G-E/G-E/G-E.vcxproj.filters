@@ -19,6 +19,12 @@
     <Filter Include="Header Files\Objects">
       <UniqueIdentifier>{456b9037-e365-4ece-ad98-063e75ee104d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Light">
+      <UniqueIdentifier>{979aa878-6bd1-454d-a629-c7de402d03c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Light">
+      <UniqueIdentifier>{a9261e4f-bd26-4129-b4eb-a0d44319bfd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">

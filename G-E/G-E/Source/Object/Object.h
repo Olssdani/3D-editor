@@ -71,7 +71,7 @@ public:
 	public member functions
 	*/
 	//Render the scene
-	void Render(glm::mat4 &projection, glm::mat4 &view)
+	void Render(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos)
 	{
 		//Start shader
 		shader->use();
@@ -80,6 +80,7 @@ public:
 		shader->setMat4("view", view);
 		glm::mat4 model = glm::mat4(1.0f);
 		shader->setMat4("model", model);
+		shader->setVec3("CameraPos", CameraPos);
 		//Bind the VAO and draw the vertex
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);

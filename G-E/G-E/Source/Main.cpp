@@ -80,7 +80,7 @@ int main()
 		processInput(window);
 
 		//render
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//Get the current projection matrix
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 1000.0f);
@@ -89,7 +89,7 @@ int main()
 		
 		for each (Object o in objects)
 		{
-			o.Render(projection, view);
+			o.Render(projection, view, camera.GetPosition());
 		}
 		
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

@@ -25,7 +25,7 @@ public:
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime);
 	void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch);
 	void ProcessMouseScroll(float yoffset);
-	
+	glm::vec3 GetPosition();
 
 private:
 	//Variables

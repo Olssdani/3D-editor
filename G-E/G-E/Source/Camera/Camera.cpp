@@ -39,6 +39,10 @@ void Camera::Update()
 	up = glm::normalize(glm::cross(right, forward));
 }
 
+glm::vec3 Camera::GetPosition()
+{
+	return position;
+}
 //Return the view matrix
 glm::mat4 Camera::View()
 {
