@@ -6,11 +6,18 @@
 	Base class for all different objects in the scene
 */
 //Vertex struct to contain all Vertex data
-struct Vertex { glm::vec3 Position; };
+struct Vertex {
+	glm::vec3 Position;
+	glm::vec3 Normal;
+	glm::vec2 TexCoords;
+};
 
 class Object 
 {
-public:
+protected:
+	/*
+		Variable Definition
+	*/
 	//Shader
 	Shader *shader;
 	//Buffer objects
@@ -22,22 +29,9 @@ public:
 	//Number of triangels that is being draw;
 	unsigned int DrawSize;
 
-	//Render the scene
-	void Render(glm::mat4 projection, glm::mat4 view)
-	{
-		//Start shader
-		shader->use();
-		//Sendvairable to shader
-		shader->setMat4("projection", projection);
-		shader->setMat4("view", view);
-		glm::mat4 model = glm::mat4(1.0f);
-		shader->setMat4("model", model);
-		//Bind the VAO and draw the vertex
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
-
-	}
+	/*
+		Protected member functions
+	*/
 	//Create and fill buffers
 	void CreateBuffers(std::vector<Vertex> &vert, std::vector<unsigned int> &ind)
 	{
@@ -55,14 +49,42 @@ public:
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, ind.size() * sizeof(unsigned int), &ind[0], GL_STATIC_DRAW);
 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		// vertex positions
 		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+		// vertex normals
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+		// vertex texture coords
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+		
+		//Unbind buffer
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		//Unbind the VAO
 		glBindVertexArray(0);
 	}
 
+public:
+	/*
+	public member functions
+	*/
+	//Render the scene
+	void Render(glm::mat4 &projection, glm::mat4 &view)
+	{
+		//Start shader
+		shader->use();
+		//Sendvairable to shader
+		shader->setMat4("projection", projection);
+		shader->setMat4("view", view);
+		glm::mat4 model = glm::mat4(1.0f);
+		shader->setMat4("model", model);
+		//Bind the VAO and draw the vertex
+		glBindVertexArray(VAO);
+		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+	}
 
 	//Create shader with specified paths.
 	void SetShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr)
@@ -72,16 +94,19 @@ public:
 		GeoPath = geometryPath;
 		shader = new Shader(vertexPath, fragmentPath, geometryPath);
 	}
-
-
-
 	
-
-	
-	//Update the shader
+	//Update the shader with same shaderlink
 	void UpdateShader()
 	{
 		glDeleteProgram(shader->ID);
 		shader = new Shader(VertPath, FragPath, GeoPath);
+	}
+	//Change to another shader
+	void ChangeShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr)
+	{
+		VertPath = vertexPath;
+		FragPath = fragmentPath;
+		GeoPath = geometryPath;
+		UpdateShader();
 	}
 };

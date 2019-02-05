@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Object/Box.h"
+#include "Object\Object.h"
 #include <iostream>
 #include "Camera\Camera.h"
 
@@ -63,7 +64,9 @@ int main()
 	}
 
 	Box b= Box(1, 1, 1);
-	//glEnable(GL_DEPTH_TEST);
+	std::vector<Object> objects;
+	objects.push_back(b);
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	// render loop
@@ -78,12 +81,16 @@ int main()
 
 		//render
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//Get the current projection matrix
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 1000.0f);
 		//Get the current view matrix;
 		glm::mat4 view = camera.View();
-		b.Render(projection, view);
+		
+		for each (Object o in objects)
+		{
+			o.Render(projection, view);
+		}
 		
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
