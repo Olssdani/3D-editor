@@ -4,6 +4,7 @@
 #include "Object\Object.h"
 #include <iostream>
 #include "Camera\Camera.h"
+#include "Light\DirectionalLight.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -63,9 +64,38 @@ int main()
 		return -1;
 	}
 
-	Box b= Box(1, 1, 1);
+	Box b1 = Box(1, 1, 1);
+	b1.RotateX(20.0f * D2R);
+	Box b2 = Box(1, 1, 1);
+	b2.Translate(glm::vec3(2.0, -1.0, -0.3));
+	b2.RotateY(20.0f * D2R);
+	Box b3 = Box(1, 1, 1);
+	b3.Translate(glm::vec3(6.0, 0.0, 0.0)); 
+	b3.RotateY(20.0f * D2R);
+	Box b4 = Box(1, 1, 1);
+	b4.Translate(glm::vec3(0.0, -2.0, -2.3));
+	b4.RotateY(45.0f * D2R);
+	b4.RotateX(45.0f * D2R);
+	b4.RotateZ(45.0f * D2R);
+
 	std::vector<Object> objects;
-	objects.push_back(b);
+	objects.push_back(b1);
+	objects.push_back(b2);
+	objects.push_back(b3);
+	objects.push_back(b4);
+	DirectionalLight DL(glm::vec3(-0.2, -1.0, -0.3), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.5f, 0.5f, 0.5f));
+	std::vector<PointLight> PL;
+	PointLight p1 = PointLight(glm::vec3(0.0, 0.0, 3.0), 1.0f, 0.09f, 0.032f);
+	p1.SetAmbient(glm::vec3(0.1f, 0.1f, 0.1f));
+	p1.SetDiffuse(glm::vec3(0.8f, 0.8f, 0.8f));
+	p1.SetSpecular(glm::vec3(1.0f, 1.0f, 1.0f));
+	PL.push_back(p1);
+	PointLight p2 = PointLight(glm::vec3(7.0, 0.0, 0.0), 1.0f, 0.09f, 0.032f);
+	p2.SetAmbient(glm::vec3(0.1f, 0.1f, 0.1f));
+	p2.SetDiffuse(glm::vec3(0.8f, 0.8f, 0.8f));
+	p2.SetSpecular(glm::vec3(0.8f, 0.8f, 0.8f));
+	PL.push_back(p2);
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
@@ -89,9 +119,13 @@ int main()
 		
 		for each (Object o in objects)
 		{
-			o.Render(projection, view, camera.GetPosition());
+			o.Render(projection, view, camera.GetPosition(), DL, PL);
 		}
 		
+		for each (PointLight p in PL)
+		{
+			p.getBox()->RenderNoLight(projection, view, camera.GetPosition());
+		}
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);

@@ -2,6 +2,9 @@
 #include "shader.h"
 #include "utilities.h"
 #include <vector>
+#include "Light/DirectionalLight.h"
+#include "Light/PointLight.h"
+
 /*
 	Base class for all different objects in the scene
 */
@@ -28,6 +31,8 @@ protected:
 	const char* GeoPath;
 	//Number of triangels that is being draw;
 	unsigned int DrawSize;
+	glm::mat4 model = glm::mat4(1.0f);
+
 
 	/*
 		Protected member functions
@@ -71,14 +76,40 @@ public:
 	public member functions
 	*/
 	//Render the scene
-	void Render(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos)
+	void Render(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos, DirectionalLight &Dirligth, std::vector<PointLight> &PointLights)
 	{
 		//Start shader
 		shader->use();
+
+		//Send Lights to shader
+		Dirligth.Send2GPU(shader,0);
+		int counter = 0;
+
+		for each (PointLight p in PointLights)
+		{
+			p.Send2GPU(shader, counter);
+			counter++;
+		}
+
+
 		//Sendvairable to shader
 		shader->setMat4("projection", projection);
 		shader->setMat4("view", view);
-		glm::mat4 model = glm::mat4(1.0f);
+		shader->setMat4("model", model);
+		shader->setVec3("CameraPos", CameraPos);
+		//Bind the VAO and draw the vertex
+		glBindVertexArray(VAO);
+		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+	}
+	void RenderNoLight(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos )
+	{
+		//Start shader
+		shader->use();
+
+		//Sendvairable to shader
+		shader->setMat4("projection", projection);
+		shader->setMat4("view", view);
 		shader->setMat4("model", model);
 		shader->setVec3("CameraPos", CameraPos);
 		//Bind the VAO and draw the vertex
@@ -109,5 +140,27 @@ public:
 		FragPath = fragmentPath;
 		GeoPath = geometryPath;
 		UpdateShader();
+	}
+
+	void Translate(glm::vec3 &T)
+	{
+		model = glm::translate(T)*model;
+	}
+
+	void RotateX(float angle)
+	{
+		model = glm::rotate(angle, glm::vec3(1.0, 0.0, 0.0)) *model;
+	}
+	void RotateY(float angle)
+	{
+		model = glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0)) *model;
+	}
+	void RotateZ(float angle)
+	{
+		model = glm::rotate(angle, glm::vec3(0.0, 0.0, 1.0)) *model;
+	}
+	void Scale(glm::vec3 S)
+	{
+		model = glm::scale(S)*model;
 	}
 };

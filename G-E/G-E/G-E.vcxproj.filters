@@ -22,9 +22,6 @@
     <Filter Include="Header Files\Light">
       <UniqueIdentifier>{979aa878-6bd1-454d-a629-c7de402d03c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Light">
-      <UniqueIdentifier>{a9261e4f-bd26-4129-b4eb-a0d44319bfd6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -38,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="Source\Object\Box.cpp">
       <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Light\PointLight.cpp">
+      <Filter>Header Files\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +55,15 @@
     </ClInclude>
     <ClInclude Include="Source\Object\Object.h">
       <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Light\Light.h">
+      <Filter>Header Files\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Light\DirectionalLight.h">
+      <Filter>Header Files\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Light\PointLight.h">
+      <Filter>Header Files\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

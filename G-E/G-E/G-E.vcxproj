@@ -126,11 +126,15 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="Source\Camera\Camera.cpp" />
+    <ClCompile Include="Source\Light\PointLight.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Object\Box.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Camera\Camera.h" />
+    <ClInclude Include="Source\Light\DirectionalLight.h" />
+    <ClInclude Include="Source\Light\Light.h" />
+    <ClInclude Include="Source\Light\PointLight.h" />
     <ClInclude Include="Source\Object\Box.h" />
     <ClInclude Include="Source\Object\Object.h" />
     <ClInclude Include="Source\shader.h" />
