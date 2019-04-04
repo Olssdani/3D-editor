@@ -62,6 +62,13 @@ void main()
         	result += CalcPointLight(pointLights[i], Normal, posG, viewDir); 
 		}
 	}
+		//Get point lights
+	for(int i = 0; i < NR_DIR_LIGHTS; i++)
+	{
+	
+       	result += CalcDirLight(dirLight[i], Normal, viewDir); 
+	
+	}
 	//Assign color to pixel
 	FragColor = vec4(result,1.0);
 }

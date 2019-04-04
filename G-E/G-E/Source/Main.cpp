@@ -14,8 +14,8 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void updateTime();
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+unsigned int SCR_WIDTH = 800;
+unsigned int SCR_HEIGHT = 800;
 
 Camera camera(glm::vec3(0.0f, 0.0f, 10.0f));
 
@@ -30,6 +30,7 @@ float lastFrame = 0.0f;
 
 int main()
 {
+	int width, height;
 	// glfw: initialize and configure
 	// ------------------------------
 	glfwInit();
@@ -41,6 +42,8 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 #endif
 
+	GLFWmonitor* primary = glfwGetPrimaryMonitor();
+	const GLFWvidmode * mode = glfwGetVideoMode(primary);
 														 // glfw window creation
 														 // --------------------
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
@@ -83,7 +86,7 @@ int main()
 	objects.push_back(b2);
 	objects.push_back(b3);
 	objects.push_back(b4);
-	DirectionalLight DL(glm::vec3(-0.2, -1.0, -0.3), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.5f, 0.5f, 0.5f));
+	DirectionalLight DL(glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.5f, 0.5f, 0.5f));
 	std::vector<PointLight> PL;
 	PointLight p1 = PointLight(glm::vec3(0.0, 0.0, 3.0), 1.0f, 0.09f, 0.032f);
 	p1.SetAmbient(glm::vec3(0.1f, 0.1f, 0.1f));
@@ -104,7 +107,8 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		updateTime();
-
+		//
+		glfwGetWindowSize(window,&width, &height);
 		// input
 		// -----
 		processInput(window);
@@ -113,7 +117,8 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//Get the current projection matrix
-		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 1000.0f);
+		std::cout << mode->width << " " << mode->height << std::endl;
+		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom()), (float)width / (float)height, 0.1f, 1000.0f);
 		//Get the current view matrix;
 		glm::mat4 view = camera.View();
 		
@@ -197,6 +202,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	// make sure the viewport matches the new window dimensions; note that width and 
 	// height will be significantly larger than specified on retina displays.
+	SCR_HEIGHT = height;
+	SCR_WIDTH = width;
 	glViewport(0, 0, width, height);
 }
 
