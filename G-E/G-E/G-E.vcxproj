@@ -129,6 +129,7 @@
     <ClCompile Include="Source\Light\PointLight.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Object\Box.cpp" />
+    <ClCompile Include="Source\Object\Plane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Camera\Camera.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Source\Light\PointLight.h" />
     <ClInclude Include="Source\Object\Box.h" />
     <ClInclude Include="Source\Object\Object.h" />
+    <ClInclude Include="Source\Object\Plane.h" />
     <ClInclude Include="Source\shader.h" />
     <ClInclude Include="Source\Utilities.h" />
   </ItemGroup>

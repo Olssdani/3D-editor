@@ -39,6 +39,9 @@
     <ClCompile Include="Source\Light\PointLight.cpp">
       <Filter>Header Files\Light</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Object\Plane.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\shader.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="Source\Light\PointLight.h">
       <Filter>Header Files\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Object\Plane.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

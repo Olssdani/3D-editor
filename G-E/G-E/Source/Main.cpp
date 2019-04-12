@@ -1,7 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Object/Box.h"
-#include "Object\Object.h"
+#include "Object/Object.h"
+#include "Object/Plane.h"
 #include <iostream>
 #include "Camera\Camera.h"
 #include "Light\DirectionalLight.h"
@@ -66,7 +67,10 @@ int main()
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
+	//Plane
+	Plane plane = Plane(glm::vec3(0,-5,0),10.0f, 10.0f, 1);
 
+	//Boxes
 	Box b1 = Box(1, 1, 1);
 	b1.RotateX(20.0f * D2R);
 	Box b2 = Box(1, 1, 1);
@@ -86,6 +90,7 @@ int main()
 	objects.push_back(b2);
 	objects.push_back(b3);
 	objects.push_back(b4);
+	objects.push_back(plane);
 	DirectionalLight DL(glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.5f, 0.5f, 0.5f));
 	std::vector<PointLight> PL;
 	PointLight p1 = PointLight(glm::vec3(0.0, 0.0, 3.0), 1.0f, 0.09f, 0.032f);
@@ -117,7 +122,6 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//Get the current projection matrix
-		std::cout << mode->width << " " << mode->height << std::endl;
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom()), (float)width / (float)height, 0.1f, 1000.0f);
 		//Get the current view matrix;
 		glm::mat4 view = camera.View();
