@@ -1,3 +1,4 @@
+#define STB_IMAGE_IMPLEMENTATION
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Object/Box.h"
@@ -68,11 +69,13 @@ int main()
 		return -1;
 	}
 	//Plane
-	Plane plane = Plane(glm::vec3(0,-5,0),10.0f, 10.0f, 1);
+	Plane plane = Plane(glm::vec3(0,-5,0),100.0f, 100.0f, 1);
 
 	//Boxes
+	const char* url = "D:/Programmering/G-E/G-E/G-E/Textures/container.jpg";
 	Box b1 = Box(1, 1, 1);
 	b1.RotateX(20.0f * D2R);
+	b1.setTexture(url);
 	Box b2 = Box(1, 1, 1);
 	b2.Translate(glm::vec3(2.0, -1.0, -0.3));
 	b2.RotateY(20.0f * D2R);
@@ -91,15 +94,15 @@ int main()
 	objects.push_back(b3);
 	objects.push_back(b4);
 	objects.push_back(plane);
-	DirectionalLight DL(glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.5f, 0.5f, 0.5f));
+	DirectionalLight DL(glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.5f, 0.5f, 0.5f));
 	std::vector<PointLight> PL;
 	PointLight p1 = PointLight(glm::vec3(0.0, 0.0, 3.0), 1.0f, 0.09f, 0.032f);
-	p1.SetAmbient(glm::vec3(0.1f, 0.1f, 0.1f));
+	p1.SetAmbient(glm::vec3(0.01f, 0.01f, 0.01f));
 	p1.SetDiffuse(glm::vec3(0.8f, 0.8f, 0.8f));
 	p1.SetSpecular(glm::vec3(1.0f, 1.0f, 1.0f));
 	PL.push_back(p1);
 	PointLight p2 = PointLight(glm::vec3(7.0, 0.0, 0.0), 1.0f, 0.09f, 0.032f);
-	p2.SetAmbient(glm::vec3(0.1f, 0.1f, 0.1f));
+	p2.SetAmbient(glm::vec3(0.0f, 0.0f, 0.0f));
 	p2.SetDiffuse(glm::vec3(0.8f, 0.8f, 0.8f));
 	p2.SetSpecular(glm::vec3(0.8f, 0.8f, 0.8f));
 	PL.push_back(p2);

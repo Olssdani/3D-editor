@@ -4,6 +4,7 @@
 #include <vector>
 #include "Light/DirectionalLight.h"
 #include "Light/PointLight.h"
+#include "Texture/Texture.h"
 
 /*
 	Base class for all different objects in the scene
@@ -32,6 +33,9 @@ protected:
 	//Number of triangels that is being draw;
 	unsigned int DrawSize;
 	glm::mat4 model = glm::mat4(1.0f);
+	//texture
+	bool texture_enable =false;
+	Texture texture;
 
 
 	/*
@@ -73,6 +77,10 @@ protected:
 
 public:
 	/*
+	public vairables
+	*/
+
+	/*
 	public member functions
 	*/
 	//Render the scene
@@ -85,8 +93,7 @@ public:
 		Dirligth.Send2GPU(shader,0);
 		int counter = 0;
 
-		for each (PointLight p in PointLights)
-		{
+		for each (PointLight p in PointLights){
 			p.Send2GPU(shader, counter);
 			counter++;
 		}
@@ -97,7 +104,11 @@ public:
 		shader->setMat4("view", view);
 		shader->setMat4("model", model);
 		shader->setVec3("CameraPos", CameraPos);
+		shader->setBool("textureEnable", texture_enable);
 		//Bind the VAO and draw the vertex
+		if (texture_enable){
+			glBindTexture(GL_TEXTURE_2D, texture.textureId());
+		}
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
@@ -162,5 +173,11 @@ public:
 	void Scale(glm::vec3 S)
 	{
 		model = glm::scale(S)*model;
+	}
+
+	void setTexture(const char* url)
+	{
+		texture = Texture(url);
+		texture_enable = true;
 	}
 };

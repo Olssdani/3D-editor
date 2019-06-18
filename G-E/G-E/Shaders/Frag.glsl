@@ -35,6 +35,7 @@ struct PointLight {
 //Uniforms
 uniform DirLight dirLight[NR_DIR_LIGHTS];
 uniform PointLight pointLights[NR_POINT_LIGHTS];
+uniform bool textureEnable;
 
 //Color of object
 vec3 Color = vec3(1.0,0.5,0.0);
@@ -42,8 +43,16 @@ vec3 Color = vec3(1.0,0.5,0.0);
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
+uniform sampler2D ourTexture;
+
 void main()
 {
+    if(textureEnable)
+    {
+        Color = vec3(texture(ourTexture, stG));
+    }else{
+
+    }
 
 	//Normalize and calulate viewdirection
 	vec3 Normal = normalize(NormalG);
@@ -62,15 +71,17 @@ void main()
         	result += CalcPointLight(pointLights[i], Normal, posG, viewDir); 
 		}
 	}
-		//Get point lights
+	// Add directional lights
 	for(int i = 0; i < NR_DIR_LIGHTS; i++)
 	{
-	
        	result += CalcDirLight(dirLight[i], Normal, viewDir); 
 	
 	}
 	//Assign color to pixel
-	FragColor = vec4(result,1.0);
+
+    FragColor = vec4(result,1.0);
+    
+
 }
 
 // calculates the color when using a directional light.
