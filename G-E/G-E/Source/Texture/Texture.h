@@ -56,12 +56,9 @@ public:
 	/**
    * Binds the texture
    */
-	void bindTexture()
-	{
+	void bindTexture(){
 		glBindTexture(GL_TEXTURE_2D, texture);
 	}
-
-
 
 private:
 	//Variables
@@ -74,8 +71,7 @@ private:
    * @param url is a pointer to a char of the link to the image.
    * \return is a pointer to an usigned char where all data is stored.
    */
-	unsigned char* loadImage(const char* url)
-	{
+	unsigned char* loadImage(const char* url){
 		return stbi_load(url, &width, &height, &nrChannels, 0);
 	}
 };

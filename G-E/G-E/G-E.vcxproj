@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>Source;Include;$(IncludePath)</IncludePath>
+    <IncludePath>Include\imgui-master\examples;Include\imgui-master;Source;Include;$(IncludePath)</IncludePath>
     <LibraryPath>Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -78,7 +78,7 @@
     <LibraryPath>Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>Source;Include;$(IncludePath)</IncludePath>
+    <IncludePath>Include\imgui-master\examples;Include\imgui-master;Source;Include;$(IncludePath)</IncludePath>
     <LibraryPath>Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -130,6 +130,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Include\imgui-master\examples\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Include\imgui-master\examples\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Include\imgui-master\imgui.cpp" />
+    <ClCompile Include="Include\imgui-master\imgui_demo.cpp" />
+    <ClCompile Include="Include\imgui-master\imgui_draw.cpp" />
+    <ClCompile Include="Include\imgui-master\imgui_widgets.cpp" />
     <ClCompile Include="Source\Camera\Camera.cpp" />
     <ClCompile Include="Source\Light\PointLight.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -137,6 +143,14 @@
     <ClCompile Include="Source\Object\Plane.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\imgui-master\examples\imgui_impl_glfw.h" />
+    <ClInclude Include="Include\imgui-master\examples\imgui_impl_opengl3.h" />
+    <ClInclude Include="Include\imgui-master\imconfig.h" />
+    <ClInclude Include="Include\imgui-master\imgui.h" />
+    <ClInclude Include="Include\imgui-master\imgui_internal.h" />
+    <ClInclude Include="Include\imgui-master\imstb_rectpack.h" />
+    <ClInclude Include="Include\imgui-master\imstb_textedit.h" />
+    <ClInclude Include="Include\imgui-master\imstb_truetype.h" />
     <ClInclude Include="Source\Camera\Camera.h" />
     <ClInclude Include="Source\Light\DirectionalLight.h" />
     <ClInclude Include="Source\Light\Light.h" />
