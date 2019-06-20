@@ -20,6 +20,7 @@
 #include <iostream>
 #include "Camera\Camera.h"
 #include "Light\DirectionalLight.h"
+#include <stdlib.h> 
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -171,10 +172,10 @@ int main()
 	b4.RotateZ(45.0f * D2R);
 
 	std::vector<Object> objects;
-	objects.push_back(b1);
-	objects.push_back(b2);
-	objects.push_back(b3);
-	objects.push_back(b4);
+	//objects.push_back(b1);
+	//objects.push_back(b2);
+	//objects.push_back(b3);
+	//objects.push_back(b4);
 	objects.push_back(plane);
 	DirectionalLight DL(glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.5f, 0.5f, 0.5f));
 	std::vector<PointLight> PL;
@@ -231,13 +232,24 @@ int main()
 			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
 			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
+			if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+			{
+				Box b = Box(1, 1, 1);
+				std::cout << (((float)rand()) / RAND_MAX * 4) - 2 << std::endl;
+				b.Translate(glm::vec3((((float)rand())/RAND_MAX*4)-2, (((float)rand()) / RAND_MAX * 4) - 2, (((float)rand()) / RAND_MAX * 4) - 2));
+				b.RotateY(45.0f * D2R);
+				b.RotateX(45.0f * D2R);
+				b.RotateZ(45.0f * D2R);
+				objects.push_back(b);
+			}
+
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImGui::End();
 		}
 
 		ImGui::Render();
 
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		
 		//Get the current projection matrix
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom()), (float)width / (float)height, 0.1f, 1000.0f);
 		//Get the current view matrix;
@@ -252,6 +264,7 @@ int main()
 		{
 			p.getBox()->RenderNoLight(projection, view, camera.GetPosition());
 		}
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
