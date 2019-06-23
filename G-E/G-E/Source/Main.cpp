@@ -1,19 +1,6 @@
 #define STB_IMAGE_IMPLEMENTATION
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
-#include <stdio.h>
 
-#if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
-#include <GL/gl3w.h>    // Initialize with gl3wInit()
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
-#include <GL/glew.h>    // Initialize with glewInit()
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
-#include <glad/glad.h>  // Initialize with gladLoadGL()
-#else
-#include IMGUI_IMPL_OPENGL_LOADER_CUSTOM
-#endif
-#include <GLFW/glfw3.h>
+#include <stdio.h>
 #include "Object/Box.h"
 #include "Object/Object.h"
 #include "Object/Plane.h"
@@ -22,6 +9,7 @@
 #include "Light\DirectionalLight.h"
 #include <stdlib.h> 
 #include "GUI/GUI.h"
+#include "Render/Render.h"
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -30,11 +18,6 @@ void processInput(GLFWwindow *window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void updateTime();
-
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)
-#pragma comment(lib, "legacy_stdio_definitions")
-#endif
 
 // settings
 unsigned int SCR_WIDTH = 800;
@@ -58,7 +41,9 @@ static void glfw_error_callback(int error, const char* description)
 
 int main()
 {
-	int width, height;
+	Render r;
+	r.Rendering();
+	/*int width, height;
 	// glfw: initialize and configure
 	// ------------------------------
 	glfwSetErrorCallback(glfw_error_callback);
@@ -78,7 +63,15 @@ int main()
 	const GLFWvidmode * mode = glfwGetVideoMode(primary);
 														 // glfw window creation
 														 // --------------------
+#if defined(WINDOW_MODE_EXPLICIT)
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+#elif defined(WINDOW_MODE_FULLSCREEN)
+	GLFWwindow* window = glfwCreateWindow(mode->width, mode->width, "LearnOpenGL", primary, NULL);
+#elif defined(WINDOW_MODE_FULLSCREEN_WINDOWED)
+	GLFWwindow* window = glfwCreateWindow(mode->width, mode->width, "LearnOpenGL", NULL, NULL);
+#endif 
+
+	
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -89,23 +82,6 @@ int main()
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	//glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
-
-	// Initialize OpenGL loader
-	#if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
-		bool err = gl3wInit() != 0;
-	#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
-		bool err = glewInit() != GLEW_OK;
-	#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
-		bool err = gladLoadGL() == 0;
-	#else
-		bool err = false; // If you use IMGUI_IMPL_OPENGL_LOADER_CUSTOM, your loader is likely to requires some form of initialization.
-	#endif
-
-	if (err)
-	{
-		fprintf(stderr, "Failed to initialize OpenGL loader!\n");
-		return 1;
-	}
 
 	// Disable the mouse and capture it
 	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -121,7 +97,7 @@ int main()
 		MODELS
 	*******************************/
 	//Plane
-	Plane plane = Plane(glm::vec3(0,-5,0),100.0f, 100.0f, 1);
+	/*Plane plane = Plane(glm::vec3(0,-5,0),100.0f, 100.0f, 1);
 
 	//Boxes
 	const char* url = "D:/Programmering/G-E/G-E/G-E/Textures/container.jpg";
@@ -171,6 +147,7 @@ int main()
 	// -----------
 	while (!glfwWindowShouldClose(window))
 	{
+		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 		updateTime();
 		//
 		glfwGetWindowSize(window,&width, &height);
@@ -207,6 +184,7 @@ int main()
 	// glfw: terminate, clearing all previously allocated GLFW resources.
 	// ------------------------------------------------------------------
 	glfwTerminate();
+	return 0;*/
 	return 0;
 }
 

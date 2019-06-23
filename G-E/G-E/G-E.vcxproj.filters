@@ -70,6 +70,9 @@
     <ClCompile Include="Source\GUI\GUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Render\Render.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Object\Box.h">
@@ -128,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="Source\GUI\GUI.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Render.h">
+      <Filter>Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
