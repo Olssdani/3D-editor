@@ -135,5 +135,8 @@
     <ClInclude Include="Source\Render\Render.h">
       <Filter>Render</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Misc\Time.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

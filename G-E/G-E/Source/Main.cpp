@@ -41,8 +41,8 @@ static void glfw_error_callback(int error, const char* description)
 
 int main()
 {
-	Render r;
-	r.Rendering();
+	Render render;
+	render.Rendering();
 	/*int width, height;
 	// glfw: initialize and configure
 	// ------------------------------
