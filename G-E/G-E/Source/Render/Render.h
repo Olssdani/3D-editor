@@ -6,7 +6,7 @@
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 #include "GUI/GUI.h"
-
+#include "Camera\Camera.h"
 
 class Render{
 public:
@@ -25,6 +25,8 @@ private:
 	GLFWwindow* window;
 	GUI *gui;
 	int width, height;
+	Camera *editorCamera;
+
 	/*
 		Methods
 	*/

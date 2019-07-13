@@ -46,7 +46,6 @@ bool Render::Init() {
 
 	InitCallbackFunctions();
 
-
 	// Disable the mouse and capture it
 	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -65,9 +64,12 @@ bool Render::Init() {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-
+	//Initialize Camera
+	editorCamera = new Camera(glm::vec3(0.0f, 0.0f, 10.0f));
 	//Intialize GUI
 	gui = new GUI(window);
+
+
 
 }
 
@@ -97,9 +99,9 @@ void Render::Rendering() {
 
 		gui->Render();
 		//Get the current projection matrix
-		//glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom()), (float)width / (float)height, 0.1f, 1000.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->Zoom()), (float)width / (float)height, 0.1f, 1000.0f);
 		//Get the current view matrix;
-		//glm::mat4 view = camera.View();
+		glm::mat4 view = editorCamera->View();
 
 		/*for each (Object o in objects)
 		{
