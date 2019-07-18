@@ -12,7 +12,12 @@ public:
 	/*
 		Constructor
 	*/
-	DirectionalLight(glm::vec3 _Direction, glm::vec3 _Ambient = glm::vec3(1.0), glm::vec3 _Diffuse = glm::vec3(1.0), glm::vec3 _Specular = glm::vec3(1.0))
+	/*DirectionalLight()
+		:Direction(glm::vec3(0.0, -1.0, 0.0)) {
+
+	}*/
+
+	DirectionalLight(glm::vec3 _Direction = glm::vec3(0.0, -1.0, 0.0), glm::vec3 _Ambient = glm::vec3(1.0), glm::vec3 _Diffuse = glm::vec3(1.0), glm::vec3 _Specular = glm::vec3(1.0))
 		:Direction(_Direction)
 	{
 		Ambient = _Ambient;

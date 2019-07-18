@@ -155,6 +155,7 @@
     <ClInclude Include="Include\imgui-master\imstb_truetype.h" />
     <ClInclude Include="Source\Camera\Camera.h" />
     <ClInclude Include="Source\GUI\GUI.h" />
+    <ClInclude Include="Source\Input\Input.h" />
     <ClInclude Include="Source\Light\DirectionalLight.h" />
     <ClInclude Include="Source\Light\Light.h" />
     <ClInclude Include="Source\Light\PointLight.h" />

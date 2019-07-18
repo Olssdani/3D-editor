@@ -6,7 +6,13 @@
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 #include "GUI/GUI.h"
-#include "Camera\Camera.h"
+#include "Camera/Camera.h"
+#include "Object/Box.h"
+#include "Object/Object.h"
+#include "Object/Plane.h"
+#include <vector>
+#include "Input/Input.h"
+
 
 class Render{
 public:
@@ -26,6 +32,10 @@ private:
 	GUI *gui;
 	int width, height;
 	Camera *editorCamera;
+	std::vector<Object> objects;
+	DirectionalLight DL;
+	std::vector<PointLight> PL;
+	Input *input;
 
 	/*
 		Methods

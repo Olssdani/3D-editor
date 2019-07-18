@@ -31,6 +31,9 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{5071d345-7874-4564-a91c-5d025f24eeff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{685b8839-99c6-45a7-94f8-c43cca9850a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Light\PointLight.cpp">
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="Source\Misc\Time.h">
       <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\Input.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
