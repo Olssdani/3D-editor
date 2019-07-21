@@ -124,23 +124,35 @@ void Render::InitCallbackFunctions() {
 
 
 void Render::Rendering() {
+	//Bakground color
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	while (!glfwWindowShouldClose(window))
 	{
-		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-		//updateTime();
-		//
-		glfwGetWindowSize(window, &width, &height);
-		// input
-		// -----
-		//processInput(window);
+		/*
+			Update critical classes first
+		*/
 		input->update();
+		time.update();
+		glfwGetWindowSize(window, &width, &height);
+		//Evaluate inputs, must be done after input update!!!!
+		processEditorInputs(window);
 
-		//render
+		
+
+		
+
+
+		/*
+			RENDERING
+		*/
+		//Clear screen
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		//Render GUI
 		gui->Render();
+
 		//Get the current projection matrix
 		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->Zoom()), (float)width / (float)height, 0.1f, 1000.0f);
 		//Get the current view matrix;
@@ -170,8 +182,31 @@ void Render::Rendering() {
 }
 
 
+
+void Render::processEditorInputs(GLFWwindow *window)
+{
+	//Close
+	if (input->getKeyStatus(KEY_ESCAPE))
+		glfwSetWindowShouldClose(window, true);		
+
+	//Move camera
+	if (input->getKeyStatus(KEY_W))
+		editorCamera->ProcessKeyboard(editorCamera->FORWARD, time.getDeltaTime());
+	if (input->getKeyStatus(KEY_S))
+		editorCamera->ProcessKeyboard(editorCamera->BACKWARD, time.getDeltaTime());
+	if (input->getKeyStatus(KEY_A))
+		editorCamera->ProcessKeyboard(editorCamera->LEFT, time.getDeltaTime());
+	if (input->getKeyStatus(KEY_A))
+		editorCamera->ProcessKeyboard(editorCamera->RIGHT, time.getDeltaTime());
+
+
+	//Toggle wireframe or solid
+	if (input->getKeyStatus(KEY_1))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	if (input->getKeyStatus(KEY_2))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
 /*
 	CallbackFunctions
 */
-
-

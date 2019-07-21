@@ -12,6 +12,7 @@
 #include "Object/Plane.h"
 #include <vector>
 #include "Input/Input.h"
+#include "Misc/Time.h"
 
 
 class Render{
@@ -36,6 +37,7 @@ private:
 	DirectionalLight DL;
 	std::vector<PointLight> PL;
 	Input *input;
+	Time time;
 
 	/*
 		Methods
@@ -55,4 +57,6 @@ private:
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 		glViewport(0, 0, width, height);
 	}
+
+	void processEditorInputs(GLFWwindow *window);
 };

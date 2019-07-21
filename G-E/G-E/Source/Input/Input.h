@@ -131,6 +131,7 @@ public:
 		keyStatus[KEY_X] = glfwGetKey(window, GLFW_KEY_X);
 		keyStatus[KEY_Y] = glfwGetKey(window, GLFW_KEY_Y);
 		keyStatus[KEY_Z] = glfwGetKey(window, GLFW_KEY_Z);
+		keyStatus[KEY_ESCAPE] = glfwGetKey(window, GLFW_KEY_ESCAPE);
 	}
 
 	bool getKeyStatus(const unsigned int key) {
@@ -142,7 +143,7 @@ public:
 		update();
 	}
 
-	void updateWindow(GLFWwindow* _window) {
+	void updateCurrentWindow(GLFWwindow* _window) {
 		window = _window;
 	}
 

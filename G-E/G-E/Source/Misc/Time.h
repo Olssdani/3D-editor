@@ -2,21 +2,32 @@
 #include <GLFW/glfw3.h>
 
 class Time {
+private:
+	float timeLastFrame;
+	float currentTime;
+	float deltaTime;
 public:
 	//Constructor
 	Time() {
 		timeLastFrame = currentTime = glfwGetTime();
+		deltaTime = 0;
 	}
 
-	//Get time from last read
-	float deltaTime() {
-		currentTime = glfwGetTime();
-		float deltaTime = currentTime - timeLastFrame;
-		timeLastFrame = currentTime;
+	float getDeltaTime() {
 		return deltaTime;
 	}
-
 private:
-	float timeLastFrame;
-	float currentTime;
+	//Get time from last read
+	void calculateDeltaTime() {
+		currentTime = glfwGetTime();
+		deltaTime = currentTime - timeLastFrame;
+		timeLastFrame = currentTime;
+	}
+
+public:
+	//Update variables.
+	void update() {
+		calculateDeltaTime();
+	}
+
 };
