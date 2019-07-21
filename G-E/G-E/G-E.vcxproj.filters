@@ -76,6 +76,9 @@
     <ClCompile Include="Source\Render\Render.cpp">
       <Filter>Render</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Camera\FPS_Camera.cpp">
+      <Filter>Scene\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Object\Box.h">
@@ -143,6 +146,13 @@
     </ClInclude>
     <ClInclude Include="Source\Input\Input.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Object\Scene.h" />
+    <ClInclude Include="Source\Camera\FPS_Camera.h">
+      <Filter>Scene\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera\Editor_Camera.h">
+      <Filter>Scene\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

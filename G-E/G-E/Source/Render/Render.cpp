@@ -64,7 +64,7 @@ bool Render::Init() {
 	glCullFace(GL_BACK);
 
 	//Initialize Camera
-	editorCamera = new Camera(glm::vec3(0.0f, 0.0f, 10.0f));
+	editorCamera = new FPS_Camera(glm::vec3(0.0f, 0.0f, 10.0f));
 	//Attach the camera to the window pointer for the scroll wheel callback
 	glfwSetWindowUserPointer(window, reinterpret_cast<void *>(this));
 	//Intialize GUI
@@ -140,7 +140,6 @@ void Render::Rendering() {
 		glfwGetWindowSize(window, &width, &height);
 		//Evaluate inputs, must be done after input update!!!!
 		processEditorInputs(window);
-
 
 		/*
 			RENDERING

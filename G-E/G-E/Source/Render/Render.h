@@ -6,7 +6,7 @@
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 #include "GUI/GUI.h"
-#include "Camera/Camera.h"
+#include "Camera/FPS_Camera.h"
 #include "Object/Box.h"
 #include "Object/Object.h"
 #include "Object/Plane.h"
@@ -32,7 +32,7 @@ private:
 	GLFWwindow* window;
 	GUI *gui;
 	int width, height;
-	Camera *editorCamera;
+	FPS_Camera *editorCamera;
 	std::vector<Object> objects;
 	DirectionalLight DL;
 	std::vector<PointLight> PL;
@@ -72,6 +72,6 @@ private:
 	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		Render* handler = reinterpret_cast<Render *>(glfwGetWindowUserPointer(window));
-		handler->getCamera()->ProcessMouseScroll(yoffset);
+		//handler->getCamera()->ProcessMouseScroll(yoffset);
 	}
 };
