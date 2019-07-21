@@ -7,4 +7,3 @@ int main()
 	render.Rendering();
 	return 0;
 }
-}
