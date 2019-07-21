@@ -194,7 +194,7 @@ void Render::processEditorInputs(GLFWwindow *window)
 		editorCamera->ProcessKeyboard(editorCamera->BACKWARD, time.getDeltaTime());
 	if (input->getKeyStatus(KEY_A))
 		editorCamera->ProcessKeyboard(editorCamera->LEFT, time.getDeltaTime());
-	if (input->getKeyStatus(KEY_A))
+	if (input->getKeyStatus(KEY_D))
 		editorCamera->ProcessKeyboard(editorCamera->RIGHT, time.getDeltaTime());
 
 
