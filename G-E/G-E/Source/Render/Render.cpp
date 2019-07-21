@@ -11,6 +11,7 @@ bool Render::Init() {
 	// glfw: initialize and configure
 	// ------------------------------
 	glfwSetErrorCallback(glfw_error_callback);
+	
 	if (!glfwInit())
 		return false;
 
@@ -24,7 +25,7 @@ bool Render::Init() {
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 	#endif
 
-
+	//Get primary monitor information
 	primaryMonitor = glfwGetPrimaryMonitor();
 	primaryVidMode = glfwGetVideoMode(primaryMonitor);
 	// glfw window creation
@@ -210,8 +211,7 @@ void Render::processEditorInputs(GLFWwindow *window)
 */
 
 //Get mouse movement
-void Render::mouse_callback()
-{
+void Render::mouse_callback(){
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 
@@ -232,4 +232,6 @@ void Render::mouse_callback()
 }
 
 
-
+Camera* Render::getCamera() {
+	return editorCamera;
+}

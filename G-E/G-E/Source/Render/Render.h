@@ -19,10 +19,7 @@ class Render{
 public:
 	Render();
 	void Rendering();
-	Camera* getCamera() {
-		return editorCamera;
-	}
-
+	Camera* getCamera();
 
 private:
 	/*
@@ -53,8 +50,12 @@ private:
 	*/
 	bool Init();
 	void InitCallbackFunctions();
-
-
+	void processEditorInputs(GLFWwindow *window);
+	void mouse_callback();
+	
+	/*
+		Static callbacks Functions
+	*/
 
 	//Callback function for errors in glfw
 	static void glfw_error_callback(int error, const char* description){
@@ -66,12 +67,6 @@ private:
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 		glViewport(0, 0, width, height);
 	}
-
-	void processEditorInputs(GLFWwindow *window);
-
-
-
-	void mouse_callback();
 	
 	//scroll input
 	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
@@ -79,7 +74,4 @@ private:
 		Render* handler = reinterpret_cast<Render *>(glfwGetWindowUserPointer(window));
 		handler->getCamera()->ProcessMouseScroll(yoffset);
 	}
-
-
-
 };
