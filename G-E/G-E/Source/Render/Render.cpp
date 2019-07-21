@@ -64,6 +64,8 @@ bool Render::Init() {
 
 	//Initialize Camera
 	editorCamera = new Camera(glm::vec3(0.0f, 0.0f, 10.0f));
+	//Attach the camera to the window pointer for the scroll wheel callback
+	glfwSetWindowUserPointer(window, reinterpret_cast<void *>(this));
 	//Intialize GUI
 	gui = new GUI(window);
 
@@ -117,8 +119,7 @@ bool Render::Init() {
 
 void Render::InitCallbackFunctions() {
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	//glfwSetCursorPosCallback(window, mouse_callback);
-	//glfwSetScrollCallback(window, scroll_callback);
+	glfwSetScrollCallback(window, scroll_callback);
 }
 
 
@@ -134,13 +135,10 @@ void Render::Rendering() {
 		*/
 		input->update();
 		time.update();
+		mouse_callback();
 		glfwGetWindowSize(window, &width, &height);
 		//Evaluate inputs, must be done after input update!!!!
 		processEditorInputs(window);
-
-		
-
-		
 
 
 		/*
@@ -210,3 +208,28 @@ void Render::processEditorInputs(GLFWwindow *window)
 /*
 	CallbackFunctions
 */
+
+//Get mouse movement
+void Render::mouse_callback()
+{
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
+
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
+	lastX = xpos;
+	lastY = ypos;
+
+	editorCamera->ProcessMouseMovement(xoffset, yoffset, true);
+}
+
+
+

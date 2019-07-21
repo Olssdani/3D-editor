@@ -19,6 +19,9 @@ class Render{
 public:
 	Render();
 	void Rendering();
+	Camera* getCamera() {
+		return editorCamera;
+	}
 
 
 private:
@@ -38,6 +41,12 @@ private:
 	std::vector<PointLight> PL;
 	Input *input;
 	Time time;
+	//Mouse
+	bool firstMouse = true;
+	float lastX = SCREEN_WIDTH / 2.0f;
+	float lastY = SCREEN_HEIGHT / 2.0f;
+	float scroll_Yoffset = 0;
+	float scroll_Xoffset = 0;
 
 	/*
 		Methods
@@ -59,4 +68,18 @@ private:
 	}
 
 	void processEditorInputs(GLFWwindow *window);
+
+
+
+	void mouse_callback();
+	
+	//scroll input
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+	{
+		Render* handler = reinterpret_cast<Render *>(glfwGetWindowUserPointer(window));
+		handler->getCamera()->ProcessMouseScroll(yoffset);
+	}
+
+
+
 };
