@@ -176,10 +176,7 @@ void Render::Rendering() {
 	// glfw: terminate, clearing all previously allocated GLFW resources.
 	// ------------------------------------------------------------------
 	glfwTerminate();
-
-
 }
-
 
 
 void Render::processEditorInputs(GLFWwindow *window)
