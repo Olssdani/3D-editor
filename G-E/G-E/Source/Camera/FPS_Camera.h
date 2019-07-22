@@ -27,17 +27,11 @@ public:
 
 
 private:
-	//Variables
-	glm::vec3 target;
-	glm::vec3 direction;
-	glm::vec3 right;
-
 	float yaw;
 	float pitch;
 	float movementSpeed = 10.0f;
 	float mouseSensitivity = 0.1f;
 	float zoom = 45.0f;
-
 
 	//Functions
 	//Updates all variables before rendering

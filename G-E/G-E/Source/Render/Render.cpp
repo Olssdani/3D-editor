@@ -64,7 +64,7 @@ bool Render::Init() {
 	glCullFace(GL_BACK);
 
 	//Initialize Camera
-	editorCamera = new FPS_Camera(glm::vec3(0.0f, 0.0f, 10.0f));
+	editorCamera = new Editor_Camera(glm::vec3(0.0f, 0.0f, 10.0f));
 	//Attach the camera to the window pointer for the scroll wheel callback
 	glfwSetWindowUserPointer(window, reinterpret_cast<void *>(this));
 	//Intialize GUI
@@ -152,7 +152,7 @@ void Render::Rendering() {
 		gui->Render();
 
 		//Get the current projection matrix
-		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->Zoom()), (float)width / (float)height, 0.1f, 1000.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)width / (float)height, 0.1f, 1000.0f);
 		//Get the current view matrix;
 		glm::mat4 view = editorCamera->View();
 
@@ -186,13 +186,13 @@ void Render::processEditorInputs(GLFWwindow *window)
 
 	//Move camera
 	if (input->getKeyStatus(KEY_W))
-		editorCamera->ProcessKeyboard(editorCamera->FORWARD, time.getDeltaTime());
+		//editorCamera->ProcessKeyboard(editorCamera->FORWARD, time.getDeltaTime());
 	if (input->getKeyStatus(KEY_S))
-		editorCamera->ProcessKeyboard(editorCamera->BACKWARD, time.getDeltaTime());
+		//editorCamera->ProcessKeyboard(editorCamera->BACKWARD, time.getDeltaTime());
 	if (input->getKeyStatus(KEY_A))
-		editorCamera->ProcessKeyboard(editorCamera->LEFT, time.getDeltaTime());
+		//editorCamera->ProcessKeyboard(editorCamera->LEFT, time.getDeltaTime());
 	if (input->getKeyStatus(KEY_D))
-		editorCamera->ProcessKeyboard(editorCamera->RIGHT, time.getDeltaTime());
+		//editorCamera->ProcessKeyboard(editorCamera->RIGHT, time.getDeltaTime());
 
 
 	//Toggle wireframe or solid
@@ -200,6 +200,11 @@ void Render::processEditorInputs(GLFWwindow *window)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	if (input->getKeyStatus(KEY_2))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE);
+	if (state == GLFW_PRESS) {
+		std::cout << "Left" << std::endl;
+	}
 }
 
 /*
@@ -208,6 +213,8 @@ void Render::processEditorInputs(GLFWwindow *window)
 
 //Get mouse movement
 void Render::mouse_callback(){
+
+
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 
@@ -224,7 +231,7 @@ void Render::mouse_callback(){
 	lastX = xpos;
 	lastY = ypos;
 
-	editorCamera->ProcessMouseMovement(xoffset, yoffset, true);
+	//editorCamera->ProcessMouseMovement(xoffset, yoffset, true);
 }
 
 

@@ -6,7 +6,7 @@
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 #include "GUI/GUI.h"
-#include "Camera/FPS_Camera.h"
+#include "Camera/Editor_Camera.h"
 #include "Object/Box.h"
 #include "Object/Object.h"
 #include "Object/Plane.h"
@@ -32,7 +32,7 @@ private:
 	GLFWwindow* window;
 	GUI *gui;
 	int width, height;
-	FPS_Camera *editorCamera;
+	Editor_Camera *editorCamera;
 	std::vector<Object> objects;
 	DirectionalLight DL;
 	std::vector<PointLight> PL;
