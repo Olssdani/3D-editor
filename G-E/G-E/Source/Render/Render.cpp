@@ -203,7 +203,7 @@ void Render::processEditorInputs(GLFWwindow *window)
 
 	int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE);
 	if (state == GLFW_PRESS) {
-		std::cout << "Left" << std::endl;
+
 	}
 }
 

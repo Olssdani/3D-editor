@@ -90,8 +90,13 @@ public:
 #define KEY_RIGHT_CONTROL  85
 #define KEY_RIGHT_ALT  86
 
+
+#define MOUSE_LEFT 0
+#define MOUSE_RIGHT 1
+#define MOUSE_MIDDLE 2
 private:
 	bool keyStatus[87];
+	bool MouseStatus[3];
 	GLFWwindow* window;
 public:
 	void update() {
@@ -132,10 +137,18 @@ public:
 		keyStatus[KEY_Y] = glfwGetKey(window, GLFW_KEY_Y);
 		keyStatus[KEY_Z] = glfwGetKey(window, GLFW_KEY_Z);
 		keyStatus[KEY_ESCAPE] = glfwGetKey(window, GLFW_KEY_ESCAPE);
-	}
 
-	bool getKeyStatus(const unsigned int key) {
+		MouseStatus[MOUSE_LEFT] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+		MouseStatus[MOUSE_RIGHT] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
+		MouseStatus[MOUSE_MIDDLE] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE);
+	}
+	//Keyboard status
+	const bool getKeyStatus(const unsigned int key) {
 		return keyStatus[key];
+	}
+	//Mouse status
+	const bool getMouseStatus(const unsigned int key) {
+		return MouseStatus[key];
 	}
 
 	Input(GLFWwindow* _window) {
