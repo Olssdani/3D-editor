@@ -44,6 +44,7 @@ private:
 	float lastY = SCREEN_HEIGHT / 2.0f;
 	float scroll_Yoffset = 0;
 	float scroll_Xoffset = 0;
+	float xoffset, yoffset;
 
 	/*
 		Methods

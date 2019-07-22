@@ -63,9 +63,6 @@
     <ClCompile Include="Source\Object\Plane.cpp">
       <Filter>Scene\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Camera\Camera.cpp">
-      <Filter>Scene\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>External Libraries</Filter>
     </ClCompile>

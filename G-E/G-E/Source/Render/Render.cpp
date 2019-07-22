@@ -201,9 +201,10 @@ void Render::processEditorInputs(GLFWwindow *window)
 	if (input->getKeyStatus(KEY_2))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE);
-	if (state == GLFW_PRESS) {
 
+	//Mouse buttons
+	if (input->getMouseStatus(MOUSE_MIDDLE)) {
+		editorCamera->moveCamera(xoffset, yoffset);
 	}
 }
 
@@ -225,8 +226,8 @@ void Render::mouse_callback(){
 		firstMouse = false;
 	}
 
-	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+	xoffset = xpos - lastX;
+	yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
 
 	lastX = xpos;
 	lastY = ypos;

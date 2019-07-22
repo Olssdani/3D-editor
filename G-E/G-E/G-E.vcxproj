@@ -136,7 +136,6 @@
     <ClCompile Include="Include\imgui-master\imgui_demo.cpp" />
     <ClCompile Include="Include\imgui-master\imgui_draw.cpp" />
     <ClCompile Include="Include\imgui-master\imgui_widgets.cpp" />
-    <ClCompile Include="Source\Camera\Camera.cpp" />
     <ClCompile Include="Source\Camera\FPS_Camera.cpp" />
     <ClCompile Include="Source\GUI\GUI.cpp" />
     <ClCompile Include="Source\Light\PointLight.cpp" />
