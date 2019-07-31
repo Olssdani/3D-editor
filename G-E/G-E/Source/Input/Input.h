@@ -79,7 +79,7 @@ public:
 #define KEY_KP_DECIMAL  74
 #define KEY_KP_DIVIDE  75
 #define KEY_KP_MULTIPLY  76
-#define KEY_KP_SUBSTRACT  77
+#define KEY_KP_SUBTRACT  77
 #define KEY_KP_ADD  78
 #define KEY_KP_ENTER  79
 #define KEY_KP_EQUAL  80
@@ -136,56 +136,56 @@ public:
 		keyStatus[KEY_X] = glfwGetKey(window, GLFW_KEY_X);
 		keyStatus[KEY_Y] = glfwGetKey(window, GLFW_KEY_Y);
 		keyStatus[KEY_Z] = glfwGetKey(window, GLFW_KEY_Z);
-		keyStatus[KEY_SPACE] = glfwGetKey(window, KEY_SPACE);
-		keyStatus[KEY_APOSTROPHE] = glfwGetKey(window, KEY_APOSTROPHE);
-		keyStatus[KEY_COMMA] = glfwGetKey(window, KEY_COMMA);
-		keyStatus[KEY_MINUS] = glfwGetKey(window, KEY_MINUS);
-		keyStatus[KEY_PERIOD] = glfwGetKey(window, KEY_PERIOD);
-		keyStatus[KEY_SLASH] = glfwGetKey(window, KEY_SLASH);
-		keyStatus[KEY_ENTER] = glfwGetKey(window, KEY_ENTER);
-		keyStatus[KEY_TAB] = glfwGetKey(window, KEY_TAB);
-		keyStatus[KEY_BACKSPACE] = glfwGetKey(window, KEY_BACKSPACE);
-		keyStatus[KEY_INSERT] = glfwGetKey(window, KEY_INSERT);
-		keyStatus[KEY_DELETE] = glfwGetKey(window, KEY_DELETE);
-		keyStatus[KEY_RIGHT] = glfwGetKey(window, KEY_RIGHT);
-		keyStatus[KEY_LEFT] = glfwGetKey(window, KEY_LEFT);
-		keyStatus[KEY_DOWN] = glfwGetKey(window, KEY_DOWN);
-		keyStatus[KEY_UP] = glfwGetKey(window, KEY_UP);
-		keyStatus[KEY_CAPS_LOCK] = glfwGetKey(window, KEY_CAPS_LOCK);
-		keyStatus[KEY_F1] = glfwGetKey(window, KEY_F1);
-		keyStatus[KEY_F2] = glfwGetKey(window, KEY_F2);
-		keyStatus[KEY_F3] = glfwGetKey(window, KEY_F3);
-		keyStatus[KEY_F4] = glfwGetKey(window, KEY_F4);
-		keyStatus[KEY_F5] = glfwGetKey(window, KEY_F5);
-		keyStatus[KEY_F6] = glfwGetKey(window, KEY_F6);
-		keyStatus[KEY_F7] = glfwGetKey(window, KEY_F7);
-		keyStatus[KEY_F8] = glfwGetKey(window, KEY_F8);
-		keyStatus[KEY_F9] = glfwGetKey(window, KEY_F9);
-		keyStatus[KEY_F10] = glfwGetKey(window, KEY_F10);
-		keyStatus[KEY_F12] = glfwGetKey(window, KEY_F12);
-		keyStatus[KEY_KP_0] = glfwGetKey(window, KEY_KP_0);
-		keyStatus[KEY_KP_1] = glfwGetKey(window, KEY_KP_1);
-		keyStatus[KEY_KP_2] = glfwGetKey(window, KEY_KP_2);
-		keyStatus[KEY_KP_3] = glfwGetKey(window, KEY_KP_3);
-		keyStatus[KEY_KP_4] = glfwGetKey(window, KEY_KP_4);
-		keyStatus[KEY_KP_5] = glfwGetKey(window, KEY_KP_5);
-		keyStatus[KEY_KP_6] = glfwGetKey(window, KEY_KP_6);
-		keyStatus[KEY_KP_7] = glfwGetKey(window, KEY_KP_7);
-		keyStatus[KEY_KP_8] = glfwGetKey(window, KEY_KP_8);
-		keyStatus[KEY_KP_9] = glfwGetKey(window, KEY_KP_9);
-		keyStatus[KEY_KP_DECIMAL] = glfwGetKey(window, KEY_KP_DECIMAL);
-		keyStatus[KEY_KP_DIVIDE] = glfwGetKey(window, KEY_KP_DIVIDE);
-		keyStatus[KEY_KP_MULTIPLY] = glfwGetKey(window, KEY_KP_MULTIPLY);
-		keyStatus[KEY_KP_SUBSTRACT] = glfwGetKey(window, KEY_KP_SUBSTRACT);
-		keyStatus[KEY_KP_ADD] = glfwGetKey(window, KEY_KP_ADD);
-		keyStatus[KEY_KP_ENTER] = glfwGetKey(window, KEY_KP_ENTER);
-		keyStatus[KEY_KP_EQUAL] = glfwGetKey(window, KEY_KP_EQUAL);
-		keyStatus[KEY_LEFT_SHIFT] = glfwGetKey(window, KEY_LEFT_SHIFT);
-		keyStatus[KEY_LEFT_CONTROL] = glfwGetKey(window, KEY_LEFT_CONTROL);
-		keyStatus[KEY_LEFT_ALT] = glfwGetKey(window, KEY_LEFT_ALT);
-		keyStatus[KEY_RIGHT_SHIFT] = glfwGetKey(window, KEY_RIGHT_SHIFT);
-		keyStatus[KEY_RIGHT_CONTROL] = glfwGetKey(window, KEY_RIGHT_CONTROL);
-		keyStatus[KEY_RIGHT_ALT] = glfwGetKey(window, KEY_RIGHT_ALT);
+		keyStatus[KEY_SPACE] = glfwGetKey(window, GLFW_KEY_SPACE);
+		keyStatus[KEY_APOSTROPHE] = glfwGetKey(window, GLFW_KEY_APOSTROPHE);
+		keyStatus[KEY_COMMA] = glfwGetKey(window, GLFW_KEY_COMMA);
+		keyStatus[KEY_MINUS] = glfwGetKey(window, GLFW_KEY_MINUS);
+		keyStatus[KEY_PERIOD] = glfwGetKey(window, GLFW_KEY_PERIOD);
+		keyStatus[KEY_SLASH] = glfwGetKey(window, GLFW_KEY_SLASH);
+		keyStatus[KEY_ENTER] = glfwGetKey(window, GLFW_KEY_ENTER);
+		keyStatus[KEY_TAB] = glfwGetKey(window, GLFW_KEY_TAB);
+		keyStatus[KEY_BACKSPACE] = glfwGetKey(window, GLFW_KEY_BACKSPACE);
+		keyStatus[KEY_INSERT] = glfwGetKey(window, GLFW_KEY_INSERT);
+		keyStatus[KEY_DELETE] = glfwGetKey(window, GLFW_KEY_DELETE);
+		keyStatus[KEY_RIGHT] = glfwGetKey(window, GLFW_KEY_RIGHT);
+		keyStatus[KEY_LEFT] = glfwGetKey(window, GLFW_KEY_LEFT);
+		keyStatus[KEY_DOWN] = glfwGetKey(window, GLFW_KEY_DOWN);
+		keyStatus[KEY_UP] = glfwGetKey(window, GLFW_KEY_UP);
+		keyStatus[KEY_CAPS_LOCK] = glfwGetKey(window, GLFW_KEY_CAPS_LOCK);
+		keyStatus[KEY_F1] = glfwGetKey(window, GLFW_KEY_F1);
+		keyStatus[KEY_F2] = glfwGetKey(window, GLFW_KEY_F2);
+		keyStatus[KEY_F3] = glfwGetKey(window, GLFW_KEY_F3);
+		keyStatus[KEY_F4] = glfwGetKey(window, GLFW_KEY_F4);
+		keyStatus[KEY_F5] = glfwGetKey(window, GLFW_KEY_F5);
+		keyStatus[KEY_F6] = glfwGetKey(window, GLFW_KEY_F6);
+		keyStatus[KEY_F7] = glfwGetKey(window, GLFW_KEY_F7);
+		keyStatus[KEY_F8] = glfwGetKey(window, GLFW_KEY_F8);
+		keyStatus[KEY_F9] = glfwGetKey(window, GLFW_KEY_F9);
+		keyStatus[KEY_F10] = glfwGetKey(window, GLFW_KEY_F10);
+		keyStatus[KEY_F12] = glfwGetKey(window, GLFW_KEY_F12);
+		keyStatus[KEY_KP_0] = glfwGetKey(window, GLFW_KEY_KP_0);
+		keyStatus[KEY_KP_1] = glfwGetKey(window, GLFW_KEY_KP_1);
+		keyStatus[KEY_KP_2] = glfwGetKey(window, GLFW_KEY_KP_2);
+		keyStatus[KEY_KP_3] = glfwGetKey(window, GLFW_KEY_KP_3);
+		keyStatus[KEY_KP_4] = glfwGetKey(window, GLFW_KEY_KP_4);
+		keyStatus[KEY_KP_5] = glfwGetKey(window, GLFW_KEY_KP_5);
+		keyStatus[KEY_KP_6] = glfwGetKey(window, GLFW_KEY_KP_6);
+		keyStatus[KEY_KP_7] = glfwGetKey(window, GLFW_KEY_KP_7);
+		keyStatus[KEY_KP_8] = glfwGetKey(window, GLFW_KEY_KP_8);
+		keyStatus[KEY_KP_9] = glfwGetKey(window, GLFW_KEY_KP_9);
+		keyStatus[KEY_KP_DECIMAL] = glfwGetKey(window, GLFW_KEY_KP_DECIMAL);
+		keyStatus[KEY_KP_DIVIDE] = glfwGetKey(window, GLFW_KEY_KP_DIVIDE);
+		keyStatus[KEY_KP_MULTIPLY] = glfwGetKey(window, GLFW_KEY_KP_MULTIPLY);
+		keyStatus[KEY_KP_SUBTRACT] = glfwGetKey(window, GLFW_KEY_KP_SUBTRACT);
+		keyStatus[KEY_KP_ADD] = glfwGetKey(window, GLFW_KEY_KP_ADD);
+		keyStatus[KEY_KP_ENTER] = glfwGetKey(window, GLFW_KEY_KP_ENTER);
+		keyStatus[KEY_KP_EQUAL] = glfwGetKey(window, GLFW_KEY_KP_EQUAL);
+		keyStatus[KEY_LEFT_SHIFT] = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT);
+		keyStatus[KEY_LEFT_CONTROL] = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL);
+		keyStatus[KEY_LEFT_ALT] = glfwGetKey(window, GLFW_KEY_LEFT_ALT);
+		keyStatus[KEY_RIGHT_SHIFT] = glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT);
+		keyStatus[KEY_RIGHT_CONTROL] = glfwGetKey(window, GLFW_KEY_RIGHT_CONTROL);
+		keyStatus[KEY_RIGHT_ALT] = glfwGetKey(window, GLFW_KEY_RIGHT_ALT);
 
 		MouseStatus[MOUSE_LEFT] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
 		MouseStatus[MOUSE_RIGHT] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);

@@ -206,6 +206,13 @@ void Render::processEditorInputs(GLFWwindow *window)
 	if (input->getMouseStatus(MOUSE_MIDDLE)) {
 		editorCamera->moveCamera(xoffset, yoffset);
 	}
+	if (input->getKeyStatus(KEY_LEFT_ALT)){
+		
+		if (input->getMouseStatus(MOUSE_LEFT)) {
+			editorCamera->rotateCamera(xoffset, yoffset);
+		}
+	}
+	
 }
 
 /*
