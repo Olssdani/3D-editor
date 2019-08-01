@@ -239,10 +239,8 @@ void Render::mouse_callback(){
 	lastX = xpos;
 	lastY = ypos;
 
-	//editorCamera->ProcessMouseMovement(xoffset, yoffset, true);
 }
 
-
-Camera* Render::getCamera() {
+Editor_Camera* Render::getCamera() {
 	return editorCamera;
 }

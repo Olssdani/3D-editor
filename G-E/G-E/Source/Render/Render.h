@@ -19,7 +19,7 @@ class Render{
 public:
 	Render();
 	void Rendering();
-	Camera* getCamera();
+	Editor_Camera* getCamera();
 
 private:
 	/*
@@ -73,6 +73,6 @@ private:
 	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		Render* handler = reinterpret_cast<Render *>(glfwGetWindowUserPointer(window));
-		//handler->getCamera()->ProcessMouseScroll(yoffset);
+		handler->getCamera()->ProcessMouseScroll(yoffset);
 	}
 };
