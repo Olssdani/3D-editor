@@ -24,7 +24,7 @@ protected:
 public:
 	//Return the view matrix
 	glm::mat4 View() {
-		return glm::lookAt(position, forward, up);
+		return glm::lookAt(position, position +forward, up);
 	}
 
 	glm::vec3 GetPosition() {

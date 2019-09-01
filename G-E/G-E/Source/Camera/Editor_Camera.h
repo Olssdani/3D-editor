@@ -10,7 +10,11 @@ private:
 	glm::vec3 lookPosition;
 	glm::fquat rotationX, rotationY;
 	glm::vec3 startPosition;
+	float scrollOffset;
+	glm::vec3 positionOffset;
 public:
+	//Constructor:
+	//Mostly just set the variables to its inital state
 	Editor_Camera(glm::vec3 _position) {
 		position = _position;
 		lookPosition = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -24,17 +28,23 @@ public:
 		startPosition = position;
 		rotationX = glm::fquat(1.0f, 0, 0, 0);
 		rotationY = glm::fquat(1.0f, 0, 0, 0);
+		scrollOffset = 0;
+		positionOffset = glm::vec3(0.0f, 1.0f, 0.0f);
 	}
 
+	//Move the camera in a 2d plane where the forward vector is orthogonal against the plane.
 	void moveCamera(const double xpos, const double ypos) {
-		position = position - movementSpeed * (float)xpos * right;
-		position = position - movementSpeed * (float)ypos * up;
-		
+		//Move the position
+		positionOffset = positionOffset - movementSpeed * (float)xpos * right;
+		positionOffset = positionOffset - movementSpeed * (float)ypos * up;
+		//Move the positon that the camera is looking at
 		lookPosition = lookPosition - movementSpeed * (float)xpos * right;
 		lookPosition = lookPosition - movementSpeed * (float)ypos * up;
+		
+		update();
 	}
 
-
+	//Rotate the camera around the lookPosition
 	void rotateCamera(const double xpos, const double ypos) {
 
 		float angleX = 0;
@@ -52,22 +62,40 @@ public:
 		angle = glm::vec3(0, angleY, 0);
 		rotationY = rotationY * glm::fquat(angle);
 
-		position = rotationX * startPosition *glm::conjugate(rotationX);
-		position = rotationY * position *glm::conjugate(rotationY);
 
 		update();
 	}
 	
+	//Move camera closer or further away from lookPosition
 	void ProcessMouseScroll(float yoffset){
-		position = position + yoffset * 0.05f * forward;
+		//Get the vector between camera Position and lookPositon
+		glm::vec3 lengthVector = position - lookPosition;
+		//Get the root of magnitude of the vector.
+		float length = sqrt(glm::dot(lengthVector, lengthVector));
+		//Add it to the offset
+		scrollOffset = scrollOffset + yoffset * (length*0.01f) ;
+
+		update();
 	}
 
 private:
 	void update() {
-		forward = lookPosition - position;
-			
+		//Rotate
+		position = rotationX * (startPosition) *glm::conjugate(rotationX);
+		position = rotationY * position *glm::conjugate(rotationY);
+
+		//translation
+		position =  glm::translate(positionOffset)*glm::vec4(position, 1.0f);
+
+		//Calculate forward 
+		forward = glm::normalize(lookPosition - position);
+
+		//zoom
+		position = position + scrollOffset * forward;
+
+		//Calculate new right and up vector
 		glm::vec3 newRight = glm::normalize(glm::cross(worldUp, forward));
-		if (glm::l1Norm(newRight-right )>1.0) {
+		if (glm::l2Norm(newRight-right )>1.0) {
 			right = glm::normalize(glm::cross(-worldUp, forward));
 		}
 		else {
