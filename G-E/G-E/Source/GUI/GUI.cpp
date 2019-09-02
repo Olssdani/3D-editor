@@ -50,11 +50,44 @@ void GUI::guiRender(){
 		static int counter = 0;
 
 		ImGui::Begin("Scene");                          // Create a window called "Hello, world!" and append into it.
+		// Most "big" widgets share a common width settings by default.
+	//ImGui::PushItemWidth(ImGui::GetWindowWidth() * 0.65f);    // Use 2/3 of the space for widgets and 1/3 for labels (default)
+		ImGui::PushItemWidth(ImGui::GetFontSize() * -12);           // Use fixed width for labels (by passing a negative value), the rest goes to widgets. We choose a width proportional to our font size.
 
-		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+		// Menu Bar
+		if (ImGui::BeginMenuBar())
+		{
+			if (ImGui::BeginMenu("Menu"))
+			{
+				//ShowExampleMenuFile();
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Examples"))
+			{
+				/*ImGui::MenuItem("Main menu bar", NULL, &show_app_main_menu_bar);
+				ImGui::MenuItem("Console", NULL, &show_app_console);
+				ImGui::MenuItem("Log", NULL, &show_app_log);
+				ImGui::MenuItem("Simple layout", NULL, &show_app_layout);
+				ImGui::MenuItem("Property editor", NULL, &show_app_property_editor);
+				ImGui::MenuItem("Long text display", NULL, &show_app_long_text);
+				ImGui::MenuItem("Auto-resizing window", NULL, &show_app_auto_resize);
+				ImGui::MenuItem("Constrained-resizing window", NULL, &show_app_constrained_resize);
+				ImGui::MenuItem("Simple overlay", NULL, &show_app_simple_overlay);
+				ImGui::MenuItem("Manipulating window titles", NULL, &show_app_window_titles);
+				ImGui::MenuItem("Custom rendering", NULL, &show_app_custom_rendering);
+				ImGui::MenuItem("Documents", NULL, &show_app_documents);*/
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Help"))
+			{
+				/*ImGui::MenuItem("Metrics", NULL, &show_app_metrics);
+				ImGui::MenuItem("Style Editor", NULL, &show_app_style_editor);
+				ImGui::MenuItem("About Dear ImGui", NULL, &show_app_about);*/
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenuBar();
+		}
 
-
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::End();
 	}
 	ImGui::Render();
