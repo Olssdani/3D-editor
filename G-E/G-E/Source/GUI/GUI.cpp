@@ -1,7 +1,8 @@
 #include "GUI.h"
-GUI::GUI(GLFWwindow *w){
+GUI::GUI(GLFWwindow *w, Render *r){
 	window = w;
 	Intialize();
+	render = r;
 }
 
 void GUI::Intialize() {
@@ -38,7 +39,7 @@ void GUI::Intialize() {
 
 }
 
-void GUI::Render(){
+void GUI::guiRender(){
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -48,7 +49,7 @@ void GUI::Render(){
 		static float f = 0.0f;
 		static int counter = 0;
 
-		ImGui::Begin("Background");                          // Create a window called "Hello, world!" and append into it.
+		ImGui::Begin("Scene");                          // Create a window called "Hello, world!" and append into it.
 
 		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
 

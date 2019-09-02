@@ -68,7 +68,7 @@ bool Render::Init() {
 	//Attach the camera to the window pointer for the scroll wheel callback
 	glfwSetWindowUserPointer(window, reinterpret_cast<void *>(this));
 	//Intialize GUI
-	gui = new GUI(window);
+	gui = new GUI(window, this);
 
 	//Initalize Input
 	input = new Input(window);
@@ -149,7 +149,7 @@ void Render::Rendering() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//Render GUI
-		gui->Render();
+		gui->guiRender();
 
 		//Get the current projection matrix
 		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)width / (float)height, 0.1f, 1000.0f);

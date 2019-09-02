@@ -14,6 +14,7 @@
 #include "Input/Input.h"
 #include "Misc/Time.h"
 
+class GUI;
 
 class Render{
 public:
