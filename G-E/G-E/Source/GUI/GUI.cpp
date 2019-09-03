@@ -3,6 +3,10 @@ GUI::GUI(GLFWwindow *w, Render *r){
 	window = w;
 	Intialize();
 	render = r;
+
+	addPosition[0] = 0;
+	addPosition[1] = 0;
+	addPosition[2] = 0;
 }
 
 void GUI::Intialize() {
@@ -40,88 +44,70 @@ void GUI::Intialize() {
 }
 
 void GUI::guiRender(){
+	static bool no_titlebar = false;
+	static bool no_scrollbar = false;
+	static bool no_menu = false;
+	static bool no_move = false;
+	static bool no_resize = false;
+	static bool no_collapse = false;
+	static bool no_close = false;
+	static bool no_nav = false;
+	static bool no_background = false;
+	static bool no_bring_to_front = false;
+
+	ImGuiWindowFlags window_flags = 0;
+	if (no_titlebar)        window_flags |= ImGuiWindowFlags_NoTitleBar;
+	if (no_scrollbar)       window_flags |= ImGuiWindowFlags_NoScrollbar;
+	if (!no_menu)           window_flags |= ImGuiWindowFlags_MenuBar;
+	if (no_move)            window_flags |= ImGuiWindowFlags_NoMove;
+	if (no_resize)          window_flags |= ImGuiWindowFlags_NoResize;
+	if (no_collapse)        window_flags |= ImGuiWindowFlags_NoCollapse;
+	if (no_nav)             window_flags |= ImGuiWindowFlags_NoNav;
+	if (no_background)      window_flags |= ImGuiWindowFlags_NoBackground;
+	if (no_bring_to_front)  window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
+	//if (no_close)           p_open = NULL; // Don't pass our bool* to Begin
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-
+	//IM_ASSERT(ImGui::GetCurrentContext() != NULL && "Missing dear imgui context. Refer to examples app!"); // Exceptionally add an extra assert here for people confused with initial dear imgui setup
 	{
-		static float f = 0.0f;
-		static int counter = 0;
 
-		ImGui::Begin("Scene");                          // Create a window called "Hello, world!" and append into it.
-		// Most "big" widgets share a common width settings by default.
-	//ImGui::PushItemWidth(ImGui::GetWindowWidth() * 0.65f);    // Use 2/3 of the space for widgets and 1/3 for labels (default)
-		ImGui::PushItemWidth(ImGui::GetFontSize() * -12);           // Use fixed width for labels (by passing a negative value), the rest goes to widgets. We choose a width proportional to our font size.
-
-		// Menu Bar
+		ImGui::Begin("Scene",NULL, window_flags);                          // Create a window called "Hello, world!" and append into it.
 		if (ImGui::BeginMenuBar())
 		{
 			if (ImGui::BeginMenu("Menu"))
 			{
-				//ShowExampleMenuFile();
+				ImGui::MenuItem("New(Placeholder)");
+				ImGui::MenuItem("Save(Placeholder)");
+				ImGui::MenuItem("Open(Placeholder)");
 				ImGui::EndMenu();
 			}
-			if (ImGui::BeginMenu("Examples"))
-			{
-				/*ImGui::MenuItem("Main menu bar", NULL, &show_app_main_menu_bar);
-				ImGui::MenuItem("Console", NULL, &show_app_console);
-				ImGui::MenuItem("Log", NULL, &show_app_log);
-				ImGui::MenuItem("Simple layout", NULL, &show_app_layout);
-				ImGui::MenuItem("Property editor", NULL, &show_app_property_editor);
-				ImGui::MenuItem("Long text display", NULL, &show_app_long_text);
-				ImGui::MenuItem("Auto-resizing window", NULL, &show_app_auto_resize);
-				ImGui::MenuItem("Constrained-resizing window", NULL, &show_app_constrained_resize);
-				ImGui::MenuItem("Simple overlay", NULL, &show_app_simple_overlay);
-				ImGui::MenuItem("Manipulating window titles", NULL, &show_app_window_titles);
-				ImGui::MenuItem("Custom rendering", NULL, &show_app_custom_rendering);
-				ImGui::MenuItem("Documents", NULL, &show_app_documents);*/
-				ImGui::EndMenu();
-			}
-			if (ImGui::BeginMenu("Help"))
-			{
-				/*ImGui::MenuItem("Metrics", NULL, &show_app_metrics);
-				ImGui::MenuItem("Style Editor", NULL, &show_app_style_editor);
-				ImGui::MenuItem("About Dear ImGui", NULL, &show_app_about);*/
-				ImGui::EndMenu();
-			}
-			ImGui::EndMenuBar();
-		}
+			ImGui::MenuItem("Edit");
 
+
+
+			ImGui::EndMenuBar();
+		}	
+
+
+		if (ImGui::CollapsingHeader("Add Objects"))
+		{
+
+			ImGui::Text("Cube");
+			ImGui::SameLine();
+			ImGui::InputFloat3("", addPosition,3);
+			ImGui::SameLine();
+			if (ImGui::Button("Add")) {
+
+			}
+		}
+		
 		ImGui::End();
 	}
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 
-	/*ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		{
-			static float f = 0.0f;
-			static int counter = 0;
-
-			ImGui::Begin("Objects");                          // Create a window called "Hello, world!" and append into it.
-
-
-
-			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-			if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-			{
-				Box b = Box(1, 1, 1);
-				std::cout << (((float)rand()) / RAND_MAX * 4) - 2 << std::endl;
-				b.Translate(glm::vec3((((float)rand())/RAND_MAX*4)-2, (((float)rand()) / RAND_MAX * 4) - 2, (((float)rand()) / RAND_MAX * 4) - 2));
-				b.RotateY(45.0f * D2R);
-				b.RotateX(45.0f * D2R);
-				b.RotateZ(45.0f * D2R);
-				objects.push_back(b);
-			}
-
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-			ImGui::End();
-		}*/
 
 }

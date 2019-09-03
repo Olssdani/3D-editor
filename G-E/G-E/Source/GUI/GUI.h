@@ -21,6 +21,7 @@ private:
 	const char* glsl_version = "#version 330";
 	GLFWwindow* window;
 	Render* render;
+	float addPosition[3];
 
 
 
