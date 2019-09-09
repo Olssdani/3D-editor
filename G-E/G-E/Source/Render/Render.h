@@ -13,6 +13,7 @@
 #include <vector>
 #include "Input/Input.h"
 #include "Misc/Time.h"
+#include "Scene/Scene.h"
 
 class GUI;
 
@@ -21,6 +22,10 @@ public:
 	Render();
 	void Rendering();
 	Editor_Camera* getCamera();
+
+	Scene* getScene() {
+		return scene;
+	}
 
 private:
 	/*
@@ -34,11 +39,10 @@ private:
 	GUI *gui;
 	int width, height;
 	Editor_Camera *editorCamera;
-	std::vector<Object> objects;
-	DirectionalLight DL;
-	std::vector<PointLight> PL;
 	Input *input;
 	Time time;
+
+	Scene *scene;
 	//Mouse
 	bool firstMouse = true;
 	float lastX = SCREEN_WIDTH / 2.0f;
@@ -76,4 +80,5 @@ private:
 		Render* handler = reinterpret_cast<Render *>(glfwGetWindowUserPointer(window));
 		handler->getCamera()->ProcessMouseScroll(yoffset);
 	}
+
 };

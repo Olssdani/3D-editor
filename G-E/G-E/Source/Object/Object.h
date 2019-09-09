@@ -76,9 +76,6 @@ protected:
 	}
 
 public:
-	/*
-	public vairables
-	*/
 
 	/*
 	public member functions

@@ -99,7 +99,9 @@ void GUI::guiRender(){
 			ImGui::InputFloat3("", addPosition,3);
 			ImGui::SameLine();
 			if (ImGui::Button("Add")) {
-
+				Box *b = new Box();
+				b->Translate(glm::vec3(addPosition[0], addPosition[1],addPosition[2]));
+				render->getScene()->addObject(b);
 			}
 		}
 		
@@ -109,5 +111,6 @@ void GUI::guiRender(){
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 
-
 }
+
+
