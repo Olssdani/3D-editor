@@ -66,7 +66,7 @@ void GUI::guiRender(){
 	if (no_collapse)        window_flags |= ImGuiWindowFlags_NoCollapse;
 	if (no_nav)             window_flags |= ImGuiWindowFlags_NoNav;
 	if (no_background)      window_flags |= ImGuiWindowFlags_NoBackground;
-	//if (no_bring_to_front)  window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
+	if (no_bring_to_front)  window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
 	//if (no_close)           p_open = NULL; // Don't pass our bool* to Begin
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
@@ -162,11 +162,7 @@ void GUI::guiRender(){
 						object->Translate(glm::vec3(addPosition[0], addPosition[1], addPosition[2]));
 					}
 				}
-				
-
-
-			}
-			
+			}	
 		}
 		if (ImGui::CollapsingHeader("Lights"))
 		{
