@@ -19,6 +19,7 @@ public:
 	Scene()
 	{
 		plane =new Plane(glm::vec3(0, -5, 0), 100.0f, 100.0f, 1);
+		plane->setName("Plane");
 		objects.push_back(plane);
 		DL = DirectionalLight(glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.5f, 0.5f, 0.5f));
 
@@ -49,6 +50,9 @@ public:
 		}
 	}
 
+	std::vector<Object*> getObjectList() {
+		return objects;
+	}
 
 
 };

@@ -1,4 +1,6 @@
 #include "GUI.h"
+#include <stdlib.h>
+
 GUI::GUI(GLFWwindow *w, Render *r){
 	window = w;
 	Intialize();
@@ -64,7 +66,7 @@ void GUI::guiRender(){
 	if (no_collapse)        window_flags |= ImGuiWindowFlags_NoCollapse;
 	if (no_nav)             window_flags |= ImGuiWindowFlags_NoNav;
 	if (no_background)      window_flags |= ImGuiWindowFlags_NoBackground;
-	if (no_bring_to_front)  window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
+	//if (no_bring_to_front)  window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
 	//if (no_close)           p_open = NULL; // Don't pass our bool* to Begin
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
@@ -84,26 +86,95 @@ void GUI::guiRender(){
 				ImGui::EndMenu();
 			}
 			ImGui::MenuItem("Edit");
-
-
-
 			ImGui::EndMenuBar();
 		}	
 
-
+		//Add object div
 		if (ImGui::CollapsingHeader("Add Objects"))
 		{
-
-			ImGui::Text("Cube");
-			ImGui::SameLine();
-			ImGui::InputFloat3("", addPosition,3);
-			ImGui::SameLine();
-			if (ImGui::Button("Add")) {
-				Box *b = new Box();
-				b->Translate(glm::vec3(addPosition[0], addPosition[1],addPosition[2]));
-				render->getScene()->addObject(b);
+			
+			if (ImGui::TreeNode("Cube"))
+			{
+				
+				static char object_name[128] = "Box";
+				//Name  of object
+				const char default[5] = "Box";
+				
+				ImGui::Text("Name of Object");
+				ImGui::SameLine();
+				ImGui::InputText(" ", object_name, IM_ARRAYSIZE(object_name));
+				//Position of object
+				ImGui::Text("Position");
+				ImGui::SameLine();
+				ImGui::InputFloat3("", addPosition, 3);
+				ImGui::SameLine();
+				//Create object and add it to scene
+				if (ImGui::Button("Add")) {
+					Box *b = new Box();
+					b->Translate(glm::vec3(addPosition[0], addPosition[1], addPosition[2]));
+					if (strcmp(default, object_name) == 0) {
+						b->setName(object_name + std::to_string(b->getID()));
+					}
+					else {
+						b->setName(object_name);
+					}
+					
+					render->getScene()->addObject(b);
+				}
+				
+				ImGui::TreePop();
 			}
+
+			if (ImGui::TreeNode("Placeholder"))
+			{
+				ImGui::Text("Name of Object");
+				ImGui::TreePop();
+			}
+			
 		}
+
+
+		//Display and edit all objects in scene
+		if (ImGui::CollapsingHeader("Objects in scene"))
+		{
+			for (auto &object : render->getScene()->getObjectList()) {
+				//TODO swap all to char*
+				std::string temp_name = object->getName();	
+				char *char_name = new char(temp_name.size() + 1);
+				temp_name.copy(char_name, temp_name.size() + 1);
+				char_name[temp_name.size()] = '\0';
+
+				if (ImGui::TreeNode(char_name))
+				{
+					ImGui::Text("Name:(Cannot Change Right Now)");
+					ImGui::SameLine();
+					ImGui::InputText(" ", char_name, IM_ARRAYSIZE(char_name));
+					object->setName(char_name);
+					ImGui::TreePop();
+
+					ImGui::Text("Translate:");
+					ImGui::SameLine();
+					ImGui::InputFloat3("", addPosition, 3);
+					ImGui::SameLine();
+					//Create object and add it to scene
+					if (ImGui::Button("Add")) {
+
+						object->Translate(glm::vec3(addPosition[0], addPosition[1], addPosition[2]));
+					}
+				}
+				
+
+
+			}
+			
+		}
+		if (ImGui::CollapsingHeader("Lights"))
+		{
+
+			
+		}
+
+
 		
 		ImGui::End();
 	}
