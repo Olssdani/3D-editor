@@ -20,6 +20,9 @@ public:
 	{
 		plane =new Plane(glm::vec3(0, -5, 0), 100.0f, 100.0f, 1);
 		plane->setName("Plane");
+		plane->getMaterial()->setAmbient(glm::vec3(0.0, 1.0, 0.0));
+		plane->getMaterial()->setDiffuse(glm::vec3(0.0, 1.0, 0.0));
+		plane->getMaterial()->setSpecular(glm::vec3(0.0, 1.0, 0.0));
 		objects.push_back(plane);
 		DL = DirectionalLight(glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.5f, 0.5f, 0.5f));
 
@@ -29,9 +32,9 @@ public:
 		p1.SetSpecular(glm::vec3(1.0f, 1.0f, 1.0f));
 		PL.push_back(p1);
 		PointLight p2 = PointLight(glm::vec3(7.0, 0.0, 0.0), 1.0f, 0.09f, 0.032f);
-		p2.SetAmbient(glm::vec3(0.0f, 0.0f, 0.0f));
+		p2.SetAmbient(glm::vec3(0.01f, 0.01f, 0.01f));
 		p2.SetDiffuse(glm::vec3(0.8f, 0.8f, 0.8f));
-		p2.SetSpecular(glm::vec3(0.8f, 0.8f, 0.8f));
+		p2.SetSpecular(glm::vec3(1.0f, 1.0f, 1.0f));
 		PL.push_back(p2);
 	}
 	void addObject(Object *o) {
