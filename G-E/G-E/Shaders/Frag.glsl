@@ -45,14 +45,12 @@ uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform bool textureEnable;
 uniform Material material;
 
-//Color of object
-vec3 Color = vec3(0.0,1.0,0.0);
 //Functions
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
 uniform sampler2D ourTexture;
-
+Material temp;
 void main()
 {
     if(textureEnable)
@@ -62,12 +60,13 @@ void main()
 
     }
 
+    temp.ambient = vec3(0.0,1.0,0.0);
+    temp.diffuse = vec3(0.0,1.0,0.0);
+    temp.specular = vec3(0.0,1.0,0.0);
 	//Normalize and calulate viewdirection
 	vec3 Normal = normalize(NormalG);
 	vec3 viewDir =normalize(VG-posG);
 
-	//Get directional light
-	//vec3 result = CalcDirLight(dirLight[0],Normal,viewDir );
 	vec3 result =vec3(0.0);
 
 	//Get point lights
@@ -76,7 +75,7 @@ void main()
 		//If light has been initialized
 		if(pointLights[i].init)
 		{
-        	//result += CalcPointLight(pointLights[i], Normal, posG, viewDir); 
+        	result += CalcPointLight(pointLights[i], Normal, posG, viewDir); 
 		}
 	}
 	// Add directional lights
@@ -103,8 +102,8 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     // combine results
     vec3 ambient = light.ambient * material.ambient;
-    vec3 diffuse = light.diffuse * diff * material.diffuse;
-    vec3 specular = light.specular * spec * material.specular;
+    vec3 diffuse = light.diffuse * (diff * material.diffuse);
+    vec3 specular = light.specular * (spec * material.specular);
     return (ambient + diffuse + specular);
 }
 

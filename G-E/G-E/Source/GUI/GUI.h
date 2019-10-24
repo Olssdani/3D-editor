@@ -23,6 +23,5 @@ private:
 	Render* render;
 	float addPosition[3];
 
-
-
+	float my_color[4];
 };

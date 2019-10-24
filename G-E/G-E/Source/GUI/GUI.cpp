@@ -161,6 +161,22 @@ void GUI::guiRender(){
 
 						object->Translate(glm::vec3(addPosition[0], addPosition[1], addPosition[2]));
 					}
+					ImGui::Indent();
+					if (ImGui::TreeNode("Material"))
+					{
+						
+						glm::vec3 temp = object->getMaterial()->getColor();
+						my_color[0] = temp.x;
+						my_color[1] = temp.y;
+						my_color[2] = temp.z;
+						ImGui::Text("Color");
+						ImGui::SameLine();
+						ImGui::ColorEdit3("Color", my_color);
+						object->getMaterial()->setColor(my_color);
+						ImGui::TreePop();
+						
+					}
+					ImGui::Unindent();
 				}
 			}	
 		}

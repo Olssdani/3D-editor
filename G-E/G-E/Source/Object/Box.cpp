@@ -12,7 +12,6 @@ Box::Box(float _xSize, float _ySize, float _zSize)
 	CreateMesh();
 	//Connect mesh to buffers
 	Object::CreateBuffers(vertices, indices);
-	Object::material = new Material();
 
 	DrawSize = indices.size();
 	//Clear unessary data
