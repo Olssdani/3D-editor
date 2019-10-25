@@ -57,5 +57,11 @@ public:
 		return objects;
 	}
 
+	std::vector<PointLight> getPointLights() {
+		return PL;
+	}
 
+	DirectionalLight getDirectionalLight() {
+		return DL;
+	}
 };

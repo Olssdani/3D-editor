@@ -182,7 +182,7 @@ void GUI::guiRender(){
 		}
 		if (ImGui::CollapsingHeader("Lights"))
 		{
-
+			for (auto &object : render->getScene()->getObjectList()) {
 			
 		}
 
