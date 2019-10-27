@@ -38,6 +38,16 @@ public:
 		return ID;
 	}
 
+	glm::vec3 getDiffuse() {
+		return Diffuse;
+	}
+	glm::vec3 getAmbient() {
+		return Ambient;
+	}
+	glm::vec3 getSpecular() {
+		return Specular;
+	}
+
 protected:
 	glm::vec3 Ambient;
 	glm::vec3 Diffuse;

@@ -191,7 +191,7 @@ void GUI::guiRender(){
 				}
 			}	
 		}
-		if (ImGui::CollapsingHeader("Lightsbahjs"))
+		if (ImGui::CollapsingHeader("Lights"))
 		{
 			if (ImGui::TreeNode("Directional Light")) {
 				ImGui::Text("Name:(Cannot Change Right Now)");
@@ -200,17 +200,77 @@ void GUI::guiRender(){
 			
 			
 			for (PointLight *light : render->getScene()->getPointLights()) {
-
-
 				char *char_name = string2char(light->getName());
 				if (ImGui::TreeNode(char_name)) {
 					ImGui::Text("Name:(Cannot Change Right Now)");
 					ImGui::SameLine();
 					ImGui::InputText(" ", char_name, IM_ARRAYSIZE(char_name));
 					light->setName(char_name);
+					
+					//Constant
+					ImGui::Text("Constant Factor:");
+					ImGui::SameLine();
+					float c =light->getConstant();
+					ImGui::InputFloat("Constant", &c, 0.01f, 1.0f, "%.3f");
+					light->setConstant(c);
+					
+					//Linear
+					ImGui::Text("Linear Factor:");
+					ImGui::SameLine();
+					float l = light->getLinear();
+					ImGui::InputFloat("Linear", &l, 0.01f, 1.0f, "%.3f");
+					light->setLinear(l);
+					
+					//Quadratic
+					ImGui::Text("Quadratic Factor:");
+					ImGui::SameLine();
+					float q = light->getQuadratic();
+					ImGui::InputFloat("Quadratic", &q, 0.01f, 1.0f, "%.3f");
+					light->setQuadratic(q);
+
+					//Ambient light
+					glm::vec3 temp = light->getAmbient();
+					my_color[0] = temp.x;
+					my_color[1] = temp.y;
+					my_color[2] = temp.z;
+					ImGui::Text("Ambient");
+					ImGui::SameLine();
+					ImGui::ColorEdit3("Ambient", my_color);
+					temp.x = my_color[0];
+					temp.y = my_color[1];
+					temp.z = my_color[2];
+					light->SetAmbient(temp);
+
+					//Ambient light
+					temp = light->getDiffuse();
+					my_color[0] = temp.x;
+					my_color[1] = temp.y;
+					my_color[2] = temp.z;
+					ImGui::Text("Diffuse");
+					ImGui::SameLine();
+					ImGui::ColorEdit3("Diffuse", my_color);
+					temp.x = my_color[0];
+					temp.y = my_color[1];
+					temp.z = my_color[2];
+					light->SetDiffuse(temp);
+
+
+					//Ambient light
+					temp = light->getSpecular();
+					my_color[0] = temp.x;
+					my_color[1] = temp.y;
+					my_color[2] = temp.z;
+					ImGui::Text("Specular");
+					ImGui::SameLine();
+					ImGui::ColorEdit3("Specular", my_color);
+					temp.x = my_color[0];
+					temp.y = my_color[1];
+					temp.z = my_color[2];
+					light->SetSpecular(temp);
+
 					ImGui::TreePop();
-				}
-				
+				}	
+
 			}	
 		}
 		ImGui::End();
