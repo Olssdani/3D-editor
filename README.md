@@ -9,7 +9,7 @@ My project to make a 3D editor.
 
 
 ## Functionality do be added soon
-- Make GUI and scene be one window
+- Make GUI and scene to be one window
 - Shadows
 - More primitives
 - Model loader
