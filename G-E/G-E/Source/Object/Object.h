@@ -1,6 +1,9 @@
 #pragma once
 #include "shader.h"
-#include "utilities.h"
+#ifndef Utilities_H
+#define Utilities_H
+#include "Utilities.h"
+#endif
 #include <vector>
 #include "Light/DirectionalLight.h"
 #include "Light/PointLight.h"
@@ -95,7 +98,7 @@ public:
 	public member functions
 	*/
 	//Render the scene
-	void Render(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos, DirectionalLight &Dirligth, std::vector<PointLight> &PointLights)
+	void Render(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos, DirectionalLight &Dirligth, std::vector<PointLight*> &PointLights)
 	{
 		//Start shader
 		shader->use();
@@ -104,8 +107,8 @@ public:
 		Dirligth.Send2GPU(shader,0);
 		int counter = 0;
 
-		for each (PointLight p in PointLights){
-			p.Send2GPU(shader, counter);
+		for each (PointLight *p in PointLights){
+			p->Send2GPU(shader, counter);
 			counter++;
 		}
 

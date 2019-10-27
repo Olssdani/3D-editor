@@ -1,17 +1,22 @@
 #include "PointLight.h"
 #include "Object/Box.h"
-PointLight::PointLight(glm::vec3 _Position, float _Constant, float _Linear, float _Quadratic)
+PointLight::PointLight(glm::vec3 _Position, float _Constant, float _Linear , float _Quadratic)
 {
 	Position = _Position;
 	Constant = _Constant;
 	Linear = _Linear;
 	Quadratic = _Quadratic;
+	Light::Ambient = glm::vec3(0.01f, 0.01f, 0.01f);
+	Light::Diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
+	Light::Specular = glm::vec3(1.0f, 1.0f, 1.0f);
+
 	box = new Box(1.0f, 1.0f, 1.0f);
 	box->Scale(glm::vec3(0.2, 0.2, 0.2));
 	box->Translate(Position);
 	box->ChangeShader("Shaders/Light_Vert.glsl", "Shaders/Light_Frag.glsl");
 
 }
+
 Box* PointLight::getBox()
 {
 	return box;

@@ -16,7 +16,7 @@ private:
 public:
 
 	glm::vec3 getDiffuse();
-	PointLight(glm::vec3 _Position, float _Constant, float _Linear, float _Quadratic);
+	PointLight(glm::vec3 _Position, float _Constant = 1.0f, float _Linear = 0.09f, float _Quadratic = 0.032f);
 
 	Box* getBox();
 

@@ -2,8 +2,10 @@
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
-
+#ifndef STRING_H
+#define STRING_H
 #include <string>
+#endif
 #include <fstream>
 #include <sstream>
 #include <iostream>
