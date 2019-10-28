@@ -134,20 +134,13 @@ void Render::processEditorInputs(GLFWwindow *window)
 	if (input->getKeyStatus(KEY_ESCAPE))
 		glfwSetWindowShouldClose(window, true);		
 
-	//Move camera
-	if (input->getKeyStatus(KEY_W))
-		//editorCamera->ProcessKeyboard(editorCamera->FORWARD, time.getDeltaTime());
-	if (input->getKeyStatus(KEY_S))
-		//editorCamera->ProcessKeyboard(editorCamera->BACKWARD, time.getDeltaTime());
-	if (input->getKeyStatus(KEY_A))
-		//editorCamera->ProcessKeyboard(editorCamera->LEFT, time.getDeltaTime());
-	if (input->getKeyStatus(KEY_D))
-		//editorCamera->ProcessKeyboard(editorCamera->RIGHT, time.getDeltaTime());
 
-
+	
 	//Toggle wireframe or solid
-	if (input->getKeyStatus(KEY_1))
+	if (input->getKeyStatus(KEY_1)){
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		std::cout << input->getKeyStatus(KEY_1);
+	}
 	if (input->getKeyStatus(KEY_2))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
