@@ -39,11 +39,11 @@ public:
 	void moveCamera(const double xpos, const double ypos) {
 		
 		//Move the position
-		positionOffset = positionOffset - movementSpeed * (float)xpos * right;
+		positionOffset = positionOffset - movementSpeed * (float)-xpos * right;
 		positionOffset = positionOffset - movementSpeed * (float)ypos * up;
 		//Move the positon that the camera is looking at
-		lookPosition = lookPosition - movementSpeed * (float)xpos * right;
-		lookPosition = lookPosition - movementSpeed * (float)-ypos * up;
+		lookPosition = lookPosition - movementSpeed * (float)-xpos * right;
+		lookPosition = lookPosition - movementSpeed * (float)ypos * up;
 		
 		update();
 	}
@@ -68,6 +68,23 @@ public:
 
 
 		update();
+	}
+
+	void processInput(Input *input, float xoffset, float yoffset) {
+		//Mouse buttons
+		if (input->getMouseStatus(MOUSE_MIDDLE)) {
+			moveCamera(xoffset, yoffset);
+		}
+		if (input->getKeyStatus(KEY_LEFT_ALT)) {
+
+			if (input->getMouseStatus(MOUSE_LEFT)) {
+				//rotateCamera(xoffset, yoffset);
+			}
+
+			if (input->getMouseStatus(MOUSE_RIGHT)) {
+				//Inplement around camera movement
+			}
+		}
 	}
 	
 	//Move camera closer or further away from lookPosition
