@@ -70,7 +70,21 @@ public:
 		update();
 	}
 
-	void processInput(Input *input, float xoffset, float yoffset) {
+	void rotatelookPosition(const double xpos, const double ypos) {
+		float angleX = 0;
+		float angleY = 0;
+		if (abs(ypos) > abs(xpos)) {
+			angleX = ypos * 0.005;
+		}
+		else {
+			angleY = xpos * 0.005;
+		}
+
+
+
+	}
+
+	void processInput(Input *input, const float xoffset, const float yoffset) {
 		//Mouse buttons
 		if (input->getMouseStatus(MOUSE_MIDDLE)) {
 			moveCamera(xoffset, yoffset);
@@ -78,7 +92,7 @@ public:
 		if (input->getKeyStatus(KEY_LEFT_ALT)) {
 
 			if (input->getMouseStatus(MOUSE_LEFT)) {
-				//rotateCamera(xoffset, yoffset);
+				rotateCamera(xoffset, yoffset);
 			}
 
 			if (input->getMouseStatus(MOUSE_RIGHT)) {
