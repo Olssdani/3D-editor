@@ -9,6 +9,7 @@ Plane::Plane(const glm::vec3 &_center, const float _sizeX, const float _sizeY, c
 	sizeY = _sizeY;
 	squares = _squares;
 	createMesh();
+	Object::material = new Material();
 	//Connect mesh to buffers
 	Object::CreateBuffers(vertices, indices);
 	DrawSize = indices.size();

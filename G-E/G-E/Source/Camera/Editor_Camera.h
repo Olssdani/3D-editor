@@ -3,7 +3,10 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtc/quaternion.hpp> 
 #include <glm/gtx/quaternion.hpp>
+#ifndef Utilities_H
+#define Utilities_H
 #include "Utilities.h"
+#endif
 class Editor_Camera: public Camera {
 private: 
 	float movementSpeed = 0.01f;

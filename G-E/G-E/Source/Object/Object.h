@@ -1,10 +1,14 @@
 #pragma once
 #include "shader.h"
-#include "utilities.h"
+#ifndef Utilities_H
+#define Utilities_H
+#include "Utilities.h"
+#endif
 #include <vector>
 #include "Light/DirectionalLight.h"
 #include "Light/PointLight.h"
 #include "Texture/Texture.h"
+#include "Material/Material.h"
 
 /*
 	Base class for all different objects in the scene
@@ -24,6 +28,7 @@ protected:
 	*/
 	//Shader
 	Shader *shader;
+	Material *material;
 	//Buffer objects
 	unsigned int VBO, VAO, EBO;
 	//Shaderpaths
@@ -84,11 +89,16 @@ protected:
 
 public:
 
+	Object() {
+		material =new Material(glm::vec3(1.0f, 1.0f, 1.0f), 32);
+		std::cout << "HJej";
+	}
+
 	/*
 	public member functions
 	*/
 	//Render the scene
-	void Render(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos, DirectionalLight &Dirligth, std::vector<PointLight> &PointLights)
+	void Render(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos, DirectionalLight &Dirligth, std::vector<PointLight*> &PointLights)
 	{
 		//Start shader
 		shader->use();
@@ -97,18 +107,19 @@ public:
 		Dirligth.Send2GPU(shader,0);
 		int counter = 0;
 
-		for each (PointLight p in PointLights){
-			p.Send2GPU(shader, counter);
+		for each (PointLight *p in PointLights){
+			p->Send2GPU(shader, counter);
 			counter++;
 		}
 
 
-		//Sendvairable to shader
+		//Send variable to shader
 		shader->setMat4("projection", projection);
 		shader->setMat4("view", view);
 		shader->setMat4("model", model);
 		shader->setVec3("CameraPos", CameraPos);
 		shader->setBool("textureEnable", texture_enable);
+		material->send2GPU(shader);
 		//Bind the VAO and draw the vertex
 		if (texture_enable){
 			glBindTexture(GL_TEXTURE_2D, texture.textureId());
@@ -127,6 +138,7 @@ public:
 		shader->setMat4("view", view);
 		shader->setMat4("model", model);
 		shader->setVec3("CameraPos", CameraPos);
+	
 		//Bind the VAO and draw the vertex
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
@@ -197,4 +209,7 @@ public:
 		return ID;
 	}
 
+	Material* getMaterial() {
+		return material;
+	}
 };

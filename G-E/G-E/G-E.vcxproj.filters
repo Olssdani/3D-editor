@@ -16,9 +16,6 @@
     <Filter Include="Scene\Objects">
       <UniqueIdentifier>{456b9037-e365-4ece-ad98-063e75ee104d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Texture">
-      <UniqueIdentifier>{897478a5-3556-487f-b739-d20a95d1805c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\Camera">
       <UniqueIdentifier>{b643e279-13f3-403f-a2a7-a09390ae397d}</UniqueIdentifier>
     </Filter>
@@ -33,6 +30,12 @@
     </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{685b8839-99c6-45a7-94f8-c43cca9850a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Texture">
+      <UniqueIdentifier>{897478a5-3556-487f-b739-d20a95d1805c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Material">
+      <UniqueIdentifier>{f406123e-aee7-45ad-ad2d-3649d1b3f787}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="Source\Scene\Scene.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Material\Material.h">
+      <Filter>Scene\Material</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

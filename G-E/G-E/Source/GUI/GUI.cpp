@@ -1,5 +1,5 @@
 #include "GUI.h"
-#include <stdlib.h>
+
 
 GUI::GUI(GLFWwindow *w, Render *r){
 	window = w;
@@ -76,10 +76,8 @@ void GUI::guiRender(){
 	{
 
 		ImGui::Begin("Scene",NULL, window_flags);                          // Create a window called "Hello, world!" and append into it.
-		if (ImGui::BeginMenuBar())
-		{
-			if (ImGui::BeginMenu("Menu"))
-			{
+		if (ImGui::BeginMenuBar()){
+			if (ImGui::BeginMenu("Menu")){
 				ImGui::MenuItem("New(Placeholder)");
 				ImGui::MenuItem("Save(Placeholder)");
 				ImGui::MenuItem("Open(Placeholder)");
@@ -89,48 +87,69 @@ void GUI::guiRender(){
 			ImGui::EndMenuBar();
 		}	
 
-		//Add object div
-		if (ImGui::CollapsingHeader("Add Objects"))
-		{
-			
-			if (ImGui::TreeNode("Cube"))
-			{
-				
-				static char object_name[128] = "Box";
-				//Name  of object
-				const char default[5] = "Box";
-				
-				ImGui::Text("Name of Object");
-				ImGui::SameLine();
-				ImGui::InputText(" ", object_name, IM_ARRAYSIZE(object_name));
-				//Position of object
-				ImGui::Text("Position");
-				ImGui::SameLine();
-				ImGui::InputFloat3("", addPosition, 3);
-				ImGui::SameLine();
-				//Create object and add it to scene
-				if (ImGui::Button("Add")) {
-					Box *b = new Box();
-					b->Translate(glm::vec3(addPosition[0], addPosition[1], addPosition[2]));
-					if (strcmp(default, object_name) == 0) {
-						b->setName(object_name + std::to_string(b->getID()));
+		//Add div
+		if (ImGui::CollapsingHeader("Add")){
+			//Objects
+			if (ImGui::TreeNode("Objects")){
+				//Cube
+				if (ImGui::TreeNode("Cube")){
+					static char object_name[128] = "Box";
+					const char default[5] = "Box";
+					ImGui::Text("Name of Object");
+					ImGui::SameLine();
+					ImGui::InputText(" ", object_name, IM_ARRAYSIZE(object_name));
+					//Position of object
+					ImGui::Text("Position");
+					ImGui::SameLine();
+					ImGui::InputFloat3("", addPosition, 3);
+					ImGui::SameLine();
+					//Create object and add it to scene
+					if (ImGui::Button("Add")) {
+						Box *b = new Box();
+						b->Translate(glm::vec3(addPosition[0], addPosition[1], addPosition[2]));
+						if (strcmp(default, object_name) == 0) {
+							b->setName(object_name + std::to_string(b->getID()));
+						}
+						else {
+							b->setName(object_name);
+						}
+						render->getScene()->addObject(b);
 					}
-					else {
-						b->setName(object_name);
-					}
-					
-					render->getScene()->addObject(b);
+					ImGui::TreePop();
 				}
-				
-				ImGui::TreePop();
+				ImGui::TreePop();				
 			}
 
-			if (ImGui::TreeNode("Placeholder"))
+			if (ImGui::TreeNode("Lightning"))
 			{
-				ImGui::Text("Name of Object");
+				if (ImGui::TreeNode("Point Light"))
+				{
+					static char object_name[128] = "Light";
+					const char default[11] = "Light";
+					ImGui::Text("Name of light");
+					ImGui::SameLine();
+					ImGui::InputText(" ", object_name, IM_ARRAYSIZE(object_name));
+
+					ImGui::Text("Position");
+					ImGui::SameLine();
+					ImGui::InputFloat3("", addPosition, 3);
+					ImGui::SameLine();
+					if (ImGui::Button("Add")) {
+						glm::vec3 pos = glm::vec3(addPosition[0], addPosition[1], addPosition[2]);
+						PointLight *l = new PointLight(pos);
+
+						if (strcmp(default, object_name) == 0) {
+							l->setName(object_name + std::to_string(l->getID()));
+						}
+						else {
+							l->setName(object_name);
+						}				
+						render->getScene()->addPointLight(l);
+					}
+					ImGui::TreePop();
+				}				
 				ImGui::TreePop();
-			}
-			
+			}		
 		}
 
 
@@ -138,20 +157,15 @@ void GUI::guiRender(){
 		if (ImGui::CollapsingHeader("Objects in scene"))
 		{
 			for (auto &object : render->getScene()->getObjectList()) {
-				//TODO swap all to char*
-				std::string temp_name = object->getName();	
-				char *char_name = new char(temp_name.size() + 1);
-				temp_name.copy(char_name, temp_name.size() + 1);
-				char_name[temp_name.size()] = '\0';
-
-				if (ImGui::TreeNode(char_name))
-				{
+				char *char_name = string2char(object->getName());
+				if (ImGui::TreeNode(char_name)){
 					ImGui::Text("Name:(Cannot Change Right Now)");
 					ImGui::SameLine();
 					ImGui::InputText(" ", char_name, IM_ARRAYSIZE(char_name));
 					object->setName(char_name);
 					ImGui::TreePop();
-
+					
+					ImGui::Indent();
 					ImGui::Text("Translate:");
 					ImGui::SameLine();
 					ImGui::InputFloat3("", addPosition, 3);
@@ -161,17 +175,104 @@ void GUI::guiRender(){
 
 						object->Translate(glm::vec3(addPosition[0], addPosition[1], addPosition[2]));
 					}
+					
+					if (ImGui::TreeNode("Material")){			
+						glm::vec3 temp = object->getMaterial()->getColor();
+						my_color[0] = temp.x;
+						my_color[1] = temp.y;
+						my_color[2] = temp.z;
+						ImGui::Text("Color");
+						ImGui::SameLine();
+						ImGui::ColorEdit3("Color", my_color);
+						object->getMaterial()->setColor(my_color);
+						ImGui::TreePop();		
+					}
+					ImGui::Unindent();
 				}
 			}	
 		}
 		if (ImGui::CollapsingHeader("Lights"))
 		{
-
+			if (ImGui::TreeNode("Directional Light")) {
+				ImGui::Text("Name:(Cannot Change Right Now)");
+				ImGui::TreePop();
+			}
 			
+			
+			for (PointLight *light : render->getScene()->getPointLights()) {
+				char *char_name = string2char(light->getName());
+				if (ImGui::TreeNode(char_name)) {
+					ImGui::Text("Name:(Cannot Change Right Now)");
+					ImGui::SameLine();
+					ImGui::InputText(" ", char_name, IM_ARRAYSIZE(char_name));
+					light->setName(char_name);
+					
+					//Constant
+					ImGui::Text("Constant Factor:");
+					ImGui::SameLine();
+					float c =light->getConstant();
+					ImGui::InputFloat("Constant", &c, 0.01f, 1.0f, "%.3f");
+					light->setConstant(c);
+					
+					//Linear
+					ImGui::Text("Linear Factor:");
+					ImGui::SameLine();
+					float l = light->getLinear();
+					ImGui::InputFloat("Linear", &l, 0.01f, 1.0f, "%.3f");
+					light->setLinear(l);
+					
+					//Quadratic
+					ImGui::Text("Quadratic Factor:");
+					ImGui::SameLine();
+					float q = light->getQuadratic();
+					ImGui::InputFloat("Quadratic", &q, 0.01f, 1.0f, "%.3f");
+					light->setQuadratic(q);
+
+					//Ambient light
+					glm::vec3 temp = light->getAmbient();
+					my_color[0] = temp.x;
+					my_color[1] = temp.y;
+					my_color[2] = temp.z;
+					ImGui::Text("Ambient");
+					ImGui::SameLine();
+					ImGui::ColorEdit3("Ambient", my_color);
+					temp.x = my_color[0];
+					temp.y = my_color[1];
+					temp.z = my_color[2];
+					light->SetAmbient(temp);
+
+					//Ambient light
+					temp = light->getDiffuse();
+					my_color[0] = temp.x;
+					my_color[1] = temp.y;
+					my_color[2] = temp.z;
+					ImGui::Text("Diffuse");
+					ImGui::SameLine();
+					ImGui::ColorEdit3("Diffuse", my_color);
+					temp.x = my_color[0];
+					temp.y = my_color[1];
+					temp.z = my_color[2];
+					light->SetDiffuse(temp);
+
+
+					//Ambient light
+					temp = light->getSpecular();
+					my_color[0] = temp.x;
+					my_color[1] = temp.y;
+					my_color[2] = temp.z;
+					ImGui::Text("Specular");
+					ImGui::SameLine();
+					ImGui::ColorEdit3("Specular", my_color);
+					temp.x = my_color[0];
+					temp.y = my_color[1];
+					temp.z = my_color[2];
+					light->SetSpecular(temp);
+
+					ImGui::TreePop();
+				}	
+
+			}	
 		}
-
-
-		
 		ImGui::End();
 	}
 	ImGui::Render();
