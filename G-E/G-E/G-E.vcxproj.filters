@@ -151,5 +151,8 @@
     <ClInclude Include="Source\Camera\Editor_Camera.h">
       <Filter>Scene\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scene\Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

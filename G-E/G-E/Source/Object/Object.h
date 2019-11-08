@@ -36,6 +36,10 @@ protected:
 	//texture
 	bool texture_enable =false;
 	Texture texture;
+	std::string name;
+	int ID;
+
+	static int object_counter;
 
 
 	/*
@@ -44,6 +48,9 @@ protected:
 	//Create and fill buffers
 	void CreateBuffers(std::vector<Vertex> &vert, std::vector<unsigned int> &ind)
 	{
+		//MOVE THIS WHEN OBJECT CLASS HAS BEEN REDESIGNED, SHOULD BE IN CONSTRUCTOR
+		ID =object_counter++;
+
 		// Create the buffers
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
@@ -76,9 +83,6 @@ protected:
 	}
 
 public:
-	/*
-	public vairables
-	*/
 
 	/*
 	public member functions
@@ -180,4 +184,17 @@ public:
 		texture = Texture(url);
 		texture_enable = true;
 	}
+
+	void setName(const std::string _name) {
+		name = _name;
+	}
+
+	std::string getName() {
+		return name;
+	}
+
+	int getID() {
+		return ID;
+	}
+
 };
