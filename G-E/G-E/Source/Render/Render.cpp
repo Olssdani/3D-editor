@@ -98,6 +98,7 @@ void Render::Rendering() {
 		glfwGetWindowSize(window, &width, &height);
 		//Evaluate inputs, must be done after input update!!!!
 		processEditorInputs(window);
+		editorCamera->processInput(input, xoffset, yoffset);
 
 		/*
 			RENDERING
@@ -106,8 +107,7 @@ void Render::Rendering() {
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//Render GUI
-		gui->guiRender();
+
 
 		//Get the current projection matrix
 		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)width / (float)height, 0.1f, 1000.0f);
@@ -115,6 +115,8 @@ void Render::Rendering() {
 		glm::mat4 view = editorCamera->View();
 		//Render the scene
 		scene->renderScene(projection, view, editorCamera->GetPosition());
+		//Render GUI
+		gui->guiRender();
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
@@ -130,39 +132,11 @@ void Render::Rendering() {
 
 void Render::processEditorInputs(GLFWwindow *window)
 {
-	//Close
-	if (input->getKeyStatus(KEY_ESCAPE))
-		glfwSetWindowShouldClose(window, true);		
-
-	//Move camera
-	if (input->getKeyStatus(KEY_W))
-		//editorCamera->ProcessKeyboard(editorCamera->FORWARD, time.getDeltaTime());
-	if (input->getKeyStatus(KEY_S))
-		//editorCamera->ProcessKeyboard(editorCamera->BACKWARD, time.getDeltaTime());
-	if (input->getKeyStatus(KEY_A))
-		//editorCamera->ProcessKeyboard(editorCamera->LEFT, time.getDeltaTime());
-	if (input->getKeyStatus(KEY_D))
-		//editorCamera->ProcessKeyboard(editorCamera->RIGHT, time.getDeltaTime());
-
-
 	//Toggle wireframe or solid
 	if (input->getKeyStatus(KEY_1))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	if (input->getKeyStatus(KEY_2))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-
-	//Mouse buttons
-	if (input->getMouseStatus(MOUSE_MIDDLE)) {
-		editorCamera->moveCamera(xoffset, yoffset);
-	}
-	if (input->getKeyStatus(KEY_LEFT_ALT)){
-		
-		if (input->getMouseStatus(MOUSE_LEFT)) {
-			editorCamera->rotateCamera(xoffset, yoffset);
-		}
-	}
-	
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);	
 }
 
 /*

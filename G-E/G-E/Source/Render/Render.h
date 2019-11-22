@@ -7,11 +7,7 @@
 #include <GLFW/glfw3.h>
 #include "GUI/GUI.h"
 #include "Camera/Editor_Camera.h"
-#include "Object/Box.h"
-#include "Object/Object.h"
-#include "Object/Plane.h"
 #include <vector>
-#include "Input/Input.h"
 #include "Misc/Time.h"
 #include "Scene/Scene.h"
 
