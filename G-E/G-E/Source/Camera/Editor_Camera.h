@@ -75,13 +75,26 @@ public:
 		float angleY = 0;
 		if (abs(ypos) > abs(xpos)) {
 			angleX = ypos * 0.005;
-		}
-		else {
+		}else {
 			angleY = xpos * 0.005;
 		}
 
 
+		glm::vec3 lookDirection = glm::normalize(lookPosition - position);
+		float length = glm::length(lookPosition - position);
 
+		
+		//std::cout << "Look direction before: " << lookDirection.x << " " << lookDirection.y << " " << lookDirection.z << " ";
+		glm::vec3 angle = glm::vec3(angleX, 0, 0);
+		lookDirection = lookDirection * glm::fquat(angle);
+
+		angle = glm::vec3(0, angleY, 0);
+		lookDirection = lookDirection * glm::fquat(angle);
+
+		lookPosition = position + length * lookDirection;
+		//std::cout << "Look direction After: " << lookDirection.x << " " << lookDirection.y << " " << lookDirection.z << " " << std::endl;
+
+		update();
 	}
 
 	void processInput(Input *input, const float xoffset, const float yoffset) {
@@ -93,10 +106,8 @@ public:
 
 			if (input->getMouseStatus(MOUSE_LEFT)) {
 				rotateCamera(xoffset, yoffset);
-			}
-
-			if (input->getMouseStatus(MOUSE_RIGHT)) {
-				//Inplement around camera movement
+			}else if (input->getMouseStatus(MOUSE_RIGHT)) {
+				rotatelookPosition(xoffset, yoffset);
 			}
 		}
 	}

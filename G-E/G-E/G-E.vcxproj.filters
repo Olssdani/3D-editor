@@ -37,6 +37,9 @@
     <Filter Include="Scene\Material">
       <UniqueIdentifier>{f406123e-aee7-45ad-ad2d-3649d1b3f787}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Transformations">
+      <UniqueIdentifier>{f91693ce-367a-4017-84e8-1c0677729c56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Light\PointLight.cpp">
@@ -147,7 +150,6 @@
     <ClInclude Include="Source\Input\Input.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Object\Scene.h" />
     <ClInclude Include="Source\Camera\FPS_Camera.h">
       <Filter>Scene\Camera</Filter>
     </ClInclude>
@@ -159,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="Source\Material\Material.h">
       <Filter>Scene\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Transformations\transformationObject.h">
+      <Filter>Transformations</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
