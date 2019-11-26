@@ -6,25 +6,34 @@
 #include <glm/gtx/quaternion.hpp>
 class transformationObject {
 public:
+	//Default constructor
 	transformationObject() {
 		position = glm::vec4(0.0f);
 		rotationX = glm::fquat(1.0f, 0, 0, 0);
 		rotationY = glm::fquat(1.0f, 0, 0, 0);
 		glm::vec3 direction = glm::vec3(0.0f);
 	}
-	//TODO Implement setup for initial position
+	//Constructor with intial position
 	transformationObject(glm::vec3 startPosition) {
 		position2Components(startPosition);
 	}
 
-
-	void rotate(float angleX, float angleY) {
-		
+	//Rotate around X. Theta in spherical coordinates
+	void rotateX(float angleX) {
 		glm::vec3 angle = glm::vec3(angleX, 0, 0);
 		rotationX = rotationX * glm::fquat(angle);
+	}
 
-		angle = glm::vec3(0, angleY, 0);
-		rotationY = rotationY * glm::fquat(angle);
+	//Rotate around Y,  Phi in spherical coordinate
+	void rotateY(float angleY) {
+		glm::vec3 angle = glm::vec3(angleY, 0, 0);
+		rotationX = rotationX * glm::fquat(angle);
+	}
+
+	//Rotate by two angles X and Y
+	void rotate(float angleX, float angleY) {	
+		this->rotateX(angleX);
+		this->rotateY(angleY);
 	}
 
 	void translate() {
