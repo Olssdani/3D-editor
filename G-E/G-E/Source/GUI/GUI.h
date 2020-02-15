@@ -4,7 +4,7 @@
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>
 #include "Render/Render.h"
-#include "Object/Object.h"
+
 #ifndef Utilities_H
 #define Utilities_H
 #include "Utilities.h"
@@ -20,7 +20,7 @@ class Render;
 class GUI{
 public:
 	GUI(GLFWwindow *w,Render *r);
-	void guiRender();
+	void guiRender(const unsigned int editorTexture, const unsigned int gameTexture, const unsigned int width, const unsigned int height);
 
 private:
 	void Intialize();
@@ -29,7 +29,6 @@ private:
 	GLFWwindow* window;
 	Render* render;
 	float addPosition[3];
-
 	float my_color[4];
 
 

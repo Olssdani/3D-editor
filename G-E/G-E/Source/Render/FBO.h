@@ -38,4 +38,12 @@ public:
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
+	unsigned int get() {
+		return fbo;
+	}
+
+	unsigned int getTexture() {
+		return texture;
+	}
+
 };

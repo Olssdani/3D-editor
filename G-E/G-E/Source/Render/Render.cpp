@@ -1,6 +1,15 @@
 #include "Render.h"
-
-
+#include "Misc/Time.h"
+#include <vector>
+#include "GUI/GUI.h"
+#include "Input/Input.h"
+#include "FBO.h"
+#include <iostream>
+#include "Camera/Editor_Camera.h"
+#include "Object/Box.h"
+#include "Object/Object.h"
+#include "Object/Plane.h"
+#include "Scene/Scene.h"
 Render::Render() {
 	Init();
 }
@@ -60,7 +69,6 @@ bool Render::Init() {
 		return -1;
 	}
 
-	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
@@ -87,6 +95,13 @@ void Render::InitCallbackFunctions() {
 void Render::Rendering() {
 	//Bakground color
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	Time time;
+
+	glfwGetWindowSize(window, &width, &height);
+	Shader screenShader("Shaders/ScreenShader.vs", "Shaders/ScreenShader.fs");
+	screenShader.use();
+	screenShader.setInt("screenTexture", 0);
+	FBO frameBuffer(width * 0.7, height);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -99,16 +114,17 @@ void Render::Rendering() {
 		glfwGetWindowSize(window, &width, &height);
 		//Evaluate inputs, must be done after input update!!!!
 		processEditorInputs(window);
-
 		/*
 			RENDERING
 		*/
+		//Bind FBO
+		frameBuffer.bind();
+		
 		//Clear screen
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
 
-		//Render GUI
-		gui->guiRender();
 
 		//Get the current projection matrix
 		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)width / (float)height, 0.1f, 1000.0f);
@@ -116,6 +132,13 @@ void Render::Rendering() {
 		glm::mat4 view = editorCamera->View();
 		//Render the scene
 		scene->renderScene(projection, view, editorCamera->GetPosition());
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glDisable(GL_DEPTH_TEST);
+		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//Render GUI
+		gui->guiRender(frameBuffer.getTexture(), frameBuffer.getTexture(), width, height);
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------

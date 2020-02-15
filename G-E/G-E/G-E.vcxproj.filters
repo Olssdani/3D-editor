@@ -147,7 +147,6 @@
     <ClInclude Include="Source\Input\Input.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Object\Scene.h" />
     <ClInclude Include="Source\Camera\FPS_Camera.h">
       <Filter>Scene\Camera</Filter>
     </ClInclude>
@@ -159,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="Source\Material\Material.h">
       <Filter>Scene\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\FBO.h">
+      <Filter>Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
