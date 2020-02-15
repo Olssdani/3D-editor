@@ -106,8 +106,7 @@ void Render::Rendering() {
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//Render GUI
-		gui->guiRender();
+
 
 		//Get the current projection matrix
 		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)width / (float)height, 0.1f, 1000.0f);
@@ -116,6 +115,8 @@ void Render::Rendering() {
 		//Render the scene
 		scene->renderScene(projection, view, editorCamera->GetPosition());
 
+		//Render GUI
+		gui->guiRender();
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);

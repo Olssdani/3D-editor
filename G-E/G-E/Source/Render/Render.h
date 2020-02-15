@@ -51,6 +51,10 @@ private:
 	float scroll_Xoffset = 0;
 	float xoffset, yoffset;
 
+	//Depth buffer shadows
+	unsigned int depthMapFBO;
+	const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+	unsigned int depthMap;
 	/*
 		Methods
 	*/
