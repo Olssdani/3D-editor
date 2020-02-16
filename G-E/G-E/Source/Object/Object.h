@@ -122,7 +122,7 @@ public:
 		material->send2GPU(shader);
 		//Bind the VAO and draw the vertex
 		if (texture_enable){
-			glBindTexture(GL_TEXTURE_2D, texture.textureId());
+			texture.bindTexture();
 		}
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
