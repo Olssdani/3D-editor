@@ -22,28 +22,29 @@ public:
 		position = _position;
 		lookPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 		//Forward is toward origo
-		forward = lookPosition - position;
+		forward = glm::normalize(position - lookPosition);
 		worldUp = glm::vec3(0.0f, 1.0f, 0.0f); 
-		up = glm::vec3(0.0f, 1.0f, 0.0f);
+		
 		right = glm::normalize(glm::cross(worldUp, forward));
+		up = glm::cross(forward, right);
 		fov = 45.0f;
-		worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 		startPosition = position;
 		rotationX = glm::fquat(1.0f, 0, 0, 0);
 		rotationY = glm::fquat(1.0f, 0, 0, 0);
 		scrollOffset = 0;
 		positionOffset = glm::vec3(0.0f, 1.0f, 0.0f);
+		update();
 	}
 
 	//Move the camera in a 2d plane where the forward vector is orthogonal against the plane.
 	void moveCamera(const double xpos, const double ypos) {
+		
 		//Move the position
-	
-		positionOffset = positionOffset - movementSpeed * (float)xpos * right;
-		positionOffset = positionOffset - movementSpeed * (float)-ypos * up;
+		positionOffset = positionOffset - movementSpeed * (float)-xpos * right;
+		positionOffset = positionOffset - movementSpeed * (float)ypos * up;
 		//Move the positon that the camera is looking at
-		lookPosition = lookPosition - movementSpeed * (float)xpos * right;
-		lookPosition = lookPosition - movementSpeed * (float)-ypos * up;
+		lookPosition = lookPosition - movementSpeed * (float)-xpos * right;
+		lookPosition = lookPosition - movementSpeed * (float)ypos * up;
 		
 		update();
 	}
@@ -68,6 +69,48 @@ public:
 
 
 		update();
+	}
+
+	void rotatelookPosition(const double xpos, const double ypos) {
+		float angleX = 0;
+		float angleY = 0;
+		if (abs(ypos) > abs(xpos)) {
+			angleX = ypos * 0.005;
+		}else {
+			angleY = xpos * 0.005;
+		}
+
+
+		glm::vec3 lookDirection = glm::normalize(lookPosition - position);
+		float length = glm::length(lookPosition - position);
+
+		
+		//std::cout << "Look direction before: " << lookDirection.x << " " << lookDirection.y << " " << lookDirection.z << " ";
+		glm::vec3 angle = glm::vec3(angleX, 0, 0);
+		lookDirection = lookDirection * glm::fquat(angle);
+
+		angle = glm::vec3(0, angleY, 0);
+		lookDirection = lookDirection * glm::fquat(angle);
+
+		lookPosition = position + length * lookDirection;
+		//std::cout << "Look direction After: " << lookDirection.x << " " << lookDirection.y << " " << lookDirection.z << " " << std::endl;
+
+		update();
+	}
+
+	void processInput(Input *input, const float xoffset, const float yoffset) {
+		//Mouse buttons
+		if (input->getMouseStatus(MOUSE_MIDDLE)) {
+			moveCamera(xoffset, yoffset);
+		}
+		if (input->getKeyStatus(KEY_LEFT_ALT)) {
+
+			if (input->getMouseStatus(MOUSE_LEFT)) {
+				rotateCamera(xoffset, yoffset);
+			}else if (input->getMouseStatus(MOUSE_RIGHT)) {
+				rotatelookPosition(xoffset, yoffset);
+			}
+		}
 	}
 	
 	//Move camera closer or further away from lookPosition

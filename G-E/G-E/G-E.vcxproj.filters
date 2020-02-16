@@ -1,64 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="External Libraries">
-      <UniqueIdentifier>{8fd9997d-2e88-4e5b-89d3-cb5e176aed05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="External Libraries\DEAR IMGUI">
-      <UniqueIdentifier>{9be67384-4dc5-44a3-8b46-b10164bf6f57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{98d1cda6-6c3d-4fdd-a780-b1b7f6da6030}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Light">
-      <UniqueIdentifier>{979aa878-6bd1-454d-a629-c7de402d03c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Objects">
-      <UniqueIdentifier>{456b9037-e365-4ece-ad98-063e75ee104d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Camera">
-      <UniqueIdentifier>{b643e279-13f3-403f-a2a7-a09390ae397d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render">
-      <UniqueIdentifier>{56d60c33-eb81-43b8-9e22-3aa3fa8f0f4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Misc">
-      <UniqueIdentifier>{bd33047f-f778-4f10-b46e-c340f1748edb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GUI">
-      <UniqueIdentifier>{5071d345-7874-4564-a91c-5d025f24eeff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Input">
-      <UniqueIdentifier>{685b8839-99c6-45a7-94f8-c43cca9850a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Texture">
-      <UniqueIdentifier>{897478a5-3556-487f-b739-d20a95d1805c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Material">
-      <UniqueIdentifier>{f406123e-aee7-45ad-ad2d-3649d1b3f787}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Source\Light\PointLight.cpp">
-      <Filter>Scene\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\imgui-master\imgui_widgets.cpp">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\imgui-master\examples\imgui_impl_opengl3.cpp">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\imgui-master\examples\imgui_impl_glfw.cpp">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Include\imgui-master\imgui_demo.cpp">
+      <Filter>External Libs</Filter>
     </ClCompile>
     <ClCompile Include="Include\imgui-master\imgui_draw.cpp">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
+      <Filter>External Libs</Filter>
     </ClCompile>
-    <ClCompile Include="Include\imgui-master\imgui_demo.cpp">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
+    <ClCompile Include="Include\imgui-master\examples\imgui_impl_glfw.cpp">
+      <Filter>External Libs</Filter>
     </ClCompile>
-    <ClCompile Include="Include\imgui-master\imgui.cpp">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
+    <ClCompile Include="Include\imgui-master\examples\imgui_impl_opengl3.cpp">
+      <Filter>External Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\imgui-master\imgui_widgets.cpp">
+      <Filter>External Libs</Filter>
     </ClCompile>
     <ClCompile Include="Source\Object\Box.cpp">
       <Filter>Scene\Objects</Filter>
@@ -66,101 +23,144 @@
     <ClCompile Include="Source\Object\Plane.cpp">
       <Filter>Scene\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="glad.c">
-      <Filter>External Libraries</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\GUI\GUI.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Render\Render.cpp">
-      <Filter>Render</Filter>
+    <ClCompile Include="Include\imgui-master\imgui.cpp">
+      <Filter>External Libs</Filter>
     </ClCompile>
     <ClCompile Include="Source\Camera\FPS_Camera.cpp">
       <Filter>Scene\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GUI\GUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>External Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Render.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Light\PointLight.cpp">
+      <Filter>Scene\Lighting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\imgui-master\examples\imgui_impl_glfw.h">
+      <Filter>External Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\imgui-master\examples\imgui_impl_opengl3.h">
+      <Filter>External Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\imgui-master\imgui_internal.h">
+      <Filter>External Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\imgui-master\imstb_rectpack.h">
+      <Filter>External Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\imgui-master\imstb_textedit.h">
+      <Filter>External Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\imgui-master\imstb_truetype.h">
+      <Filter>External Libs</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Object\Box.h">
       <Filter>Scene\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Source\Object\Object.h">
       <Filter>Scene\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Light\Light.h">
-      <Filter>Scene\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Light\DirectionalLight.h">
-      <Filter>Scene\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Light\PointLight.h">
-      <Filter>Scene\Light</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Object\Plane.h">
       <Filter>Scene\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Include\imgui-master\imconfig.h">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
+    <ClInclude Include="Source\Scene\Scene.h">
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Include\imgui-master\imgui.h">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
+      <Filter>External Libs</Filter>
     </ClInclude>
-    <ClInclude Include="Include\imgui-master\examples\imgui_impl_glfw.h">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
+    <ClInclude Include="Include\imgui-master\imconfig.h">
+      <Filter>External Libs</Filter>
     </ClInclude>
-    <ClInclude Include="Include\imgui-master\examples\imgui_impl_opengl3.h">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\imgui-master\imgui_internal.h">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\imgui-master\imstb_rectpack.h">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\imgui-master\imstb_textedit.h">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\imgui-master\imstb_truetype.h">
-      <Filter>External Libraries\DEAR IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Texture\Texture.h">
-      <Filter>Scene\Texture</Filter>
+    <ClInclude Include="Source\Light\DirectionalLight.h">
+      <Filter>Scene\Lighting</Filter>
     </ClInclude>
     <ClInclude Include="Source\Camera\Camera.h">
-      <Filter>Scene\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\shader.h">
-      <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utilities.h">
-      <Filter>Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GUI\GUI.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Render\Render.h">
-      <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Misc\Time.h">
-      <Filter>Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\Input.h">
-      <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Camera\FPS_Camera.h">
       <Filter>Scene\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Source\Camera\Editor_Camera.h">
       <Filter>Scene\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene\Scene.h">
-      <Filter>Scene</Filter>
+    <ClInclude Include="Source\Camera\FPS_Camera.h">
+      <Filter>Scene\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GUI\GUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Render.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\shader.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Light\PointLight.h">
+      <Filter>Scene\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Light\Light.h">
+      <Filter>Scene\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Texture\Texture.h">
+      <Filter>Scene\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\FBO.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\Input.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utilities.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\Time.h">
+      <Filter>Misc</Filter>
     </ClInclude>
     <ClInclude Include="Source\Material\Material.h">
       <Filter>Scene\Material</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Render\FBO.h">
-      <Filter>Render</Filter>
+    <ClInclude Include="Source\Transformations\transformationObject.h">
+      <Filter>Scene\Transformations</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="External Libs">
+      <UniqueIdentifier>{8dbde677-1994-490b-a7fb-e1b254e10e32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{4e45e008-aa9d-4bb0-8159-09e67b9b21dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Objects">
+      <UniqueIdentifier>{070f7cb7-cc1c-44ca-b57c-77560321af50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Lighting">
+      <UniqueIdentifier>{49866c54-c933-47bf-8149-b8c050f59a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Texture">
+      <UniqueIdentifier>{105daa06-71cc-4bdb-ac7d-2b5d64915f28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Camera">
+      <UniqueIdentifier>{08d45d11-83f0-45a5-85df-d90f654da2e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{8b555a94-3972-4f43-9218-d2f0fb224020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{c36f9e16-f51d-4005-a5fe-1ccbcd5b7d07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{32aa1f2e-5cb9-4f99-ae06-699638ac5294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Material">
+      <UniqueIdentifier>{420375e1-2a22-4737-acac-edb3647ea79f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Transformations">
+      <UniqueIdentifier>{c5a51e82-64c0-462c-ad6e-d936b07324ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

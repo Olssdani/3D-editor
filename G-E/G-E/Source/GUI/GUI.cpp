@@ -26,6 +26,7 @@ void GUI::Intialize() {
 
 	ImGui::StyleColorsLight();
 
+
 	// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);

@@ -171,6 +171,7 @@
     <ClInclude Include="Source\Scene\Scene.h" />
     <ClInclude Include="Source\shader.h" />
     <ClInclude Include="Source\Texture\Texture.h" />
+    <ClInclude Include="Source\Transformations\transformationObject.h" />
     <ClInclude Include="Source\Utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
