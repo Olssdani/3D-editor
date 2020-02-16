@@ -161,6 +161,8 @@ void Render::processEditorInputs(GLFWwindow *window)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	if (input->getKeyStatus(KEY_2))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);	
+	if (input->getKeyStatus(KEY_SPACE))
+		scene->updateShaders();
 }
 
 /*

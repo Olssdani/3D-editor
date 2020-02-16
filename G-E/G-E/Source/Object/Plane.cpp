@@ -44,7 +44,7 @@ void Plane::createMesh()
 		for (size_t j = 0; j < squares + 1; j++)
 		{
 			float x = -(sizeX / 2) + dx * j;
-			vertices[j + i * (squares + 1)] = Vertex{ glm::vec3(x,center.y, y), glm::vec3(0,1,0),glm::vec2((float)j/(float)squares,(float)i/(float)squares) };
+			vertices[j + i * (squares + 1)] = Vertex{ glm::vec3(x,center.y, y), glm::vec3(0,1,0),glm::vec2((float)j,(float)i) };
 		}
 	}
 

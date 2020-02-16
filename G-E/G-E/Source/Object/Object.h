@@ -118,11 +118,14 @@ public:
 		shader->setMat4("view", view);
 		shader->setMat4("model", model);
 		shader->setVec3("CameraPos", CameraPos);
-		shader->setBool("textureEnable", texture_enable);
-		material->send2GPU(shader);
+		
 		//Bind the VAO and draw the vertex
 		if (texture_enable){
 			texture.bindTexture();
+			shader->setFloat("material.shininess", material->getShininess());
+		}
+		else {
+			material->send2GPU(shader);
 		}
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
@@ -195,6 +198,8 @@ public:
 	{
 		texture = Texture(url);
 		texture_enable = true;
+		ChangeShader("Shaders/Vert.glsl", "Shaders/textureFrag.fs", "Shaders/Geo.glsl");
+		shader->setInt("material.diffuse", 0);
 	}
 
 	void setName(const std::string _name) {

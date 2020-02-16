@@ -18,9 +18,10 @@ public:
 
 	Scene()
 	{
-		plane =new Plane(glm::vec3(0, -5, 0), 100.0f, 100.0f, 1);
+		plane =new Plane(glm::vec3(0, -5, 0), 50.0f, 50.0f, 10);
 		plane->setName("Plane");
-		plane->getMaterial()->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+		plane->setTexture("D:/Programmering/G-E/G-E/G-E/Textures/wall.jpg");
+		//plane->getMaterial()->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		plane->getMaterial()->setShininess(32);
 		objects.push_back(plane);
 		DL = DirectionalLight(glm::vec3(-0.2, -1.0, -0.3), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
@@ -41,6 +42,13 @@ public:
 		for each (PointLight* p in PL)
 		{
 			p->getBox()->RenderNoLight(projection, view, cameraPosition);
+		}
+	}
+
+	void updateShaders() {
+		for each(Object* o in objects)
+		{
+			o->UpdateShader();
 		}
 	}
 
