@@ -115,7 +115,7 @@ void Render::Rendering() {
 		//Evaluate inputs, must be done after input update!!!!
 		processEditorInputs(window);
 
-		//editorCamera->processInput(input, xoffset, yoffset);
+		editorCamera->processInput(input, xoffset, yoffset);
 
 		/*
 			RENDERING

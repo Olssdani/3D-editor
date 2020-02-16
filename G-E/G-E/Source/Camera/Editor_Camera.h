@@ -22,17 +22,18 @@ public:
 		position = _position;
 		lookPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 		//Forward is toward origo
-		forward = lookPosition - position;
+		forward = glm::normalize(position - lookPosition);
 		worldUp = glm::vec3(0.0f, 1.0f, 0.0f); 
-		up = glm::vec3(0.0f, 1.0f, 0.0f);
+		
 		right = glm::normalize(glm::cross(worldUp, forward));
+		up = glm::cross(forward, right);
 		fov = 45.0f;
-		worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 		startPosition = position;
 		rotationX = glm::fquat(1.0f, 0, 0, 0);
 		rotationY = glm::fquat(1.0f, 0, 0, 0);
 		scrollOffset = 0;
 		positionOffset = glm::vec3(0.0f, 1.0f, 0.0f);
+		update();
 	}
 
 	//Move the camera in a 2d plane where the forward vector is orthogonal against the plane.
