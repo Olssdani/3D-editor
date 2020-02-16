@@ -40,10 +40,15 @@ public:
 			p->getBox()->RenderNoLight(projection, view, cameraPosition);
 		}
 
-		for each (Object* o in objects)
+
+		for (int i = objects.size()-1; i>=0 ; i--)
+		{
+			objects[i]->Render(projection, view, cameraPosition, DL, PL);
+		}
+		/*for each (Object* o in objects)
 		{
 			o->Render(projection, view, cameraPosition, DL, PL);
-		}
+		}*/
 
 
 	}

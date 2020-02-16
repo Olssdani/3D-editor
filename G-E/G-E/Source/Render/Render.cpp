@@ -123,7 +123,8 @@ void Render::Rendering() {
 		*/
 		//Bind FBO
 		frameBuffer.bind();
-		glEnable(GL_DEPTH_TEST);
+	
+
 		//Clear screen
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -134,13 +135,15 @@ void Render::Rendering() {
 		glm::mat4 view = editorCamera->View();
 		//Render the scene
 		glViewport(0, 0, editorWidth, editorHeight);
+		glEnable(GL_DEPTH_TEST);
 		scene->renderScene(projection, view, editorCamera->GetPosition());
 		glViewport(0, 0, width, height);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
 		//Render GUI
-		//gui->guiRender(frameBuffer.getTexture(), frameBuffer.getTexture(), width, height, editorWidth, editorHeight);
+		glEnable(GL_DEPTH_TEST);
+		gui->guiRender(frameBuffer.getTexture(), frameBuffer.getTexture(), width, height, editorWidth, editorHeight);
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
@@ -161,8 +164,6 @@ void Render::processEditorInputs(GLFWwindow *window)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	if (input->getKeyStatus(KEY_2))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);	
-	if (input->getKeyStatus(KEY_SPACE))
-		scene->updateShaders();
 }
 
 /*

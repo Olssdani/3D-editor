@@ -91,7 +91,6 @@ public:
 
 	Object() {
 		material =new Material(glm::vec3(1.0f, 1.0f, 1.0f), 32);
-		std::cout << "HJej";
 	}
 
 	/*
