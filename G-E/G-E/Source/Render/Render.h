@@ -27,8 +27,10 @@ private:
 	/*
 		Variables 
 	*/
-	unsigned int SCREEN_WIDTH = 800;
-	unsigned int SCREEN_HEIGHT = 800;
+	const unsigned int SCREEN_WIDTH = 800;
+	const unsigned int SCREEN_HEIGHT = 800;
+	const unsigned int editorWidth = 1080;
+	const unsigned int editorHeight = 720;
 	GLFWmonitor* primaryMonitor;
 	const GLFWvidmode * primaryVidMode;
 	GLFWwindow* window;

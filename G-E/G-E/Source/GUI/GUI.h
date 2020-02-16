@@ -20,7 +20,9 @@ class Render;
 class GUI{
 public:
 	GUI(GLFWwindow *w,Render *r);
-	void guiRender(const unsigned int editorTexture, const unsigned int gameTexture, const unsigned int width, const unsigned int height);
+	void guiRender(const unsigned int editorTexture, const unsigned int gameTexture,
+		const unsigned int viewportWidth, const unsigned int viewportHeight,
+		const unsigned int textureWidth, const unsigned int textureHeight);
 
 private:
 	void Intialize();

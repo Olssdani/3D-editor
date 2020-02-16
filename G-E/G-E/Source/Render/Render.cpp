@@ -101,7 +101,7 @@ void Render::Rendering() {
 	Shader screenShader("Shaders/ScreenShader.vs", "Shaders/ScreenShader.fs");
 	screenShader.use();
 	screenShader.setInt("screenTexture", 0);
-	FBO frameBuffer(width * 0.7, height);
+	FBO frameBuffer(editorWidth, editorHeight);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -127,18 +127,18 @@ void Render::Rendering() {
 
 
 		//Get the current projection matrix
-		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)width / (float)height, 0.1f, 1000.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)editorWidth / (float)editorHeight, 0.1f, 1000.0f);
 		//Get the current view matrix;
 		glm::mat4 view = editorCamera->View();
 		//Render the scene
+		glViewport(0, 0, editorWidth, editorHeight);
 		scene->renderScene(projection, view, editorCamera->GetPosition());
+		glViewport(0, 0, width, height);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glDisable(GL_DEPTH_TEST);
-		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 
 		//Render GUI
-		gui->guiRender(frameBuffer.getTexture(), frameBuffer.getTexture(), width, height);
+		gui->guiRender(frameBuffer.getTexture(), frameBuffer.getTexture(), width, height, editorWidth, editorHeight);
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------

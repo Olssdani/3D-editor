@@ -23,9 +23,6 @@ void GUI::Intialize() {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
 
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
@@ -36,7 +33,9 @@ void GUI::Intialize() {
 	ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
-void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTexture, const unsigned int width, const unsigned int height) {
+void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTexture, 
+					const unsigned int viewportWidth, const unsigned int viewportHeight,
+					const unsigned int textureWidth, const unsigned int textureHeight) {
 	static bool no_titlebar = true;
 	static bool no_scrollbar = false;
 	static bool no_menu = false;
@@ -66,7 +65,7 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 	//IM_ASSERT(ImGui::GetCurrentContext() != NULL && "Missing dear imgui context. Refer to examples app!"); // Exceptionally add an extra assert here for people confused with initial dear imgui setup
 	{
 		ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
-		ImGui::SetNextWindowSize(ImVec2(width, height), ImGuiCond_Once);
+		ImGui::SetNextWindowSize(ImVec2(viewportWidth, viewportHeight), ImGuiCond_Once);
 		ImGui::Begin("Scene", NULL, window_flags);                          // Create a window called "Hello, world!" and append into it.
 		if (ImGui::BeginMenuBar()) {
 			if (ImGui::BeginMenu("Menu")) {
@@ -81,7 +80,7 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 
 		// left
 		static int selected = 0;
-		ImGui::BeginChild("left pane", ImVec2(width *0.15, 200), true);
+		ImGui::BeginChild("left pane", ImVec2(viewportWidth *0.15, 200), true);
 		//Add div
 		if (ImGui::CollapsingHeader("Add")) {
 			//Objects
@@ -114,11 +113,8 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 				ImGui::TreePop();
 			}
 
-
-			if (ImGui::TreeNode("Lightning"))
-			{
-				if (ImGui::TreeNode("Point Light"))
-				{
+			if (ImGui::TreeNode("Lightning")) {
+				if (ImGui::TreeNode("Point Light")){
 					static char object_name[128] = "Light";
 					const char default[11] = "Light";
 					ImGui::Text("Name of light");
@@ -147,28 +143,23 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 			}
 		}
 
-
 		ImGui::EndChild();
 		ImGui::SameLine();
 
 		// right
-		ImGui::BeginChild("item view", ImVec2(1400, 900)); // Leave room for 1 line below us
+		ImGui::BeginChild("item view", ImVec2(textureWidth, 0));
 		{
-			if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
-			{
-				if (ImGui::BeginTabItem("Editor"))
-				{
-					ImGui::Image((void*)(intptr_t)editorTexture, ImVec2(1400, 900));
+			if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None)) {
+				if (ImGui::BeginTabItem("Editor")){
+					ImGui::Image((void*)(intptr_t)editorTexture, ImVec2(textureWidth, textureHeight));
 					ImGui::EndTabItem();
 				}
-				if (ImGui::BeginTabItem("Game"))
-				{
-					ImGui::Image((void*)(intptr_t)gameTexture, ImVec2(width, height));
+				if (ImGui::BeginTabItem("Game")){
+					ImGui::Image((void*)(intptr_t)gameTexture, ImVec2(textureWidth, textureHeight));
 					ImGui::EndTabItem();
 				}
 				ImGui::EndTabBar();
 			}
-			//ImGui::Image((void*)(intptr_t)editorTexture, ImVec2(width, height));
 		}
 		ImGui::EndChild();
 		ImGui::SameLine();
@@ -176,8 +167,7 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 		ImGui::BeginChild("Scene graph", ImVec2(0, 0)); // Leave room for 1 line below us
 		{
 			//Display and edit all objects in scene
-			if (ImGui::CollapsingHeader("Objects in scene"))
-			{
+			if (ImGui::CollapsingHeader("Objects in scene")) {
 				for (auto &object : render->getScene()->getObjectList()) {
 					char *char_name = string2char(object->getName());
 					if (ImGui::TreeNode(char_name)) {
@@ -213,13 +203,11 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 					}
 				}
 			}
-			if (ImGui::CollapsingHeader("Lights"))
-			{
+			if (ImGui::CollapsingHeader("Lights")){
 				if (ImGui::TreeNode("Directional Light")) {
 					ImGui::Text("Name:(Cannot Change Right Now)");
 					ImGui::TreePop();
 				}
-
 
 				for (PointLight *light : render->getScene()->getPointLights()) {
 					char *char_name = string2char(light->getName());
@@ -276,7 +264,6 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 						temp.z = my_color[2];
 						light->SetDiffuse(temp);
 
-
 						//Ambient light
 						temp = light->getSpecular();
 						my_color[0] = temp.x;
@@ -292,24 +279,13 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 
 						ImGui::TreePop();
 					}
-
 				}
 			}
 		}
 		ImGui::EndChild();
-
-
-
 		ImGui::End();
-		/*ImGui::Begin("OpenGL Texture Text");
-		ImGui::Text("pointer = %p", texture);
-		ImGui::Text("size = %d x %d", width, height);
-		ImGui::Image((void*)(intptr_t)texture, ImVec2(width, height));
-		ImGui::End();*/
 	}
 	ImGui::ShowDemoWindow();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-
 }
