@@ -2,20 +2,16 @@
 //#define WINDOW_MODE_EXPLICIT
 //#define WINDOW_MODE_FULLSCREEN
 #define WINDOW_MODE_FULLSCREEN_WINDOWED
-#include <iostream>
+
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
-#include "GUI/GUI.h"
+#include <cstdio>
 #include "Camera/Editor_Camera.h"
-#include "Object/Box.h"
-#include "Object/Object.h"
-#include "Object/Plane.h"
-#include <vector>
-#include "Input/Input.h"
-#include "Misc/Time.h"
-#include "Scene/Scene.h"
 
 class GUI;
+class Input;
+class FBO;
+class Scene;
 
 class Render{
 public:
@@ -31,8 +27,10 @@ private:
 	/*
 		Variables 
 	*/
-	unsigned int SCREEN_WIDTH = 800;
-	unsigned int SCREEN_HEIGHT = 800;
+	const unsigned int SCREEN_WIDTH = 800;
+	const unsigned int SCREEN_HEIGHT = 800;
+	const unsigned int editorWidth = 1080;
+	const unsigned int editorHeight = 720;
 	GLFWmonitor* primaryMonitor;
 	const GLFWvidmode * primaryVidMode;
 	GLFWwindow* window;
@@ -40,7 +38,7 @@ private:
 	int width, height;
 	Editor_Camera *editorCamera;
 	Input *input;
-	Time time;
+
 
 	Scene *scene;
 	//Mouse
@@ -80,5 +78,4 @@ private:
 		Render* handler = reinterpret_cast<Render *>(glfwGetWindowUserPointer(window));
 		handler->getCamera()->ProcessMouseScroll(yoffset);
 	}
-
 };
