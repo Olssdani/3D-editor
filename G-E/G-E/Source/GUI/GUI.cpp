@@ -1,7 +1,14 @@
 #include "GUI.h"
+#include "Object/Box.h"
+#include "Object/Object.h"
+#include "Light/Light.h"
+#include "Light/DirectionalLight.h"
+#include "Light/PointLight.h"
+#include "Scene/Scene.h"
 
 
-GUI::GUI(GLFWwindow *w, Render *r){
+
+GUI::GUI(GLFWwindow *w, Render *r) {
 	window = w;
 	Intialize();
 	render = r;
@@ -23,14 +30,15 @@ void GUI::Intialize() {
 	// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
-
 }
 
-void GUI::guiRender(){
-	static bool no_titlebar = false;
+void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTexture, 
+					const unsigned int viewportWidth, const unsigned int viewportHeight,
+					const unsigned int textureWidth, const unsigned int textureHeight) {
+	static bool no_titlebar = true;
 	static bool no_scrollbar = false;
 	static bool no_menu = false;
-	static bool no_move = false;
+	static bool no_move = true;
 	static bool no_resize = false;
 	static bool no_collapse = false;
 	static bool no_close = false;
@@ -55,10 +63,11 @@ void GUI::guiRender(){
 	ImGui::NewFrame();
 	//IM_ASSERT(ImGui::GetCurrentContext() != NULL && "Missing dear imgui context. Refer to examples app!"); // Exceptionally add an extra assert here for people confused with initial dear imgui setup
 	{
-
-		ImGui::Begin("Scene",NULL, window_flags);                          // Create a window called "Hello, world!" and append into it.
-		if (ImGui::BeginMenuBar()){
-			if (ImGui::BeginMenu("Menu")){
+		ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
+		ImGui::SetNextWindowSize(ImVec2(viewportWidth, viewportHeight), ImGuiCond_Once);
+		ImGui::Begin("Scene", NULL, window_flags);                          // Create a window called "Hello, world!" and append into it.
+		if (ImGui::BeginMenuBar()) {
+			if (ImGui::BeginMenu("Menu")) {
 				ImGui::MenuItem("New(Placeholder)");
 				ImGui::MenuItem("Save(Placeholder)");
 				ImGui::MenuItem("Open(Placeholder)");
@@ -66,14 +75,17 @@ void GUI::guiRender(){
 			}
 			ImGui::MenuItem("Edit");
 			ImGui::EndMenuBar();
-		}	
+		}
 
+		// left
+		static int selected = 0;
+		ImGui::BeginChild("left pane", ImVec2(viewportWidth *0.15, 200), true);
 		//Add div
-		if (ImGui::CollapsingHeader("Add")){
+		if (ImGui::CollapsingHeader("Add")) {
 			//Objects
-			if (ImGui::TreeNode("Objects")){
+			if (ImGui::TreeNode("Objects")) {
 				//Cube
-				if (ImGui::TreeNode("Cube")){
+				if (ImGui::TreeNode("Cube")) {
 					static char object_name[128] = "Box";
 					const char default[5] = "Box";
 					ImGui::Text("Name of Object");
@@ -83,7 +95,6 @@ void GUI::guiRender(){
 					ImGui::Text("Position");
 					ImGui::SameLine();
 					ImGui::InputFloat3("", addPosition, 3);
-					ImGui::SameLine();
 					//Create object and add it to scene
 					if (ImGui::Button("Add")) {
 						Box *b = new Box();
@@ -98,13 +109,11 @@ void GUI::guiRender(){
 					}
 					ImGui::TreePop();
 				}
-				ImGui::TreePop();				
+				ImGui::TreePop();
 			}
 
-			if (ImGui::TreeNode("Lightning"))
-			{
-				if (ImGui::TreeNode("Point Light"))
-				{
+			if (ImGui::TreeNode("Lightning")) {
+				if (ImGui::TreeNode("Point Light")){
 					static char object_name[128] = "Light";
 					const char default[11] = "Light";
 					ImGui::Text("Name of light");
@@ -124,142 +133,158 @@ void GUI::guiRender(){
 						}
 						else {
 							l->setName(object_name);
-						}				
+						}
 						render->getScene()->addPointLight(l);
 					}
 					ImGui::TreePop();
-				}				
+				}
 				ImGui::TreePop();
-			}		
+			}
 		}
 
+		ImGui::EndChild();
+		ImGui::SameLine();
 
-		//Display and edit all objects in scene
-		if (ImGui::CollapsingHeader("Objects in scene"))
+		// right
+		ImGui::BeginChild("item view", ImVec2(textureWidth, 0));
 		{
-			for (auto &object : render->getScene()->getObjectList()) {
-				char *char_name = string2char(object->getName());
-				if (ImGui::TreeNode(char_name)){
-					ImGui::Text("Name:(Cannot Change Right Now)");
-					ImGui::SameLine();
-					ImGui::InputText(" ", char_name, IM_ARRAYSIZE(char_name));
-					object->setName(char_name);
-					ImGui::TreePop();
-					
-					ImGui::Indent();
-					ImGui::Text("Translate:");
-					ImGui::SameLine();
-					ImGui::InputFloat3("", addPosition, 3);
-					ImGui::SameLine();
-					//Create object and add it to scene
-					if (ImGui::Button("Add")) {
+			if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None)) {
+				if (ImGui::BeginTabItem("Editor")){
+					ImGui::Image((void*)(intptr_t)editorTexture, ImVec2(textureWidth, textureHeight));
+					ImGui::EndTabItem();
+				}
+				if (ImGui::BeginTabItem("Game")){
+					ImGui::Image((void*)(intptr_t)gameTexture, ImVec2(textureWidth, textureHeight));
+					ImGui::EndTabItem();
+				}
+				ImGui::EndTabBar();
+			}
+		}
+		ImGui::EndChild();
+		ImGui::SameLine();
 
-						object->Translate(glm::vec3(addPosition[0], addPosition[1], addPosition[2]));
+		ImGui::BeginChild("Scene graph", ImVec2(0, 0)); // Leave room for 1 line below us
+		{
+			//Display and edit all objects in scene
+			if (ImGui::CollapsingHeader("Objects in scene")) {
+				for (auto &object : render->getScene()->getObjectList()) {
+					char *char_name = string2char(object->getName());
+					if (ImGui::TreeNode(char_name)) {
+						ImGui::Text("Name:(Cannot Change Right Now)");
+						ImGui::SameLine();
+						ImGui::InputText(" ", char_name, IM_ARRAYSIZE(char_name));
+						object->setName(char_name);
+						ImGui::TreePop();
+
+						ImGui::Indent();
+						ImGui::Text("Translate:");
+						ImGui::SameLine();
+						ImGui::InputFloat3("", addPosition, 3);
+						ImGui::SameLine();
+						//Create object and add it to scene
+						if (ImGui::Button("Add")) {
+
+							object->Translate(glm::vec3(addPosition[0], addPosition[1], addPosition[2]));
+						}
+
+						if (ImGui::TreeNode("Material")) {
+							glm::vec3 temp = object->getMaterial()->getColor();
+							my_color[0] = temp.x;
+							my_color[1] = temp.y;
+							my_color[2] = temp.z;
+							ImGui::Text("Color");
+							ImGui::SameLine();
+							ImGui::ColorEdit3("Color", my_color);
+							object->getMaterial()->setColor(my_color);
+							ImGui::TreePop();
+						}
+						ImGui::Unindent();
 					}
-					
-					if (ImGui::TreeNode("Material")){			
-						glm::vec3 temp = object->getMaterial()->getColor();
+				}
+			}
+			if (ImGui::CollapsingHeader("Lights")){
+				if (ImGui::TreeNode("Directional Light")) {
+					ImGui::Text("Name:(Cannot Change Right Now)");
+					ImGui::TreePop();
+				}
+
+				for (PointLight *light : render->getScene()->getPointLights()) {
+					char *char_name = string2char(light->getName());
+					if (ImGui::TreeNode(char_name)) {
+						ImGui::Text("Name:(Cannot Change Right Now)");
+						ImGui::SameLine();
+						ImGui::InputText(" ", char_name, IM_ARRAYSIZE(char_name));
+						light->setName(char_name);
+
+						//Constant
+						ImGui::Text("Constant Factor:");
+						ImGui::SameLine();
+						float c = light->getConstant();
+						ImGui::InputFloat("Constant", &c, 0.01f, 1.0f, "%.3f");
+						light->setConstant(c);
+
+						//Linear
+						ImGui::Text("Linear Factor:");
+						ImGui::SameLine();
+						float l = light->getLinear();
+						ImGui::InputFloat("Linear", &l, 0.01f, 1.0f, "%.3f");
+						light->setLinear(l);
+
+						//Quadratic
+						ImGui::Text("Quadratic Factor:");
+						ImGui::SameLine();
+						float q = light->getQuadratic();
+						ImGui::InputFloat("Quadratic", &q, 0.01f, 1.0f, "%.3f");
+						light->setQuadratic(q);
+
+						//Ambient light
+						glm::vec3 temp = light->getAmbient();
 						my_color[0] = temp.x;
 						my_color[1] = temp.y;
 						my_color[2] = temp.z;
-						ImGui::Text("Color");
+						ImGui::Text("Ambient");
 						ImGui::SameLine();
-						ImGui::ColorEdit3("Color", my_color);
-						object->getMaterial()->setColor(my_color);
-						ImGui::TreePop();		
+						ImGui::ColorEdit3("Ambient", my_color);
+						temp.x = my_color[0];
+						temp.y = my_color[1];
+						temp.z = my_color[2];
+						light->SetAmbient(temp);
+
+						//Ambient light
+						temp = light->getDiffuse();
+						my_color[0] = temp.x;
+						my_color[1] = temp.y;
+						my_color[2] = temp.z;
+						ImGui::Text("Diffuse");
+						ImGui::SameLine();
+						ImGui::ColorEdit3("Diffuse", my_color);
+						temp.x = my_color[0];
+						temp.y = my_color[1];
+						temp.z = my_color[2];
+						light->SetDiffuse(temp);
+
+						//Ambient light
+						temp = light->getSpecular();
+						my_color[0] = temp.x;
+						my_color[1] = temp.y;
+						my_color[2] = temp.z;
+						ImGui::Text("Specular");
+						ImGui::SameLine();
+						ImGui::ColorEdit3("Specular", my_color);
+						temp.x = my_color[0];
+						temp.y = my_color[1];
+						temp.z = my_color[2];
+						light->SetSpecular(temp);
+
+						ImGui::TreePop();
 					}
-					ImGui::Unindent();
 				}
-			}	
-		}
-		if (ImGui::CollapsingHeader("Lights"))
-		{
-			if (ImGui::TreeNode("Directional Light")) {
-				ImGui::Text("Name:(Cannot Change Right Now)");
-				ImGui::TreePop();
 			}
-			
-			
-			for (PointLight *light : render->getScene()->getPointLights()) {
-				char *char_name = string2char(light->getName());
-				if (ImGui::TreeNode(char_name)) {
-					ImGui::Text("Name:(Cannot Change Right Now)");
-					ImGui::SameLine();
-					ImGui::InputText(" ", char_name, IM_ARRAYSIZE(char_name));
-					light->setName(char_name);
-					
-					//Constant
-					ImGui::Text("Constant Factor:");
-					ImGui::SameLine();
-					float c =light->getConstant();
-					ImGui::InputFloat("Constant", &c, 0.01f, 1.0f, "%.3f");
-					light->setConstant(c);
-					
-					//Linear
-					ImGui::Text("Linear Factor:");
-					ImGui::SameLine();
-					float l = light->getLinear();
-					ImGui::InputFloat("Linear", &l, 0.01f, 1.0f, "%.3f");
-					light->setLinear(l);
-					
-					//Quadratic
-					ImGui::Text("Quadratic Factor:");
-					ImGui::SameLine();
-					float q = light->getQuadratic();
-					ImGui::InputFloat("Quadratic", &q, 0.01f, 1.0f, "%.3f");
-					light->setQuadratic(q);
-
-					//Ambient light
-					glm::vec3 temp = light->getAmbient();
-					my_color[0] = temp.x;
-					my_color[1] = temp.y;
-					my_color[2] = temp.z;
-					ImGui::Text("Ambient");
-					ImGui::SameLine();
-					ImGui::ColorEdit3("Ambient", my_color);
-					temp.x = my_color[0];
-					temp.y = my_color[1];
-					temp.z = my_color[2];
-					light->SetAmbient(temp);
-
-					//Ambient light
-					temp = light->getDiffuse();
-					my_color[0] = temp.x;
-					my_color[1] = temp.y;
-					my_color[2] = temp.z;
-					ImGui::Text("Diffuse");
-					ImGui::SameLine();
-					ImGui::ColorEdit3("Diffuse", my_color);
-					temp.x = my_color[0];
-					temp.y = my_color[1];
-					temp.z = my_color[2];
-					light->SetDiffuse(temp);
-
-
-					//Ambient light
-					temp = light->getSpecular();
-					my_color[0] = temp.x;
-					my_color[1] = temp.y;
-					my_color[2] = temp.z;
-					ImGui::Text("Specular");
-					ImGui::SameLine();
-					ImGui::ColorEdit3("Specular", my_color);
-					temp.x = my_color[0];
-					temp.y = my_color[1];
-					temp.z = my_color[2];
-					light->SetSpecular(temp);
-
-					ImGui::TreePop();
-				}	
-
-			}	
 		}
+		ImGui::EndChild();
 		ImGui::End();
 	}
+	ImGui::ShowDemoWindow();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-
 }
-
-

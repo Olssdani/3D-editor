@@ -166,6 +166,7 @@
     <ClInclude Include="Source\Object\Box.h" />
     <ClInclude Include="Source\Object\Object.h" />
     <ClInclude Include="Source\Object\Plane.h" />
+    <ClInclude Include="Source\Render\FBO.h" />
     <ClInclude Include="Source\Render\Render.h" />
     <ClInclude Include="Source\Scene\Scene.h" />
     <ClInclude Include="Source\shader.h" />
