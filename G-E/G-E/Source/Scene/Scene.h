@@ -34,15 +34,18 @@ public:
 	}
 
 	void renderScene(glm::mat4 projection, glm::mat4 view, glm::vec3 cameraPosition) {
+		
+		for each (PointLight* p in PL)
+		{
+			p->getBox()->RenderNoLight(projection, view, cameraPosition);
+		}
+
 		for each (Object* o in objects)
 		{
 			o->Render(projection, view, cameraPosition, DL, PL);
 		}
 
-		for each (PointLight* p in PL)
-		{
-			p->getBox()->RenderNoLight(projection, view, cameraPosition);
-		}
+
 	}
 
 	void updateShaders() {
@@ -60,7 +63,7 @@ public:
 		return PL;
 	}
 
-	DirectionalLight getDirectionalLight() {
-		return DL;
+	DirectionalLight* getDirectionalLight() {
+		return &DL;
 	}
 };

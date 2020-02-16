@@ -87,7 +87,7 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 				if (ImGui::TreeNode("Cube")) {
 					static char object_name[128] = "Box";
 					const char default[5] = "Box";
-					ImGui::Text("Name of Object");
+					ImGui::Text("Name:");
 					ImGui::SameLine();
 					ImGui::InputText(" ", object_name, IM_ARRAYSIZE(object_name));
 					//Position of object
@@ -115,7 +115,7 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 				if (ImGui::TreeNode("Point Light")) {
 					static char object_name[128] = "Light";
 					const char default[11] = "Light";
-					ImGui::Text("Name of light");
+					ImGui::Text("Name");
 					ImGui::SameLine();
 					ImGui::InputText(" ", object_name, IM_ARRAYSIZE(object_name));
 
@@ -200,16 +200,16 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 				}
 			}
 
-			DirectionalLight dl = render->getScene()->getDirectionalLight();
-			char *char_name = string2char(dl.getName());
+			DirectionalLight *dl = render->getScene()->getDirectionalLight();
+			char *char_name = string2char(dl->getName());
 			if (ImGui::TreeNode("Directional Light")) {
 				ImGui::Text("Name:(Cannot Change Right Now)");
 				ImGui::SameLine();
 				ImGui::InputText(" ", char_name, IM_ARRAYSIZE(char_name));
-				dl.setName(char_name);
+				dl->setName(char_name);
 
 				//Ambient light
-				glm::vec3 temp = dl.getAmbient();
+				glm::vec3 temp = dl->getAmbient();
 				my_color[0] = temp.x;
 				my_color[1] = temp.y;
 				my_color[2] = temp.z;
@@ -219,10 +219,10 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 				temp.x = my_color[0];
 				temp.y = my_color[1];
 				temp.z = my_color[2];
-				dl.SetAmbient(temp);
+				dl->SetAmbient(temp);
 
 				//Ambient light
-				temp = dl.getDiffuse();
+				temp = dl->getDiffuse();
 				my_color[0] = temp.x;
 				my_color[1] = temp.y;
 				my_color[2] = temp.z;
@@ -232,10 +232,10 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 				temp.x = my_color[0];
 				temp.y = my_color[1];
 				temp.z = my_color[2];
-				dl.SetDiffuse(temp);
+				dl->SetDiffuse(temp);
 
 				//Ambient light
-				temp = dl.getSpecular();
+				temp = dl->getSpecular();
 				my_color[0] = temp.x;
 				my_color[1] = temp.y;
 				my_color[2] = temp.z;
@@ -245,7 +245,7 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 				temp.x = my_color[0];
 				temp.y = my_color[1];
 				temp.z = my_color[2];
-				dl.SetSpecular(temp);
+				dl->SetSpecular(temp);
 				ImGui::TreePop();
 			}
 

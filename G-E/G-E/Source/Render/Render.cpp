@@ -71,6 +71,7 @@ bool Render::Init() {
 
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+	glEnable(GL_DEPTH_TEST);
 
 	//Initialize Camera
 	editorCamera = new Editor_Camera(glm::vec3(0.0f, 0.0f, 10.0f));
@@ -94,7 +95,7 @@ void Render::InitCallbackFunctions() {
 
 void Render::Rendering() {
 	//Bakground color
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	ImVec4 clear_color = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
 	Time time;
 
 	glfwGetWindowSize(window, &width, &height);
@@ -122,11 +123,10 @@ void Render::Rendering() {
 		*/
 		//Bind FBO
 		frameBuffer.bind();
-		
+		glEnable(GL_DEPTH_TEST);
 		//Clear screen
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_DEPTH_TEST);
 
 		//Get the current projection matrix
 		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)editorWidth / (float)editorHeight, 0.1f, 1000.0f);
@@ -140,7 +140,7 @@ void Render::Rendering() {
 
 
 		//Render GUI
-		gui->guiRender(frameBuffer.getTexture(), frameBuffer.getTexture(), width, height, editorWidth, editorHeight);
+		//gui->guiRender(frameBuffer.getTexture(), frameBuffer.getTexture(), width, height, editorWidth, editorHeight);
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
