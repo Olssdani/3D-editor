@@ -127,6 +127,9 @@
     <ClInclude Include="Source\Transformations\transformationObject.h">
       <Filter>Scene\Transformations</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Misc\WindowsUtil.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External Libs">

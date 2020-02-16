@@ -5,6 +5,7 @@
 #include "Light/DirectionalLight.h"
 #include "Light/PointLight.h"
 #include "Scene/Scene.h"
+#include "Misc/WindowsUtil.h"
 
 
 
@@ -94,6 +95,13 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 					ImGui::Text("Position");
 					ImGui::SameLine();
 					ImGui::InputFloat3("", addPosition, 3);
+
+					if (ImGui::Button("Add texture"))
+					{
+						fileName = wUtil::openFileExplorer();
+					}
+	
+
 					//Create object and add it to scene
 					if (ImGui::Button("Add")) {
 						Box *b = new Box();
@@ -104,6 +112,11 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 						else {
 							b->setName(object_name);
 						}
+						if (fileName.size() >0) {
+							b->setTexture(fileName.c_str());
+							fileName.clear();
+						}				
+						
 						render->getScene()->addObject(b);
 					}
 					ImGui::TreePop();

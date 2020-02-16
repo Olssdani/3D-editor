@@ -163,6 +163,7 @@
     <ClInclude Include="Source\Light\PointLight.h" />
     <ClInclude Include="Source\Material\Material.h" />
     <ClInclude Include="Source\Misc\Time.h" />
+    <ClInclude Include="Source\Misc\WindowsUtil.h" />
     <ClInclude Include="Source\Object\Box.h" />
     <ClInclude Include="Source\Object\Object.h" />
     <ClInclude Include="Source\Object\Plane.h" />
