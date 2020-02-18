@@ -3,7 +3,7 @@
 class Box :	public Object
 {
 public:
-	Box(float _xSize=1.0f, float _ySize=1.0f, float _zSize=1.0f);
+	Box(float _xSize = 1.0f, float _ySize = 1.0f, float _zSize = 1.0f);
 	~Box();
 
 private:

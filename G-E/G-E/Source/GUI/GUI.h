@@ -33,7 +33,7 @@ private:
 	float addPosition[3];
 	float my_color[4];
 	std::string fileName;
-
+	int selectedItem;
 
 	char* string2char(std::string name) {
 		char *char_name = new char(name.size() + 1);

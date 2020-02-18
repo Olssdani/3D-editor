@@ -9,6 +9,7 @@
 #include "Light/PointLight.h"
 #include "Texture/Texture.h"
 #include "Material/Material.h"
+#include "imgui.h"
 
 /*
 	Base class for all different objects in the scene
@@ -39,7 +40,7 @@ protected:
 	unsigned int DrawSize;
 	glm::mat4 model = glm::mat4(1.0f);
 	//texture
-	bool texture_enable =false;
+	bool texture_enable = false;
 	Texture texture;
 	std::string name;
 	int ID;
@@ -215,5 +216,26 @@ public:
 
 	Material* getMaterial() {
 		return material;
+	}
+
+	bool isTextureSet() {
+		return texture_enable;
+	}
+
+	void renderGui() {
+		ImGui::Text("Entity name: ");
+		ImGui::SameLine();
+		ImGui::Text(name.c_str());
+		ImGui::Separator();
+		
+		{
+			float translate[3] = { model[3][0], model[3][1], model[3][2]};
+			ImGui::Text("Position: ");
+			ImGui::SameLine();
+			ImGui::DragFloat3("", translate, 0.01f, 0.01f, 0.01f);
+			model[3][0] = translate[0];
+			model[3][1] = translate[1];
+			model[3][2] = translate[2];
+		}
 	}
 };

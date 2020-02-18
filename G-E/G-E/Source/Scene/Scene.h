@@ -60,8 +60,12 @@ public:
 		}
 	}
 
-	std::vector<Object*> getObjectList() {
+	std::vector<Object*>& getObjectList() {
 		return objects;
+	}
+
+	void removeObject(const unsigned int index) {
+		objects.erase(objects.begin() + index);
 	}
 
 	std::vector<PointLight*> getPointLights() {
