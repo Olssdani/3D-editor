@@ -107,5 +107,6 @@ void PointLight::renderGui() {
 
 void PointLight::renderVisualization(const glm::mat4 &projection, const glm::mat4 &view, const glm::vec3 &cameraPosition) {
 	box->setTranslation(position);
+	box->getMaterial()->setColor(lightColor);
 	box->RenderNoLight(projection, view, cameraPosition);
 }

@@ -35,6 +35,9 @@ void Material::setColor(glm::vec3 _color) {
 	this->ambient = _color;
 	this->diffuse = _color;
 	this->specular = _color;
+	this->color[0] = _color.x;
+	this->color[1] = _color.y;
+	this->color[2] = _color.z;
 }
 
 void Material::setColor(float _color[]) {
@@ -42,6 +45,9 @@ void Material::setColor(float _color[]) {
 	this->ambient = temp;
 	this->diffuse = temp;
 	this->specular = temp;
+	this->color[0] = _color[0];
+	this->color[1] = _color[1];
+	this->color[2] = _color[2];
 }
 
 void Material::setAmbient(glm::vec3 _ambient) {

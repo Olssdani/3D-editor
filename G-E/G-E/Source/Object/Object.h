@@ -133,7 +133,7 @@ public:
 		shader->setMat4("view", view);
 		shader->setMat4("model", model);
 		shader->setVec3("CameraPos", CameraPos);
-	
+		material->send2GPU(shader);
 		//Bind the VAO and draw the vertex
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
