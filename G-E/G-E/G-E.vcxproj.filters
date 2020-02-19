@@ -41,6 +41,9 @@
     <ClCompile Include="Source\Light\PointLight.cpp">
       <Filter>Scene\Lighting</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Material\Material.cpp">
+      <Filter>Scene\Material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\imgui-master\examples\imgui_impl_glfw.h">
@@ -107,7 +110,7 @@
       <Filter>Scene\Lighting</Filter>
     </ClInclude>
     <ClInclude Include="Source\Texture\Texture.h">
-      <Filter>Scene\Texture</Filter>
+      <Filter>Scene\Material\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Source\Render\FBO.h">
       <Filter>Engine</Filter>
@@ -144,9 +147,6 @@
     <Filter Include="Scene\Lighting">
       <UniqueIdentifier>{49866c54-c933-47bf-8149-b8c050f59a13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Texture">
-      <UniqueIdentifier>{105daa06-71cc-4bdb-ac7d-2b5d64915f28}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\Camera">
       <UniqueIdentifier>{08d45d11-83f0-45a5-85df-d90f654da2e3}</UniqueIdentifier>
     </Filter>
@@ -164,6 +164,9 @@
     </Filter>
     <Filter Include="Scene\Transformations">
       <UniqueIdentifier>{c5a51e82-64c0-462c-ad6e-d936b07324ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Material\Texture">
+      <UniqueIdentifier>{105daa06-71cc-4bdb-ac7d-2b5d64915f28}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

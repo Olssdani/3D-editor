@@ -140,6 +140,7 @@
     <ClCompile Include="Source\GUI\GUI.cpp" />
     <ClCompile Include="Source\Light\PointLight.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Material\Material.cpp" />
     <ClCompile Include="Source\Object\Box.cpp" />
     <ClCompile Include="Source\Object\Plane.cpp" />
     <ClCompile Include="Source\Render\Render.cpp" />
