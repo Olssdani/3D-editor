@@ -1,30 +1,27 @@
 #pragma once
-#ifndef Utilities_H
-#define Utilities_H
-#include "Utilities.h"
-#endif
 #include "Shader.h"
 
-class Light
-{
+class Light {
 public:
 	static int counter;
+	virtual void send2Gpu(const Shader *shader, const unsigned int nr = 0) = 0;
+	virtual void renderGui() = 0;
+
 	Light(){
 		ID = ++counter;
 	}
-	virtual void Send2GPU(Shader *shader, unsigned int nr =0) =0;
+	
 
-	void SetAmbient(glm::vec3 A)
-	{
-		Ambient = A;
+	void setAmbient(glm::vec3 a) {
+		ambient = a;
 	}
-	void SetDiffuse(glm::vec3 D)
-	{
-		Diffuse = D;
+
+	void setDiffuse(glm::vec3 d) {
+		diffuse = d;
 	}
-	void SetSpecular(glm::vec3 S)
-	{
-		Specular = S;
+
+	void setSpecular(glm::vec3 s) {
+		specular = s;
 	}
 
 	void setName(std::string _name) {
@@ -39,21 +36,23 @@ public:
 	}
 
 	glm::vec3 getDiffuse() {
-		return Diffuse;
-	}
-	glm::vec3 getAmbient() {
-		return Ambient;
-	}
-	glm::vec3 getSpecular() {
-		return Specular;
+		return diffuse;
 	}
 
-	virtual void renderGui() = 0;
+	glm::vec3 getAmbient() {
+		return ambient;
+	}
+
+	glm::vec3 getSpecular() {
+		return specular;
+	}
+
+
 
 protected:
-	glm::vec3 Ambient;
-	glm::vec3 Diffuse;
-	glm::vec3 Specular;
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
 	std::string name;
 	int ID;
 };

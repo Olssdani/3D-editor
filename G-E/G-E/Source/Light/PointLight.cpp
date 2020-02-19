@@ -1,55 +1,55 @@
 #include "PointLight.h"
 #include "Object/Box.h"
-PointLight::PointLight(glm::vec3 _Position, float _Constant, float _Linear , float _Quadratic){
-	Position = _Position;
-	Constant = _Constant;
-	Linear = _Linear;
-	Quadratic = _Quadratic;
-	Light::Ambient = glm::vec3(0.01f, 0.01f, 0.01f);
-	Light::Diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
-	Light::Specular = glm::vec3(1.0f, 1.0f, 1.0f);
+PointLight::PointLight(glm::vec3 _position, float _constant, float _linear , float _quadratic){
+	position = _position;
+	constant = _constant;
+	linear = _linear;
+	quadratic = _quadratic;
+	Light::ambient = glm::vec3(0.01f, 0.01f, 0.01f);
+	Light::diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
+	Light::specular = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	box = new Box(1.0f, 1.0f, 1.0f);
 	box->Scale(glm::vec3(0.2, 0.2, 0.2));
-	box->Translate(Position);
+	box->Translate(position);
 	box->ChangeShader("Shaders/Light_Vert.glsl", "Shaders/Light_Frag.glsl");
 }
 
-Box* PointLight::getBox(){
+Box* PointLight::getBox() {
 	return box;
 }
 
-void PointLight::Send2GPU(Shader *shader, unsigned int nr){
-	shader->setVec3("pointLights[" + std::to_string(nr) + "].position", Position);
-	shader->setFloat("pointLights[" + std::to_string(nr) + "].constant", Constant);
-	shader->setFloat("pointLights[" + std::to_string(nr) + "].linear", Linear);
-	shader->setFloat("pointLights[" + std::to_string(nr) + "].quadratic", Quadratic);
-	shader->setVec3("pointLights[" + std::to_string(nr) + "].ambient", Ambient);
-	shader->setVec3("pointLights[" + std::to_string(nr) + "].diffuse", Diffuse);
-	shader->setVec3("pointLights[" + std::to_string(nr) + "].specular", Specular);
+void PointLight::send2Gpu(const Shader *shader, const unsigned int nr) {
+	shader->setVec3("pointLights[" + std::to_string(nr) + "].position", position);
+	shader->setFloat("pointLights[" + std::to_string(nr) + "].constant", constant);
+	shader->setFloat("pointLights[" + std::to_string(nr) + "].linear", linear);
+	shader->setFloat("pointLights[" + std::to_string(nr) + "].quadratic", quadratic);
+	shader->setVec3("pointLights[" + std::to_string(nr) + "].ambient", ambient);
+	shader->setVec3("pointLights[" + std::to_string(nr) + "].diffuse", diffuse);
+	shader->setVec3("pointLights[" + std::to_string(nr) + "].specular", specular);
 	shader->setBool("pointLights[" + std::to_string(nr) + "].init", true);
 }
 
-
-
 void PointLight::setConstant(float _constant) {
-	Constant = _constant;
+	constant = _constant;
 }
 void PointLight::setLinear(float _linear) {
-	Linear = _linear;
+	linear = _linear;
 }
 void PointLight::setQuadratic(float _quadratic) {
-	Quadratic = _quadratic;
+	quadratic = _quadratic;
 }
 
 float PointLight::getConstant() {
-	return Constant;
+	return constant;
 }
+
 float PointLight::getLinear() {
-	return Linear;
+	return linear;
 }
+
 float PointLight::getQuadratic() {
-	return Quadratic;
+	return quadratic;
 }
 
 void PointLight::renderGui() {
@@ -59,17 +59,17 @@ void PointLight::renderGui() {
 	ImGui::Separator();
 
 	{
-		float translate[3] = { Position[0], Position[1], Position[2] };
+		float translate[3] = { position[0], position[1], position[2] };
 		ImGui::Text("Position: ");
 		ImGui::SameLine();
 		ImGui::DragFloat3("", translate, 0.01f, 0.01f, 0.01f);
-		Position[0] = translate[0];
-		Position[1] = translate[1];
-		Position[2] = translate[2];
+		position[0] = translate[0];
+		position[1] = translate[1];
+		position[2] = translate[2];
 	}
 }
 
-void PointLight::renderVisualization(glm::mat4 projection, glm::mat4 view, glm::vec3 cameraPosition) {
-	box->setTranslation(Position);
+void PointLight::renderVisualization(const glm::mat4 &projection, const glm::mat4 &view, const glm::vec3 &cameraPosition) {
+	box->setTranslation(position);
 	box->RenderNoLight(projection, view, cameraPosition);
 }

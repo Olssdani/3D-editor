@@ -101,11 +101,11 @@ public:
 		shader->use();
 
 		//Send Lights to shader
-		Dirligth.Send2GPU(shader,0);
+		Dirligth.send2Gpu(shader,0);
 		int counter = 0;
 
 		for each (PointLight *p in PointLights){
-			p->Send2GPU(shader, counter);
+			p->send2Gpu(shader, counter);
 			counter++;
 		}
 
@@ -123,7 +123,7 @@ public:
 		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
-	void RenderNoLight(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos )
+	void RenderNoLight(const glm::mat4 &projection, const glm::mat4 &view, const glm::vec3 CameraPos )
 	{
 		//Start shader
 		shader->use();

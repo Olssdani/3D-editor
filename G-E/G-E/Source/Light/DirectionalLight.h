@@ -4,38 +4,22 @@
 class DirectionalLight: public Light
 {
 private:
-	/*
-		Variable  definition
-	*/
-	glm::vec3 Direction;
+	glm::vec3 direction;
 
 public:
-	/*
-		Constructor
-	*/
-	/*DirectionalLight()
-		:Direction(glm::vec3(0.0, -1.0, 0.0)) {
-
-	}*/
-
-	DirectionalLight(glm::vec3 _Direction = glm::vec3(0.0, -1.0, 0.0), glm::vec3 _Ambient = glm::vec3(1.0), glm::vec3 _Diffuse = glm::vec3(1.0), glm::vec3 _Specular = glm::vec3(1.0))
-		:Direction(_Direction)
-	{
-		Ambient = _Ambient;
-		Diffuse = _Diffuse;
-		Specular = _Specular;
+	DirectionalLight(glm::vec3 _direction = glm::vec3(0.0, -1.0, 0.0), glm::vec3 _ambient = glm::vec3(1.0), glm::vec3 _diffuse = glm::vec3(1.0), glm::vec3 _specular = glm::vec3(1.0))
+		:direction(_direction) {
+		ambient = _ambient;
+		diffuse = _diffuse;
+		specular = _specular;
 		name = "Directional Light";
-	
 	}
-	/*
-	Functions
-	*/
-	void Send2GPU(Shader *shader, unsigned int nr ) override
-	{	
-		shader->setVec3("dirLight[" + std::to_string(nr) + "].direction", Direction);
-		shader->setVec3("dirLight[" + std::to_string(nr) + "].ambient", Ambient);
-		shader->setVec3("dirLight[" + std::to_string(nr) + "].diffuse", Diffuse);
-		shader->setVec3("dirLight[" + std::to_string(nr) + "].specular", Specular);
+
+	void send2Gpu(const Shader *shader, const unsigned int nr ) override {	
+		shader->setVec3("dirLight[" + std::to_string(nr) + "].direction", direction);
+		shader->setVec3("dirLight[" + std::to_string(nr) + "].ambient", ambient);
+		shader->setVec3("dirLight[" + std::to_string(nr) + "].diffuse", diffuse);
+		shader->setVec3("dirLight[" + std::to_string(nr) + "].specular", specular);
 	}
 
 	void renderGui() {
@@ -44,7 +28,6 @@ public:
 		ImGui::Text(name.c_str());
 		ImGui::Separator();
 	}
-
 };
 
 

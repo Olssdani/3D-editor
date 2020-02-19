@@ -1,25 +1,20 @@
 #pragma once
 #include "Light.h"
-
-
 class Box;
 
-class PointLight: public Light
-{
+class PointLight: public Light {
 private:
-	float Constant;
-	float Linear;
-	float Quadratic;
-	glm::vec3 Position;
+	float constant;
+	float linear;
+	float quadratic;
+	glm::vec3 position;
 	Box *box;
 
 public:
-	PointLight(glm::vec3 _Position, float _Constant = 1.0f, float _Linear = 0.09f, float _Quadratic = 0.032f);
+	PointLight(glm::vec3 _position = glm::vec3(0, 0, 0), float _constant = 1.0f, float _linear = 0.09f, float _quadratic = 0.032f);
 
 	Box* getBox();
-
-	void Send2GPU(Shader *shader, unsigned int nr) override;
-
+	void send2Gpu(const Shader *shader, const unsigned int nr) override;
 	void setConstant(float _constant);
 	void setLinear(float _linear);
 	void setQuadratic(float _quadratic);
@@ -27,5 +22,5 @@ public:
 	float getLinear();
 	float getQuadratic();
 	void renderGui();
-	void renderVisualization(glm::mat4 projection, glm::mat4 view, glm::vec3 cameraPosition);
+	void renderVisualization(const glm::mat4 &projection, const glm::mat4 &view, const glm::vec3 &cameraPosition);
 };
