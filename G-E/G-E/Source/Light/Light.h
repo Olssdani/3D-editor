@@ -10,7 +10,6 @@ public:
 	Light(){
 		ID = ++counter;
 	}
-	
 
 	void setAmbient(glm::vec3 a) {
 		ambient = a;
@@ -47,12 +46,13 @@ public:
 		return specular;
 	}
 
-
-
 protected:
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
 	glm::vec3 specular;
+	float ambientIntensity;
+	float diffuseIntensity;
+	float specularIntensity;
 	std::string name;
 	int ID;
 };

@@ -24,7 +24,6 @@ public:
 		//plane->getMaterial()->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		plane->getMaterial()->setShininess(32);
 		objects.push_back(plane);
-		DL = DirectionalLight(glm::vec3(0, -1.0, 0), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.1f, 0.1f, 0.1f));
 	}
 	void addObject(Object *o) {
 		objects.push_back(o);
