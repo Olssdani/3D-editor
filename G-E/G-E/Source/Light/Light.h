@@ -6,9 +6,9 @@ public:
 	static int counter;
 	virtual void send2Gpu(const Shader *shader, const unsigned int nr = 0) = 0;
 	virtual void renderGui() = 0;
-
 	Light(){
 		ID = ++counter;
+		lightColor = glm::vec3(1.0f);
 	}
 
 	void setAmbient(glm::vec3 a) {

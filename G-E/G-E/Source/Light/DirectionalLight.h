@@ -10,7 +10,7 @@ private:
 public:
 	DirectionalLight(){
 		direction = glm::vec3(0.0, -1.0, 0.0);
-		ambient = diffuse = specular = lightColor = glm::vec3(1.0f);
+		ambient = diffuse = specular = glm::vec3(1.0f);
 		ambientIntensity = 0.1f;
 		diffuseIntensity = 0.3f;
 		specularIntensity = 0.1f;
@@ -57,10 +57,6 @@ public:
 		DragFloat("Specular", &specularIntensity, 0.01f, 0, 1.0f);
 
 		Text("Light Color: ");
-		static bool alpha_preview = true;
-		static bool alpha_half_preview = false;
-		static bool drag_and_drop = true;
-		static bool options_menu = true;
 		int misc_flags = ImGuiColorEditFlags_NoDragDrop | ImGuiColorEditFlags_AlphaPreview | ImGuiColorEditFlags_NoOptions | ImGuiColorEditFlags_NoLabel;
 		ImGui::ColorEdit3("MyColor##3", glm::value_ptr(lightColor), misc_flags);
 		ambient = diffuse = specular = lightColor;
