@@ -26,4 +26,5 @@ public:
 	float getConstant();
 	float getLinear();
 	float getQuadratic();
+	void renderGui();
 };

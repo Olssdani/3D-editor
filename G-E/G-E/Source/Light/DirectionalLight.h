@@ -1,5 +1,6 @@
 #pragma once
 #include "Light.h"
+#include "imgui.h"
 class DirectionalLight: public Light
 {
 private:
@@ -23,6 +24,7 @@ public:
 		Ambient = _Ambient;
 		Diffuse = _Diffuse;
 		Specular = _Specular;
+		name = "Directional Light";
 	
 	}
 	/*
@@ -35,6 +37,14 @@ public:
 		shader->setVec3("dirLight[" + std::to_string(nr) + "].diffuse", Diffuse);
 		shader->setVec3("dirLight[" + std::to_string(nr) + "].specular", Specular);
 	}
+
+	void renderGui() {
+		ImGui::Text("Entity name: ");
+		ImGui::SameLine();
+		ImGui::Text(name.c_str());
+		ImGui::Separator();
+	}
+
 };
 
 

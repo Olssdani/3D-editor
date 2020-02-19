@@ -1,10 +1,6 @@
 #pragma once
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
 #include <stdio.h>
 #include "Render/Render.h"
-
 #ifndef Utilities_H
 #define Utilities_H
 #include "Utilities.h"
@@ -33,7 +29,8 @@ private:
 	float addPosition[3];
 	float my_color[4];
 	std::string fileName;
-	int selectedItem;
+	int selectedClass = -1;
+	int selectedItem = -1;
 
 	char* string2char(std::string name) {
 		char *char_name = new char(name.size() + 1);

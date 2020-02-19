@@ -202,27 +202,33 @@ public:
 		shader->setInt("material.diffuse", 0);
 	}
 
-	void setName(const std::string _name) {
+	void setName(const std::string _name) 
+	{
 		name = _name;
 	}
 
-	std::string getName() {
+	std::string getName() 
+	{
 		return name;
 	}
 
-	int getID() {
+	int getID() 
+	{
 		return ID;
 	}
 
-	Material* getMaterial() {
+	Material* getMaterial() 
+	{
 		return material;
 	}
 
-	bool isTextureSet() {
+	bool isTextureSet() 
+	{
 		return texture_enable;
 	}
 
-	void renderGui() {
+	void renderGui() 
+	{
 		ImGui::Text("Entity name: ");
 		ImGui::SameLine();
 		ImGui::Text(name.c_str());
@@ -235,7 +241,7 @@ public:
 			ImGui::DragFloat3("", translate, 0.01f, 0.01f, 0.01f);
 			model[3][0] = translate[0];
 			model[3][1] = translate[1];
-			model[3][2] = translate[2];
+			model[3][2] = translate[2];	
 		}
 	}
 };

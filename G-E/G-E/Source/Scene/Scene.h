@@ -68,7 +68,7 @@ public:
 		objects.erase(objects.begin() + index);
 	}
 
-	std::vector<PointLight*> getPointLights() {
+	std::vector<PointLight*>& getPointLights() {
 		return PL;
 	}
 

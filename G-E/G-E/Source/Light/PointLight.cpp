@@ -51,3 +51,20 @@ float PointLight::getLinear() {
 float PointLight::getQuadratic() {
 	return Quadratic;
 }
+
+void PointLight::renderGui() {
+	ImGui::Text("Entity name: ");
+	ImGui::SameLine();
+	ImGui::Text(name.c_str());
+	ImGui::Separator();
+
+	{
+		float translate[3] = { Position[0], Position[1], Position[2] };
+		ImGui::Text("Position: ");
+		ImGui::SameLine();
+		ImGui::DragFloat3("", translate, 0.01f, 0.01f, 0.01f);
+		Position[0] = translate[0];
+		Position[1] = translate[1];
+		Position[2] = translate[2];
+	}
+}

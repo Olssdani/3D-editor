@@ -6,6 +6,9 @@
 #include "Light/PointLight.h"
 #include "Scene/Scene.h"
 #include "Misc/WindowsUtil.h"
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 
 
@@ -134,15 +137,24 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 			ImGui::Separator();		
 
 			DirectionalLight *dl = render->getScene()->getDirectionalLight();
-			if (ImGui::TreeNode("Directional Light")) {
-				ImGui::TreePop();
+			if (ImGui::Selectable(dl->getName().c_str(), selectedClass == 0)) {
+				selectedClass = 0;
 			}
+			std::vector<PointLight*> lights = render->getScene()->getPointLights();
+			for (int i = 0; i < lights.size(); ++i) {
+				if (ImGui::Selectable(lights[i]->getName().c_str(), selectedItem == i && selectedClass == 1))
+				{
+					selectedClass = 1;
+					selectedItem = i;
+				}
+			}
+
 			std::vector<Object*> objects = render->getScene()->getObjectList();
 			for (int i = 0; i < objects.size(); ++i) {
-
-				if(ImGui::TreeNode(objects[i]->getName().c_str())) {
+				if (ImGui::Selectable(objects[i]->getName().c_str(), selectedItem == i && selectedClass == 2))
+				{
+					selectedClass = 2;
 					selectedItem = i;
-					ImGui::TreePop();
 				}
 			}
 		}
@@ -151,7 +163,18 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 		ImGui::BeginChild("Details", ImVec2(0, 800), true);
 		{
 			ImGui::Text("Entity Properties");
-			render->getScene()->getObjectList()[selectedItem]->renderGui();
+			if (selectedClass == 0)
+			{
+				render->getScene()->getDirectionalLight()->renderGui();
+			}
+			else if (selectedClass == 1) 
+			{
+				render->getScene()->getPointLights()[selectedItem]->renderGui();
+			}
+			else if (selectedClass == 2) 
+			{
+				render->getScene()->getObjectList()[selectedItem]->renderGui();
+			}
 		}
 		ImGui::EndChild();
 		ImGui::End();

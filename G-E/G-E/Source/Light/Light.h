@@ -48,14 +48,13 @@ public:
 		return Specular;
 	}
 
+	virtual void renderGui() = 0;
+
 protected:
 	glm::vec3 Ambient;
 	glm::vec3 Diffuse;
 	glm::vec3 Specular;
 	std::string name;
 	int ID;
-	
-
-
 };
 
