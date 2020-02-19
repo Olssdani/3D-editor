@@ -30,6 +30,7 @@ protected:
 	Material *material;
 	//Buffer objects
 	unsigned int VBO, VAO, EBO;
+	
 	//Shaderpaths
 	const char* VertPath;
 	const char* FragPath;
@@ -166,6 +167,12 @@ public:
 	void Translate(glm::vec3 &T)
 	{
 		model = glm::translate(T)*model;
+	}
+
+	void setTranslation(glm::vec3 &T) {
+		model[3][0] = T.x;
+		model[3][1] = T.y;
+		model[3][2] = T.z;
 	}
 
 	void RotateX(float angle)

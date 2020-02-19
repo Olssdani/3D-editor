@@ -37,7 +37,7 @@ public:
 		
 		for each (PointLight* p in PL)
 		{
-			p->getBox()->RenderNoLight(projection, view, cameraPosition);
+			p->renderVisualization(projection, view, cameraPosition);
 		}
 
 

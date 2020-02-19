@@ -68,3 +68,8 @@ void PointLight::renderGui() {
 		Position[2] = translate[2];
 	}
 }
+
+void PointLight::renderVisualization(glm::mat4 projection, glm::mat4 view, glm::vec3 cameraPosition) {
+	box->setTranslation(Position);
+	box->RenderNoLight(projection, view, cameraPosition);
+}

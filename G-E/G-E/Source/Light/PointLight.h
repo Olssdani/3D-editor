@@ -27,4 +27,5 @@ public:
 	float getLinear();
 	float getQuadratic();
 	void renderGui();
+	void renderVisualization(glm::mat4 projection, glm::mat4 view, glm::vec3 cameraPosition);
 };
