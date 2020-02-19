@@ -19,6 +19,7 @@ Box::Box(float _xSize, float _ySize, float _zSize)
 	indices.clear();
 	//Set standard shader
 	shader = new Shader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
+	Object::material = new Material(shader);
 
 }
 
@@ -122,6 +123,7 @@ void Box::CreateMesh()
 
 Box::~Box()
 {
+	delete material;
 	indices.clear();
 	vertices.clear();
 }

@@ -12,7 +12,7 @@ public:
 	Light(){
 		ID = ++counter;
 	}
-	virtual void Send2GPU(Shader *shader,unsigned int nr =0) =0;
+	virtual void Send2GPU(Shader *shader, unsigned int nr =0) =0;
 
 	void SetAmbient(glm::vec3 A)
 	{

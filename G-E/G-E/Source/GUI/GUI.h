@@ -5,7 +5,6 @@
 #define Utilities_H
 #include "Utilities.h"
 #endif
-
 #include <stdlib.h>
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)

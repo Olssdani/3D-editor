@@ -7,7 +7,7 @@
 #include <codecvt>
 
 namespace wUtil {
-	std::string openFileExplorer() {
+	inline std::string openFileExplorer() {
 		std::wstring file;
 		HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
 		if (SUCCEEDED(hr))
@@ -56,9 +56,6 @@ namespace wUtil {
 
 		return str.substr(8,str.back());
 	}
-
-
-
 }
 
 

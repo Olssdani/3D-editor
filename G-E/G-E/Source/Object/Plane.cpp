@@ -9,7 +9,6 @@ Plane::Plane(const glm::vec3 &_center, const float _sizeX, const float _sizeY, c
 	sizeY = _sizeY;
 	squares = _squares;
 	createMesh();
-	Object::material = new Material();
 	//Connect mesh to buffers
 	Object::CreateBuffers(vertices, indices);
 	DrawSize = indices.size();
@@ -19,6 +18,8 @@ Plane::Plane(const glm::vec3 &_center, const float _sizeX, const float _sizeY, c
 
 	//Set standard shader
 	shader = new Shader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
+	
+	Object::material = new Material(shader);
 }
 
 

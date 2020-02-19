@@ -1,5 +1,4 @@
 #pragma once
-#include "shader.h"
 #ifndef Utilities_H
 #define Utilities_H
 #include "Utilities.h"
@@ -7,7 +6,6 @@
 #include <vector>
 #include "Light/DirectionalLight.h"
 #include "Light/PointLight.h"
-#include "Texture/Texture.h"
 #include "Material/Material.h"
 #include "imgui.h"
 
@@ -39,9 +37,7 @@ protected:
 	//Number of triangels that is being draw;
 	unsigned int DrawSize;
 	glm::mat4 model = glm::mat4(1.0f);
-	//texture
-	bool texture_enable = false;
-	Texture texture;
+
 	std::string name;
 	int ID;
 
@@ -91,7 +87,7 @@ protected:
 public:
 
 	Object() {
-		material =new Material(glm::vec3(1.0f, 1.0f, 1.0f), 32);
+		material = new Material(shader);
 	}
 
 	/*
@@ -119,14 +115,9 @@ public:
 		shader->setMat4("model", model);
 		shader->setVec3("CameraPos", CameraPos);
 		
-		//Bind the VAO and draw the vertex
-		if (texture_enable){
-			texture.bindTexture();
-			shader->setFloat("material.shininess", material->getShininess());
-		}
-		else {
-			material->send2GPU(shader);
-		}
+
+		material->send2GPU(shader);
+
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
@@ -194,14 +185,6 @@ public:
 		model = glm::scale(S)*model;
 	}
 
-	void setTexture(const char* url)
-	{
-		texture = Texture(url);
-		texture_enable = true;
-		ChangeShader("Shaders/Vert.glsl", "Shaders/textureFrag.fs", "Shaders/Geo.glsl");
-		shader->setInt("material.diffuse", 0);
-	}
-
 	void setName(const std::string _name) 
 	{
 		name = _name;
@@ -222,18 +205,15 @@ public:
 		return material;
 	}
 
-	bool isTextureSet() 
-	{
-		return texture_enable;
-	}
-
 	void renderGui() 
 	{
 		ImGui::Text("Entity name: ");
 		ImGui::SameLine();
 		ImGui::Text(name.c_str());
 		ImGui::Separator();
-		
+
+
+		ImGui::Text("Transformation: ");
 		{
 			float translate[3] = { model[3][0], model[3][1], model[3][2]};
 			ImGui::Text("Position: ");
@@ -242,6 +222,12 @@ public:
 			model[3][0] = translate[0];
 			model[3][1] = translate[1];
 			model[3][2] = translate[2];	
+		}
+		ImGui::Separator();
+
+		ImGui::Text("Material: ");
+		{
+			material->renderGui();
 		}
 	}
 };
