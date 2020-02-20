@@ -101,7 +101,7 @@ void Material::setTexture(const char* url) {
 void Material::deleteTexture() {
 	textureEnable = false;
 	glDeleteProgram(shader->ID);
-	shader = new Shader("Shaders/Vert.glsl", "Shaders/Frag.fs", "Shaders/Geo.glsl");
+	shader = new Shader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
 }
 
 
