@@ -13,3 +13,6 @@ My project to make a 3D editor.
 - More primitives
 - Model loader
 - Lighting maps
+
+## Current design and look
+![Test](https://github.com/Olssdani/G-E/blob/master/G-E/G-E/Image/Engine.png "Title")
