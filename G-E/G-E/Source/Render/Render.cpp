@@ -144,7 +144,6 @@ void Render::Rendering() {
 		//Render GUI
 		glEnable(GL_DEPTH_TEST);
 		gui->guiRender(frameBuffer.getTexture(), frameBuffer.getTexture(), width, height, editorWidth, editorHeight);
-
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
@@ -164,6 +163,9 @@ void Render::processEditorInputs(GLFWwindow *window)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	if (input->getKeyStatus(KEY_2))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);	
+	if (input->getKeyStatus(KEY_SPACE)) {
+		scene->updateShaders();
+	}
 }
 
 /*

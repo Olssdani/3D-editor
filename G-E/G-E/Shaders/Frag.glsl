@@ -48,10 +48,10 @@ uniform Material material;
 //Functions
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
+vec3 gammaCorrection(vec3 color);
 
 uniform sampler2D ourTexture;
-void main()
-{
+void main(){
 	//Normalize and calulate viewdirection
 	vec3 Normal = normalize(NormalG);
 	vec3 viewDir =normalize(VG-posG);
@@ -76,8 +76,7 @@ void main()
 }
 
 // calculates the color when using a directional light.
-vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
-{
+vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir){
     vec3 lightDir = normalize(-light.direction);
     vec3 halfwayDir = normalize(lightDir + viewDir); 
     // diffuse shading
@@ -92,8 +91,7 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
 }
 
 // calculates the color when using a point light.
-vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
-{
+vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir){
     vec3 lightDir = normalize(light.position - fragPos);
     vec3 halfwayDir = normalize(lightDir + viewDir);  
     // diffuse shading
@@ -112,3 +110,4 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     specular *= attenuation;
     return (ambient + diffuse + specular);
 }
+
