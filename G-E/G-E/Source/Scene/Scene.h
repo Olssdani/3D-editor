@@ -1,8 +1,11 @@
 #pragma once
-#include <vector>
+#ifndef SCENE_H
+#define SCENE_H
+
 #include "Object/Box.h"
 #include "Object/Object.h"
 #include "Object/Plane.h"
+//#include "Object/Model.h"
 
 class Scene {
 private:
@@ -12,7 +15,7 @@ private:
 	DirectionalLight DL;
 	std::vector<PointLight*> PL;
 	Plane *plane;
-
+	//Model ourModel = Model("D:/Programmering/G-E/G-E/G-E/Models/NanoSuit/nanosuit.fbx");
 
 public:
 
@@ -24,6 +27,7 @@ public:
 		//plane->getMaterial()->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		plane->getMaterial()->setShininess(32);
 		objects.push_back(plane);
+
 	}
 	void addObject(Object *o) {
 		objects.push_back(o);
@@ -39,17 +43,10 @@ public:
 			p->renderVisualization(projection, view, cameraPosition);
 		}
 
-
-		for (int i = objects.size()-1; i>=0 ; i--)
-		{
-			objects[i]->Render(projection, view, cameraPosition, DL, PL);
-		}
-		/*for each (Object* o in objects)
+		for each (Object* o in objects)
 		{
 			o->Render(projection, view, cameraPosition, DL, PL);
-		}*/
-
-
+		}
 	}
 
 	void updateShaders() {
@@ -75,3 +72,5 @@ public:
 		return &DL;
 	}
 };
+
+#endif // !SCENE_H

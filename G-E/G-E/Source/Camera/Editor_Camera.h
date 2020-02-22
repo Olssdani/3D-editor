@@ -55,10 +55,10 @@ public:
 		float angleX = 0;
 		float angleY = 0;
 		if (abs(ypos) > abs(xpos)) {
-			angleX = ypos * 0.005;
+			angleX = ypos * 0.005f;
 		}
 		else {
-			angleY = xpos * 0.005;
+			angleY = xpos * 0.005f;
 		}
 
 		glm::vec3 angle = glm::vec3(angleX, 0, 0);

@@ -42,7 +42,13 @@
       <Filter>Scene\Lighting</Filter>
     </ClCompile>
     <ClCompile Include="Source\Material\Material.cpp">
-      <Filter>Scene\Material</Filter>
+      <Filter>Scene\Objects\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Object\Mesh.h">
+      <Filter>Scene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Object\model.cpp">
+      <Filter>Scene\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,9 +115,6 @@
     <ClInclude Include="Source\Light\Light.h">
       <Filter>Scene\Lighting</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Texture\Texture.h">
-      <Filter>Scene\Material\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Render\FBO.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -125,13 +128,25 @@
       <Filter>Misc</Filter>
     </ClInclude>
     <ClInclude Include="Source\Material\Material.h">
-      <Filter>Scene\Material</Filter>
+      <Filter>Scene\Objects\Material</Filter>
     </ClInclude>
     <ClInclude Include="Source\Transformations\transformationObject.h">
       <Filter>Scene\Transformations</Filter>
     </ClInclude>
     <ClInclude Include="Source\Misc\WindowsUtil.h">
       <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Material\texturesHolder.h">
+      <Filter>Scene\Objects\Material\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Material\texture.h">
+      <Filter>Scene\Objects\Material\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Texture\Texture.h">
+      <Filter>Scene\Objects\Material\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Object\model.h">
+      <Filter>Scene\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -159,13 +174,13 @@
     <Filter Include="Misc">
       <UniqueIdentifier>{32aa1f2e-5cb9-4f99-ae06-699638ac5294}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Material">
-      <UniqueIdentifier>{420375e1-2a22-4737-acac-edb3647ea79f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\Transformations">
       <UniqueIdentifier>{c5a51e82-64c0-462c-ad6e-d936b07324ba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Material\Texture">
+    <Filter Include="Scene\Objects\Material">
+      <UniqueIdentifier>{420375e1-2a22-4737-acac-edb3647ea79f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Objects\Material\Texture">
       <UniqueIdentifier>{105daa06-71cc-4bdb-ac7d-2b5d64915f28}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
