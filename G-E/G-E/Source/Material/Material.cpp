@@ -1,6 +1,7 @@
 #include "Material.h"
 #include "Misc/WindowsUtil.h"
 #include "imgui.h"
+#include "texture.h"
 
 Material::Material(Shader *_shader) {
 	shader = _shader;
@@ -91,7 +92,7 @@ bool Material::isTextureSet() {
 }
 
 void Material::setTexture(const char* url) {
-	texture = Texture(url);
+	textureObject = new texture(url, "texture_diffuse");
 	textureEnable = true;
 	glDeleteProgram(shader->ID);
 	shader = new Shader("Shaders/Vert.glsl", "Shaders/textureFrag.fs", "Shaders/Geo.glsl");
@@ -108,7 +109,7 @@ void Material::deleteTexture() {
 
 void Material::send2GPU(Shader *shader) {
 	if (textureEnable) {
-		texture.bindTexture();
+		glBindTexture(GL_TEXTURE_2D, textureObject->getId());
 		shader->setFloat("material.shininess", this->shininess);
 	}else {
 		shader->setVec3("material.ambient", this->ambient);

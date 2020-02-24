@@ -15,4 +15,4 @@ My project to make a 3D editor.
 - Lighting maps
 
 ## Current design and look
-![Test](https://github.com/Olssdani/G-E/blob/master/G-E/G-E/Image/Engine.png "Title")
+![Test](https://github.com/Olssdani/G-E/blob/master/Image/Engine.png "Title")

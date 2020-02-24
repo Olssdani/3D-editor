@@ -148,6 +148,7 @@
     <ClCompile Include="Source\Light\PointLight.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Material\Material.cpp" />
+    <ClCompile Include="Source\Material\texture.cpp" />
     <ClCompile Include="Source\Object\Box.cpp" />
     <ClCompile Include="Source\Object\Mesh.h" />
     <ClCompile Include="Source\Object\model.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Include\imgui-master\imstb_rectpack.h" />
     <ClInclude Include="Include\imgui-master\imstb_textedit.h" />
     <ClInclude Include="Include\imgui-master\imstb_truetype.h" />
+    <ClInclude Include="Include\stb_image.h" />
     <ClInclude Include="Source\Camera\Camera.h" />
     <ClInclude Include="Source\Camera\Editor_Camera.h" />
     <ClInclude Include="Source\Camera\FPS_Camera.h" />
@@ -184,7 +186,6 @@
     <ClInclude Include="Source\Render\Render.h" />
     <ClInclude Include="Source\Scene\Scene.h" />
     <ClInclude Include="Source\shader.h" />
-    <ClInclude Include="Source\Texture\Texture.h" />
     <ClInclude Include="Source\Transformations\transformationObject.h" />
     <ClInclude Include="Source\Utilities.h" />
   </ItemGroup>

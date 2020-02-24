@@ -6,8 +6,10 @@
 #include <assimp/postprocess.h>
 #include <string>
 #include <vector>
-#include <shader.h>
+
 #include <Object/Mesh.h>
+
+class shader;
 
 class model{
 public:
@@ -15,6 +17,7 @@ public:
     textureHolder* texturesLoaded;
     std::vector<Mesh> meshes;
     bool gammaCorrection;
+    std::string directory;
 
     model(std::string const& path, bool gamma = false);
     ~model();

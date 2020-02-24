@@ -1,5 +1,5 @@
 #include "model.h"
-
+#include <shader.h>
 #include <glad/glad.h> 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -35,7 +35,7 @@ void model::loadModel(std::string const& path) {
 		std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
 		return;
 	}
-
+	directory = path.substr(0, path.find_last_of('/'));
 	// process ASSIMP's root node recursively
 	this->processNode(scene->mRootNode, scene);
 }
@@ -96,13 +96,13 @@ Mesh model::processMesh(aiMesh* mesh, const aiScene* scene) {
 	// normal: texture_normalN
 
 	// 1. diffuse maps
-	textures.loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", texturesLoaded);
+	textures.loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", directory, texturesLoaded);
 	// 2. specular maps
-	textures.loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular", texturesLoaded);
+	textures.loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular", directory, texturesLoaded);
 	// 3. normal maps
-	textures.loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal", texturesLoaded);
+	textures.loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal", directory, texturesLoaded);
 	// 4. height maps
-	textures.loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height", texturesLoaded);
+	textures.loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height", directory, texturesLoaded);
 
 	// return a mesh object created from the extracted mesh data
 	return Mesh(vertices, indices, textures);

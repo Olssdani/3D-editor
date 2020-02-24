@@ -1,4 +1,3 @@
-#define STB_IMAGE_IMPLEMENTATION
 #include "Render/Render.h"
 #include "Object/Plane.h"
 #include "Scene/Scene.h"

@@ -5,7 +5,7 @@
 #include "Object/Box.h"
 #include "Object/Object.h"
 #include "Object/Plane.h"
-//#include "Object/Model.h"
+#include "Object/model.h"
 
 class Scene {
 private:
@@ -15,7 +15,7 @@ private:
 	DirectionalLight DL;
 	std::vector<PointLight*> PL;
 	Plane *plane;
-	//Model ourModel = Model("D:/Programmering/G-E/G-E/G-E/Models/NanoSuit/nanosuit.fbx");
+	model ourModel = model("D:/Programmering/G-E/G-E/G-E/Resources/Models/nanosuit/nanosuit.obj");
 
 public:
 
@@ -23,7 +23,7 @@ public:
 	{
 		plane =new Plane(glm::vec3(0, -5, 0), 50.0f, 50.0f, 10);
 		plane->setName("Plane");
-		plane->getMaterial()->setTexture("D:/Programmering/G-E/G-E/G-E/Textures/wall.jpg");
+		plane->getMaterial()->setTexture("D:/Programmering/G-E/G-E/G-E/Resources/Textures/wall.jpg");
 		//plane->getMaterial()->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		plane->getMaterial()->setShininess(32);
 		objects.push_back(plane);

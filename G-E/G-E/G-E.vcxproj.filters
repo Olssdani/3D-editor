@@ -50,6 +50,9 @@
     <ClCompile Include="Source\Object\model.cpp">
       <Filter>Scene\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Material\texture.cpp">
+      <Filter>Scene\Objects\Material\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\imgui-master\examples\imgui_impl_glfw.h">
@@ -142,11 +145,11 @@
     <ClInclude Include="Source\Material\texture.h">
       <Filter>Scene\Objects\Material\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Texture\Texture.h">
-      <Filter>Scene\Objects\Material\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Object\model.h">
       <Filter>Scene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\stb_image.h">
+      <Filter>External Libs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,7 @@ public:
         textures.push_back(tex);
     }
 
-    void loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName, textureHolder *loadedTextureHolder){
+    void loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName, std::string directory, textureHolder *loadedTextureHolder){
         
         std::vector<texture> loadedTextures = loadedTextureHolder->getTextures();
         
@@ -31,17 +31,20 @@ public:
            
             aiString str;
             mat->GetTexture(type, i, &str);
+            std::string filename(str.C_Str());
+            filename = directory + '/' + filename;
             // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
             bool skip = false;
             for (unsigned int j = 0; j < loadedTextures.size(); j++){
-                if (std::strcmp(loadedTextures[j].getPath().data(), str.C_Str()) == 0){
+                if (std::strcmp(loadedTextures[j].getPath().data(), filename.c_str()) == 0){
                     textures.push_back(loadedTextures[j]);
                     skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
                     break;
                 }
             }
-            if (!skip){   // if texture hasn't been loaded already, load it             
-                texture tex = texture(str.C_Str(), typeName);
+            if (!skip){   // if texture hasn't been loaded already, load it 
+                
+                texture tex = texture(filename, typeName);
                 textures.push_back(tex);
                 loadedTextures.push_back(tex);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
             }

@@ -1,7 +1,8 @@
 #pragma once
 #include "glm/glm.hpp"
 #include "shader.h"
-#include "Texture/Texture.h"
+
+class texture;
 
 class Material {
 
@@ -12,7 +13,7 @@ private:
 	float shininess;
 	float color[3];
 	bool textureEnable = false;
-	Texture texture;
+	texture * textureObject;
 	Shader *shader;
 
 public:
