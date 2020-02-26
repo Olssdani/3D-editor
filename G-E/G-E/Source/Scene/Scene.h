@@ -47,6 +47,8 @@ public:
 		{
 			o->Render(projection, view, cameraPosition, DL, PL);
 		}
+
+		ourModel.Draw(objects[0]->getShader());
 	}
 
 	void updateShaders() {

@@ -212,6 +212,10 @@ public:
 		return material;
 	}
 
+	Shader* getShader() {
+		return shader;
+	}
+
 	void renderGui() 
 	{
 		ImGui::Text("Entity name: ");
