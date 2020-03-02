@@ -19,8 +19,7 @@ struct Vertex {
 	glm::vec2 TexCoords;
 };
 
-class Object 
-{
+class Object{
 protected:
 	/*
 		Variable Definition
@@ -49,8 +48,7 @@ protected:
 		Protected member functions
 	*/
 	//Create and fill buffers
-	void CreateBuffers(std::vector<Vertex> &vert, std::vector<unsigned int> &ind)
-	{
+	void CreateBuffers(std::vector<Vertex> &vert, std::vector<unsigned int> &ind){
 		//MOVE THIS WHEN OBJECT CLASS HAS BEEN REDESIGNED, SHOULD BE IN CONSTRUCTOR
 		ID =object_counter++;
 
@@ -95,8 +93,7 @@ public:
 	public member functions
 	*/
 	//Render the scene
-	void Render(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos, DirectionalLight &Dirligth, std::vector<PointLight*> &PointLights)
-	{
+	void Render(glm::mat4 &projection, glm::mat4 &view, glm::vec3 CameraPos, DirectionalLight &Dirligth, std::vector<PointLight*> &PointLights){
 		//Start shader
 		shader->use();
 
@@ -123,8 +120,8 @@ public:
 		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
-	void RenderNoLight(const glm::mat4 &projection, const glm::mat4 &view, const glm::vec3 CameraPos )
-	{
+
+	void RenderNoLight(const glm::mat4 &projection, const glm::mat4 &view, const glm::vec3 CameraPos ){
 		//Start shader
 		shader->use();
 
@@ -141,8 +138,7 @@ public:
 	}
 
 	//Create shader with specified paths.
-	void SetShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr)
-	{
+	void SetShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr){
 		VertPath = vertexPath;
 		FragPath = fragmentPath;
 		GeoPath = geometryPath;
@@ -150,22 +146,19 @@ public:
 	}
 	
 	//Update the shader with same shaderlink
-	void UpdateShader()
-	{
+	void UpdateShader(){
 		glDeleteProgram(shader->ID);
 		shader = new Shader(VertPath, FragPath, GeoPath);
 	}
 	//Change to another shader
-	void ChangeShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr)
-	{
+	void ChangeShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr){
 		VertPath = vertexPath;
 		FragPath = fragmentPath;
 		GeoPath = geometryPath;
 		UpdateShader();
 	}
 
-	void Translate(glm::vec3 &T)
-	{
+	void Translate(glm::vec3 &T){
 		model = glm::translate(T)*model;
 	}
 
@@ -175,49 +168,43 @@ public:
 		model[3][2] = T.z;
 	}
 
-	void RotateX(float angle)
-	{
+	void RotateX(float angle){
 		model = glm::rotate(angle, glm::vec3(1.0, 0.0, 0.0)) *model;
 	}
-	void RotateY(float angle)
-	{
+
+	void RotateY(float angle){
 		model = glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0)) *model;
 	}
-	void RotateZ(float angle)
-	{
+
+	void RotateZ(float angle){
 		model = glm::rotate(angle, glm::vec3(0.0, 0.0, 1.0)) *model;
 	}
-	void Scale(glm::vec3 S)
-	{
+
+	void Scale(glm::vec3 S){
 		model = glm::scale(S)*model;
 	}
 
-	void setName(const std::string _name) 
-	{
+	void setName(const std::string _name){
 		name = _name;
 	}
 
-	std::string getName() 
-	{
+	std::string getName(){
 		return name;
 	}
 
-	int getID() 
-	{
+	int getID(){
 		return ID;
 	}
 
-	Material* getMaterial() 
-	{
+	Material* getMaterial(){
 		return material;
 	}
 
-	Shader* getShader() {
+	Shader* getShader(){
 		return shader;
 	}
 
-	void renderGui() 
-	{
+	void renderGui(){
 		ImGui::Text("Entity name: ");
 		ImGui::SameLine();
 		ImGui::Text(name.c_str());
@@ -234,6 +221,7 @@ public:
 			model[3][1] = translate[1];
 			model[3][2] = translate[2];	
 		}
+
 		ImGui::Separator();
 
 		ImGui::Text("Material: ");
