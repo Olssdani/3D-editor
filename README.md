@@ -6,12 +6,12 @@ My project to make a 3D editor.
 - Can add boxes thorugh a GUI.
 - Change color on object thorugh GUI
 - Translate object through GUI
+- Can load models from file
 
 
 ## Functionality do be added soon
 - Shadows
 - More primitives
-- Model loader
 - Lighting maps
 
 ## Current design and look
