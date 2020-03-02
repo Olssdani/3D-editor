@@ -10,7 +10,7 @@ public:
 
 private:
 	void createMesh();
-	std::vector<Vertex> vertices;
+	std::vector<vertex> vertices;
 	std::vector<unsigned int> indices;
 	glm::vec3 center;
 	float sizeX, sizeY;

@@ -28,42 +28,42 @@ void Box::CreateMesh()
 	//Resize vector and set vertex position
 	vertices.resize(24);
 	//FRONT, RIGHT, UP
-	vertices[0] = Vertex{ glm::vec3(xSize / 2, ySize / 2, zSize / 2), glm::vec3(0.0,0.0,1.0), glm::vec2(1.0,1.0) };
-	vertices[1] = Vertex{ glm::vec3(xSize / 2, ySize / 2, zSize / 2), glm::vec3(0.0,1.0,0.0),glm::vec2(1.0,0.0) };
-	vertices[2] = Vertex{ glm::vec3(xSize / 2, ySize / 2, zSize / 2), glm::vec3(1.0,0.0,0.0),glm::vec2(0.0,1.0) };
+	vertices[0] = vertex{ glm::vec3(xSize / 2, ySize / 2, zSize / 2), glm::vec3(0.0,0.0,1.0), glm::vec2(1.0,1.0) };
+	vertices[1] = vertex{ glm::vec3(xSize / 2, ySize / 2, zSize / 2), glm::vec3(0.0,1.0,0.0),glm::vec2(1.0,0.0) };
+	vertices[2] = vertex{ glm::vec3(xSize / 2, ySize / 2, zSize / 2), glm::vec3(1.0,0.0,0.0),glm::vec2(0.0,1.0) };
 	//FRONT, RIGHT, DOWN
-	vertices[3] = Vertex{ glm::vec3(xSize / 2, -ySize / 2, zSize / 2) , glm::vec3(0.0,0.0,1.0), glm::vec2(1.0,0.0) };
-	vertices[4] = Vertex{ glm::vec3(xSize / 2, -ySize / 2, zSize / 2) , glm::vec3(0.0,-1.0,0.0), glm::vec2(1.0,1.0) };
-	vertices[5] = Vertex{ glm::vec3(xSize / 2, -ySize / 2, zSize / 2) , glm::vec3(1.0,0.0,0.0), glm::vec2(0.0,0.0) };
+	vertices[3] = vertex{ glm::vec3(xSize / 2, -ySize / 2, zSize / 2) , glm::vec3(0.0,0.0,1.0), glm::vec2(1.0,0.0) };
+	vertices[4] = vertex{ glm::vec3(xSize / 2, -ySize / 2, zSize / 2) , glm::vec3(0.0,-1.0,0.0), glm::vec2(1.0,1.0) };
+	vertices[5] = vertex{ glm::vec3(xSize / 2, -ySize / 2, zSize / 2) , glm::vec3(1.0,0.0,0.0), glm::vec2(0.0,0.0) };
 	//FRONT, LEFT, DOWN
-	vertices[6] = Vertex{ glm::vec3(-xSize / 2, -ySize / 2, zSize / 2), glm::vec3(0.0,0.0,1.0), glm::vec2(0.0,0.0) };
-	vertices[7] = Vertex{ glm::vec3(-xSize / 2, -ySize / 2, zSize / 2), glm::vec3(0.0,-1.0,0.0), glm::vec2(0.0,1.0) };
-	vertices[8] = Vertex{ glm::vec3(-xSize / 2, -ySize / 2, zSize / 2), glm::vec3(-1.0,0.0,0.0), glm::vec2(1.0,0.0) };
+	vertices[6] = vertex{ glm::vec3(-xSize / 2, -ySize / 2, zSize / 2), glm::vec3(0.0,0.0,1.0), glm::vec2(0.0,0.0) };
+	vertices[7] = vertex{ glm::vec3(-xSize / 2, -ySize / 2, zSize / 2), glm::vec3(0.0,-1.0,0.0), glm::vec2(0.0,1.0) };
+	vertices[8] = vertex{ glm::vec3(-xSize / 2, -ySize / 2, zSize / 2), glm::vec3(-1.0,0.0,0.0), glm::vec2(1.0,0.0) };
 
 	//FRONT, LEFT, UP
-	vertices[9] = Vertex{ glm::vec3(-xSize / 2, ySize / 2, zSize / 2), glm::vec3(0.0,0.0,1.0), glm::vec2(0.0,1.0) };
-	vertices[10] = Vertex{ glm::vec3(-xSize / 2, ySize / 2, zSize / 2), glm::vec3(0.0,1.0,0.0), glm::vec2(0.0,0.0) };
-	vertices[11] = Vertex{ glm::vec3(-xSize / 2, ySize / 2, zSize / 2), glm::vec3(-1.0,0.0,0.0), glm::vec2(1.0,1.0) };
+	vertices[9] = vertex{ glm::vec3(-xSize / 2, ySize / 2, zSize / 2), glm::vec3(0.0,0.0,1.0), glm::vec2(0.0,1.0) };
+	vertices[10] = vertex{ glm::vec3(-xSize / 2, ySize / 2, zSize / 2), glm::vec3(0.0,1.0,0.0), glm::vec2(0.0,0.0) };
+	vertices[11] = vertex{ glm::vec3(-xSize / 2, ySize / 2, zSize / 2), glm::vec3(-1.0,0.0,0.0), glm::vec2(1.0,1.0) };
 
 	//BACK, LEFT, UP
-	vertices[12] = Vertex{ glm::vec3(xSize / 2, ySize / 2, -zSize / 2), glm::vec3(0.0,0.0,-1.0), glm::vec2(0.0,1.0) };
-	vertices[13] = Vertex{ glm::vec3(xSize / 2, ySize / 2, -zSize / 2), glm::vec3(0.0,1.0,0.0), glm::vec2(1.0,1.0) };
-	vertices[14] = Vertex{ glm::vec3(xSize / 2, ySize / 2, -zSize / 2), glm::vec3(1.0,0.0,0.0), glm::vec2(1.0,1.0) };
+	vertices[12] = vertex{ glm::vec3(xSize / 2, ySize / 2, -zSize / 2), glm::vec3(0.0,0.0,-1.0), glm::vec2(0.0,1.0) };
+	vertices[13] = vertex{ glm::vec3(xSize / 2, ySize / 2, -zSize / 2), glm::vec3(0.0,1.0,0.0), glm::vec2(1.0,1.0) };
+	vertices[14] = vertex{ glm::vec3(xSize / 2, ySize / 2, -zSize / 2), glm::vec3(1.0,0.0,0.0), glm::vec2(1.0,1.0) };
 
 	//BACK, LEFT, DOWN
-	vertices[15] = Vertex{ glm::vec3(xSize / 2, -ySize / 2, -zSize / 2), glm::vec3(0.0,0.0,-1.0), glm::vec2(0.0,0.0) };
-	vertices[16] = Vertex{ glm::vec3(xSize / 2, -ySize / 2, -zSize / 2), glm::vec3(0.0,-1.0,0.0), glm::vec2(1.0,0.0) };
-	vertices[17] = Vertex{ glm::vec3(xSize / 2, -ySize / 2, -zSize / 2), glm::vec3(1.0,0.0,0.0), glm::vec2(1.0,0.0) };
+	vertices[15] = vertex{ glm::vec3(xSize / 2, -ySize / 2, -zSize / 2), glm::vec3(0.0,0.0,-1.0), glm::vec2(0.0,0.0) };
+	vertices[16] = vertex{ glm::vec3(xSize / 2, -ySize / 2, -zSize / 2), glm::vec3(0.0,-1.0,0.0), glm::vec2(1.0,0.0) };
+	vertices[17] = vertex{ glm::vec3(xSize / 2, -ySize / 2, -zSize / 2), glm::vec3(1.0,0.0,0.0), glm::vec2(1.0,0.0) };
 
 	//BACK, RIGHT, DOWN
-	vertices[18] = Vertex{ glm::vec3(-xSize / 2, -ySize / 2, -zSize / 2) , glm::vec3(0.0,0.0,-1.0), glm::vec2(1.0,0.0) };
-	vertices[19] = Vertex{ glm::vec3(-xSize / 2, -ySize / 2, -zSize / 2) , glm::vec3(0.0,-1.0,0.0), glm::vec2(0.0,0.0) };
-	vertices[20] = Vertex{ glm::vec3(-xSize / 2, -ySize / 2, -zSize / 2) , glm::vec3(-1.0,0.0,0.0), glm::vec2(0.0,0.0) };
+	vertices[18] = vertex{ glm::vec3(-xSize / 2, -ySize / 2, -zSize / 2) , glm::vec3(0.0,0.0,-1.0), glm::vec2(1.0,0.0) };
+	vertices[19] = vertex{ glm::vec3(-xSize / 2, -ySize / 2, -zSize / 2) , glm::vec3(0.0,-1.0,0.0), glm::vec2(0.0,0.0) };
+	vertices[20] = vertex{ glm::vec3(-xSize / 2, -ySize / 2, -zSize / 2) , glm::vec3(-1.0,0.0,0.0), glm::vec2(0.0,0.0) };
 
 	//BACK, RIGHT, UP
-	vertices[21] = Vertex{ glm::vec3(-xSize / 2, ySize / 2, -zSize / 2) , glm::vec3(0.0,0.0,-1.0), glm::vec2(1.0,1.0) };
-	vertices[22] = Vertex{ glm::vec3(-xSize / 2, ySize / 2, -zSize / 2) , glm::vec3(0.0,1.0,0.0), glm::vec2(0.0,1.0) };
-	vertices[23] = Vertex{ glm::vec3(-xSize / 2, ySize / 2, -zSize / 2) , glm::vec3(-1.0,0.0,0.0), glm::vec2(0.0,1.0) };
+	vertices[21] = vertex{ glm::vec3(-xSize / 2, ySize / 2, -zSize / 2) , glm::vec3(0.0,0.0,-1.0), glm::vec2(1.0,1.0) };
+	vertices[22] = vertex{ glm::vec3(-xSize / 2, ySize / 2, -zSize / 2) , glm::vec3(0.0,1.0,0.0), glm::vec2(0.0,1.0) };
+	vertices[23] = vertex{ glm::vec3(-xSize / 2, ySize / 2, -zSize / 2) , glm::vec3(-1.0,0.0,0.0), glm::vec2(0.0,1.0) };
 
 	indices.resize(12 * 3);
 	//top

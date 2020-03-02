@@ -5,9 +5,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <stb_image.h>
 
-
-
-
 model::model(std::string const& path, bool gamma)
 	: gammaCorrection(gamma) {
 	texturesLoaded = new textureHolder();

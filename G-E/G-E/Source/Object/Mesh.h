@@ -28,7 +28,7 @@ public:
     textureHolder textures;
     //std::vector<vertex> textures;
     unsigned int VAO;
-  
+    
     /*  Functions  */
     // constructor
     Mesh(std::vector<vertex> vertices, std::vector<unsigned int> indices, textureHolder textures){
@@ -37,6 +37,14 @@ public:
         this->textures = textures;
         setupMesh();
     }
+
+    Mesh(std::vector<vertex> vertices, std::vector<unsigned int> indices) {
+        this->vertices = vertices;
+        this->indices = indices;
+        this->textures = textureHolder();
+        setupMesh();
+    }
+
 
     void Draw(Shader *shader){
         std::vector<texture> tex = textures.getTextures();

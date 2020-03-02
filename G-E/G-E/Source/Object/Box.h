@@ -8,7 +8,7 @@ public:
 
 private:
 	float xSize, ySize, zSize;
-	std::vector<Vertex> vertices;
+	std::vector<vertex> vertices;
 	std::vector<unsigned int> indices;
 	void CreateMesh();
 };

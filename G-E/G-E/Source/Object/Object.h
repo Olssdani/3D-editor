@@ -8,17 +8,11 @@
 #include "Light/PointLight.h"
 #include "Material/Material.h"
 #include "imgui.h"
+#include "Mesh.h"
 
 /*
 	Base class for all different objects in the scene
 */
-//Vertex struct to contain all Vertex data
-struct Vertex {
-	glm::vec3 Position;
-	glm::vec3 Normal;
-	glm::vec2 TexCoords;
-};
-
 class Object{
 protected:
 	/*
@@ -27,6 +21,7 @@ protected:
 	//Shader
 	Shader *shader;
 	Material *material;
+	std::vector<Mesh> meshes;
 	//Buffer objects
 	unsigned int VBO, VAO, EBO;
 	
@@ -48,39 +43,8 @@ protected:
 		Protected member functions
 	*/
 	//Create and fill buffers
-	void CreateBuffers(std::vector<Vertex> &vert, std::vector<unsigned int> &ind){
-		//MOVE THIS WHEN OBJECT CLASS HAS BEEN REDESIGNED, SHOULD BE IN CONSTRUCTOR
-		ID =object_counter++;
-
-		// Create the buffers
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-
-		//Bind the vertex buffer object
-		glBindVertexArray(VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, vert.size() * sizeof(Vertex), &vert[0], GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, ind.size() * sizeof(unsigned int), &ind[0], GL_STATIC_DRAW);
-
-		// vertex positions
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-		// vertex normals
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-		// vertex texture coords
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-		
-		//Unbind buffer
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		//Unbind the VAO
-		glBindVertexArray(0);
+	void CreateBuffers(std::vector<vertex>& vert, std::vector<unsigned int>& ind) {
+		meshes.push_back(Mesh(vert, ind));
 	}
 
 public:
@@ -106,7 +70,6 @@ public:
 			counter++;
 		}
 
-
 		//Send variable to shader
 		shader->setMat4("projection", projection);
 		shader->setMat4("view", view);
@@ -116,9 +79,9 @@ public:
 
 		material->send2GPU(shader);
 
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+		for (auto m : meshes) {
+			m.Draw(shader);
+		}
 	}
 
 	void RenderNoLight(const glm::mat4 &projection, const glm::mat4 &view, const glm::vec3 CameraPos ){
@@ -132,9 +95,9 @@ public:
 		shader->setVec3("CameraPos", CameraPos);
 		material->send2GPU(shader);
 		//Bind the VAO and draw the vertex
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, DrawSize, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+		for (auto m : meshes) {
+			m.Draw(shader);
+		}
 	}
 
 	//Create shader with specified paths.

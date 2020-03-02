@@ -6,12 +6,12 @@
 #include <assimp/postprocess.h>
 #include <string>
 #include <vector>
-
+#include "Object.h"
 #include <Object/Mesh.h>
 
 class shader;
 
-class model{
+class model: public Object{
 public:
     /*  Model Data */
     textureHolder* texturesLoaded;
