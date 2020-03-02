@@ -30,11 +30,4 @@ private:
 	std::string fileName;
 	int selectedClass = -1;
 	int selectedItem = -1;
-
-	char* string2char(std::string name) {
-		char *char_name = new char(name.size() + 1);
-		name.copy(char_name, name.size() + 1);
-		char_name[name.size()] = '\0';
-		return char_name;
-	}
 };
