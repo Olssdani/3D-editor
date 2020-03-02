@@ -8,6 +8,7 @@
 model::model(std::string const& path, bool gamma)
 	: gammaCorrection(gamma) {
 	texturesLoaded = new textureHolder();
+	shader = new Shader("Shaders/Vert.glsl", "Shaders/textureFrag.fs", "Shaders/Geo.glsl");
 	loadModel(path);
 
 }

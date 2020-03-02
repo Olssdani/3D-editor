@@ -15,7 +15,6 @@ class model: public Object{
 public:
     /*  Model Data */
     textureHolder* texturesLoaded;
-    std::vector<Mesh> meshes;
     bool gammaCorrection;
     std::string directory;
 

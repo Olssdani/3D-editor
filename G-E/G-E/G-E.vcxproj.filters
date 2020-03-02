@@ -82,9 +82,6 @@
     <ClInclude Include="Source\Object\Plane.h">
       <Filter>Scene\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene\Scene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Include\imgui-master\imgui.h">
       <Filter>External Libs</Filter>
     </ClInclude>
@@ -150,6 +147,9 @@
     </ClInclude>
     <ClInclude Include="Include\stb_image.h">
       <Filter>External Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\Scene.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
