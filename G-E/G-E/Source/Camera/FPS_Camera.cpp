@@ -1,9 +1,11 @@
 #include "FPS_Camera.h"
+#include "Input/Input.h"
 FPS_Camera::FPS_Camera(glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 _up = glm::vec3(0.0f, 1.0f, 0.0f), float _yaw = -90.f, float _pitch = 0.0f){
 	position = _position;
 	worldUp = _up;
 	yaw = _yaw;
 	pitch = _pitch;
+	fov = 45.0f;
 	Update();
 }
 
@@ -12,6 +14,7 @@ FPS_Camera::FPS_Camera(glm::vec3 _position){
 	worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	yaw = -90.f;
 	pitch = 0.0f;
+	fov = 45.0f;
 	Update();
 }
 
@@ -36,23 +39,24 @@ void FPS_Camera::Update(){
 
 
 // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
-void FPS_Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime){
+void FPS_Camera::ProcessKeyboard(Input *input, float deltaTime){
 	float velocity = movementSpeed * deltaTime;
-	if (direction == FORWARD)
+
+	if (input->getKeyStatus(KEY_W))
 		position += forward * velocity;
-	if (direction == BACKWARD)
+	if (input->getKeyStatus(KEY_S))
 		position -= forward * velocity;
-	if (direction == LEFT)
-		position -= right * velocity;
-	if (direction == RIGHT)
+	if (input->getKeyStatus(KEY_D))
 		position += right * velocity;
+	if (input->getKeyStatus(KEY_A))
+		position -= right * velocity;
 }
 
 // Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
 void FPS_Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true){
 	xoffset *= mouseSensitivity;
 	yoffset *= mouseSensitivity;
-	yaw += xoffset;
+	yaw -= xoffset;
 	pitch += yoffset;
 
 	// Make sure that when pitch is out of bounds, screen doesn't get flipped
