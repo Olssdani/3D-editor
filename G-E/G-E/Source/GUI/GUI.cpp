@@ -176,7 +176,7 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 		ImGui::EndChild();
 		ImGui::End();
 	}
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
