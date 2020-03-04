@@ -30,6 +30,7 @@ void GUI::Intialize() {
 	ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
+
 void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTexture,
 	const unsigned int viewportWidth, const unsigned int viewportHeight,
 	const unsigned int textureWidth, const unsigned int textureHeight) {
@@ -85,10 +86,12 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 		{
 			if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None)) {
 				if (ImGui::BeginTabItem("Editor")) {
+					cameraActiv = cameraType::EDITOR;
 					ImGui::Image((void*)(intptr_t)editorTexture, ImVec2(textureWidth, textureHeight));
 					ImGui::EndTabItem();
 				}
 				if (ImGui::BeginTabItem("Game")) {
+					cameraActiv = cameraType::MAIN;
 					ImGui::Image((void*)(intptr_t)gameTexture, ImVec2(textureWidth, textureHeight));
 					ImGui::EndTabItem();
 				}
@@ -176,4 +179,8 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 	ImGui::ShowDemoWindow();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+GUI::cameraType GUI::activeCamera(){
+	return cameraActiv;
 }

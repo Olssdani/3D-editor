@@ -7,6 +7,7 @@
 #include <GLFW/glfw3.h>
 #include <cstdio>
 #include "Camera/Editor_Camera.h"
+#include "Camera/FPS_Camera.h"
 
 class GUI;
 class Input;
@@ -17,7 +18,7 @@ class Render{
 public:
 	Render();
 	void Rendering();
-	Editor_Camera* getCamera();
+	Camera* getCamera();
 
 	Scene* getScene() {
 		return scene;
@@ -37,7 +38,9 @@ private:
 	GUI *gui;
 	int width, height;
 	Editor_Camera *editorCamera;
+	FPS_Camera *mainCamera;
 	Input *input;
+
 
 
 	Scene *scene;
@@ -73,8 +76,7 @@ private:
 	}
 	
 	//scroll input
-	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-	{
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset){
 		Render* handler = reinterpret_cast<Render *>(glfwGetWindowUserPointer(window));
 		handler->getCamera()->ProcessMouseScroll(yoffset);
 	}

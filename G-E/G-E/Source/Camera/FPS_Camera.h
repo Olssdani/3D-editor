@@ -4,6 +4,8 @@
 #include "glm/gtc/type_ptr.hpp"
 #include <iostream>
 #include "Camera.h"
+
+class Input;
 //Class for handling the camera. This class is more or less taken from https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/camera.h
 class FPS_Camera: public Camera
 {
@@ -21,7 +23,7 @@ public:
 
 	float Zoom();
 
-	void ProcessKeyboard(Camera_Movement direction, float deltaTime);
+	void ProcessKeyboard(Input *input, float deltaTime);
 	void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch);
 	void ProcessMouseScroll(float yoffset);
 
