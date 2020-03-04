@@ -3,7 +3,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-
+#include "Misc/WindowsUtil.h"
 
 
 GUI::GUI(GLFWwindow *w, Render *r) {
@@ -118,6 +118,19 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 						b->setName(default + std::to_string(b->getID()));
 						render->getScene()->addObject(b);
 					}
+					if (ImGui::Selectable("Load object")) {
+						std::string fileName = wUtil::openFileExplorer();
+						if (fileName.compare("")) {
+							std::cout << "load";
+							model* m = new model(fileName);
+							const char default[6] = "Model";
+							m->setName("Model");
+							m->setName(default + std::to_string(m->getID()));
+							render->getScene()->addObject(m);
+						}else {
+							std::cout << "Not load";													
+						}
+					}
 					ImGui::EndMenu();
 				}
 				if (ImGui::BeginMenu("Lights"))
@@ -176,7 +189,7 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 		ImGui::EndChild();
 		ImGui::End();
 	}
-	//ImGui::ShowDemoWindow();
+	ImGui::ShowDemoWindow();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

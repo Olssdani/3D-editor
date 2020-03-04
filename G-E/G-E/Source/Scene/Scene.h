@@ -17,17 +17,13 @@ private:
 
 public:
 
-	Scene()
-	{
+	Scene(){
 		Plane* plane =new Plane(glm::vec3(0, -5, 0), 50.0f, 50.0f, 10);
 		plane->setName("Plane");
 		plane->getMaterial()->setTexture("Resources/Textures/wall.jpg");
 		//plane->getMaterial()->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		plane->getMaterial()->setShininess(32);
 		objects.push_back(plane);
-		model *ourmodel = new model("Resources/Models/nanosuit/nanosuit.obj");
-		ourmodel->setName("Model");
-		objects.push_back(ourmodel);
 	}
 	void addObject(Object *o) {
 		objects.push_back(o);
