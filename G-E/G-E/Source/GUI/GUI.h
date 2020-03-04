@@ -14,10 +14,13 @@ class Render;
 
 class GUI{
 public:
+
+	enum class cameraType { MAIN = 0, EDITOR };
 	GUI(GLFWwindow *w,Render *r);
 	void guiRender(const unsigned int editorTexture, const unsigned int gameTexture,
 		const unsigned int viewportWidth, const unsigned int viewportHeight,
 		const unsigned int textureWidth, const unsigned int textureHeight);
+	cameraType activeCamera();
 
 private:
 	void Intialize();
@@ -30,4 +33,5 @@ private:
 	std::string fileName;
 	int selectedClass = -1;
 	int selectedItem = -1;
+	cameraType cameraActiv;
 };

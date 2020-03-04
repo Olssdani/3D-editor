@@ -112,6 +112,10 @@ public:
 	void UpdateShader(){
 		glDeleteProgram(shader->ID);
 		shader = new Shader(VertPath, FragPath, GeoPath);
+		if (material->isTextureSet()) {
+			shader->use();
+			shader->setInt("material.diffuse", 0);
+		}
 	}
 	//Change to another shader
 	void ChangeShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr){

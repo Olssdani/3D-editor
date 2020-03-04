@@ -75,6 +75,7 @@ bool Render::Init() {
 
 	//Initialize Camera
 	editorCamera = new Editor_Camera(glm::vec3(0.0f, 0.0f, 10.0f));
+	mainCamera = new FPS_Camera(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, -1.0f, 0.0f), 90.0f, 0.0f );
 	//Attach the camera to the window pointer for the scroll wheel callback
 	glfwSetWindowUserPointer(window, reinterpret_cast<void *>(this));
 	//Intialize GUI
@@ -116,7 +117,13 @@ void Render::Rendering() {
 		//Evaluate inputs, must be done after input update!!!!
 		processEditorInputs(window);
 
-		editorCamera->processInput(input, xoffset, yoffset);
+		if (gui->activeCamera() == GUI::cameraType::EDITOR) {
+			editorCamera->processInput(input, xoffset, yoffset);
+		} else if (gui->activeCamera() == GUI::cameraType::MAIN) {
+			mainCamera->ProcessKeyboard(input, time.getDeltaTime());
+			mainCamera->ProcessMouseMovement(xoffset, yoffset, true);
+		}
+
 
 		/*
 			RENDERING
@@ -129,22 +136,32 @@ void Render::Rendering() {
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//Get the current projection matrix
-		glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)editorWidth / (float)editorHeight, 0.1f, 1000.0f);
-		//Get the current view matrix;
-		glm::mat4 view = editorCamera->View();
-		//Render the scene
-		glViewport(0, 0, editorWidth, editorHeight);
-		glEnable(GL_DEPTH_TEST);
-		scene->renderScene(projection, view, editorCamera->GetPosition());
+		if (gui->activeCamera() == GUI::cameraType::EDITOR) {
+			//Get the current projection matrix
+			glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)editorWidth / (float)editorHeight, 0.1f, 1000.0f);
+			//Get the current view matrix;
+			glm::mat4 view = editorCamera->View();
+			//Render the scene
+			glViewport(0, 0, editorWidth, editorHeight);
+			glEnable(GL_DEPTH_TEST);
+			scene->renderScene(projection, view, editorCamera->GetPosition());
+		} else if (gui->activeCamera() == GUI::cameraType::MAIN) {
+			//Get the current projection matrix
+			glm::mat4 projection = glm::perspective(glm::radians(mainCamera->getFov()), (float)editorWidth / (float)editorHeight, 0.1f, 1000.0f);
+			//Get the current view matrix;
+			glm::mat4 view = mainCamera->View();
+			//Render the scene
+			glViewport(0, 0, editorWidth, editorHeight);
+			glEnable(GL_DEPTH_TEST);
+			scene->renderScene(projection, view, mainCamera->GetPosition());
+			printf("x: %f Y: %f z: %f \n", mainCamera->GetPosition().x, mainCamera->GetPosition().y, mainCamera->GetPosition().z);
+		}
 		glViewport(0, 0, width, height);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
 		//Render GUI
-		glEnable(GL_DEPTH_TEST);
 		gui->guiRender(frameBuffer.getTexture(), frameBuffer.getTexture(), width, height, editorWidth, editorHeight);
-
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
@@ -157,13 +174,15 @@ void Render::Rendering() {
 }
 
 
-void Render::processEditorInputs(GLFWwindow *window)
-{
+void Render::processEditorInputs(GLFWwindow *window){
 	//Toggle wireframe or solid
 	if (input->getKeyStatus(KEY_1))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	if (input->getKeyStatus(KEY_2))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);	
+	if (input->getKeyStatus(KEY_SPACE)) {
+		scene->updateShaders();
+	}
 }
 
 /*
@@ -189,9 +208,12 @@ void Render::mouse_callback(){
 
 	lastX = xpos;
 	lastY = ypos;
-
 }
 
-Editor_Camera* Render::getCamera() {
-	return editorCamera;
+Camera* Render::getCamera() {
+	if (gui->activeCamera() == GUI::cameraType::EDITOR) {
+		return editorCamera;
+	} else if (gui->activeCamera() == GUI::cameraType::MAIN) {
+		return mainCamera;
+	}
 }

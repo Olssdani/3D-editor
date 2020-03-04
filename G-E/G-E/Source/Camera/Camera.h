@@ -25,7 +25,7 @@ protected:
 public:
 	//Return the view matrix
 	glm::mat4 View() {
-		return glm::lookAt(position, position +forward, up);
+		return glm::lookAt(position, position + forward, up);
 	}
 
 	glm::vec3 GetPosition() {
@@ -35,6 +35,8 @@ public:
 	float getFov(){
 		return fov;
 	}
+
+	virtual void ProcessMouseScroll(float yoffset) = 0;
 
 
 };

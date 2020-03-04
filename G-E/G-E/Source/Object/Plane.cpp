@@ -16,8 +16,7 @@ Plane::Plane(const glm::vec3 &_center, const float _sizeX, const float _sizeY, c
 	vertices.clear();
 	indices.clear();
 
-	//Set standard shader
-	shader = new Shader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
+	SetShader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
 	
 	Object::material = new Material(shader);
 }
