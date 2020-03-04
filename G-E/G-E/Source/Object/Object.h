@@ -38,7 +38,6 @@ protected:
 
 	static int object_counter;
 
-
 	/*
 		Protected member functions
 	*/
@@ -51,6 +50,7 @@ public:
 
 	Object() {
 		material = new Material(shader);
+		ID = object_counter++;
 	}
 
 	/*
@@ -183,10 +183,19 @@ public:
 			float translate[3] = { model[3][0], model[3][1], model[3][2]};
 			ImGui::Text("Position: ");
 			ImGui::SameLine();
-			ImGui::DragFloat3("", translate, 0.01f, 0.01f, 0.01f);
+			ImGui::DragFloat3("Transalte", translate, 0.01f, 0.01f, 0.01f);
 			model[3][0] = translate[0];
 			model[3][1] = translate[1];
 			model[3][2] = translate[2];	
+
+			float scale[3] = { model[0][0], model[1][1], model[2][2] };
+			ImGui::Text("Scale: ");
+			ImGui::SameLine();
+			ImGui::DragFloat3("Scale", scale, 0.01f, 0.01f, 0.01f);
+			model[0][0] = scale[0];
+			model[1][1] = scale[1];
+			model[2][2] = scale[2];
+
 		}
 
 		ImGui::Separator();

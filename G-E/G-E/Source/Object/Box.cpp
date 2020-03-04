@@ -20,7 +20,6 @@ Box::Box(float _xSize, float _ySize, float _zSize)
 	//Set standard shader
 	SetShader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
 	Object::material = new Material(shader);
-
 }
 
 void Box::CreateMesh()
