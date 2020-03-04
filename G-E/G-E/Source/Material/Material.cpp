@@ -141,7 +141,8 @@ void Material::renderGui() {
 	} else {
 		if (ImGui::Button("Add Texture")){
 			std::string fileName = wUtil::openFileExplorer();
-			setTexture(fileName.c_str());
+			if(!fileName.compare(""))
+				setTexture(fileName.c_str());
 		}
 	}
 }

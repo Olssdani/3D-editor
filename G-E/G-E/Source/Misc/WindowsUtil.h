@@ -44,6 +44,9 @@ namespace wUtil {
 						}
 						pItem->Release();
 					}
+				
+				}else {
+					return "";
 				}
 				pFileOpen->Release();
 			}
