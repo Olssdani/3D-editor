@@ -70,9 +70,10 @@ Mesh model::processMesh(aiMesh* mesh, const aiScene* scene) {
 		else {
 			vert.TexCoords = glm::vec2(0.0f, 0.0f);
 		}
-
-		vert.Tangent = glm::vec3(mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z);
-		vert.Bitangent = glm::vec3(mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z);
+		if(mesh->mTangents != nullptr)
+			vert.Tangent = glm::vec3(mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z);
+		if (mesh->mBitangents != nullptr)
+			vert.Bitangent = glm::vec3(mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z);
 
 		vertices.push_back(vert);
 	}
