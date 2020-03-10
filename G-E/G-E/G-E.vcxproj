@@ -74,16 +74,16 @@
     <LibraryPath>Libs\glfw32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>Include;Source;Include\imgui-master;Include\imgui-master\examples;Include;$(IncludePath)</IncludePath>
-    <LibraryPath>Libs\assimp64;Libs\glfw64;Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>Include;Source\Engine\Scene;Source\Engine\Render;Source\Engine;Include\imgui-master;Include\imgui-master\examples;Include;$(IncludePath)</IncludePath>
+    <LibraryPath>Libs\assimp64;Libs;Libs\glfw64;Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>Include\imgui-master\examples;Include\imgui-master;Source;Include;$(IncludePath)</IncludePath>
     <LibraryPath>Libs\glfw32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>Include;Source;Include\imgui-master;Include\imgui-master\examples;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>Libs\assimp64;Libs\glfw64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>Include;Source\Engine\Scene;Source\Engine\Render;Source\Engine;Include\imgui-master;Include\imgui-master\examples;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>Libs\assimp64;Libs;Libs\glfw64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -103,7 +103,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc142-mtd.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Programmering\G-E\G-E\G-E\Include\assimp;D:\Programmering\G-E\G-E\G-E\Libs\assimp64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Programmering\G-E\G-E\G-E\Include\assimp;D:\Programmering\G-E\G-E\G-E\Libs\glfw64;D:\Programmering\G-E\G-E\G-E\Libs\assimp64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)G-E\dll\*.dll" "$(TargetDir)"</Command>
@@ -135,7 +135,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc142-mtd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Programmering\G-E\G-E\G-E\Include\assimp;D:\Programmering\G-E\G-E\G-E\Libs\assimp64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Programmering\G-E\G-E\G-E\Include\assimp;D:\Programmering\G-E\G-E\G-E\Libs\glfw64;D:\Programmering\G-E\G-E\G-E\Libs\assimp64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)G-E\dll\*.dll" "$(TargetDir)"</Command>
@@ -149,17 +149,16 @@
     <ClCompile Include="Include\imgui-master\imgui_demo.cpp" />
     <ClCompile Include="Include\imgui-master\imgui_draw.cpp" />
     <ClCompile Include="Include\imgui-master\imgui_widgets.cpp" />
-    <ClCompile Include="Source\Camera\FPS_Camera.cpp" />
-    <ClCompile Include="Source\GUI\GUI.cpp" />
-    <ClCompile Include="Source\Light\PointLight.cpp" />
-    <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\Material\Material.cpp" />
-    <ClCompile Include="Source\Material\texture.cpp" />
-    <ClCompile Include="Source\Object\Box.cpp" />
-    <ClCompile Include="Source\Object\Mesh.h" />
-    <ClCompile Include="Source\Object\model.cpp" />
-    <ClCompile Include="Source\Object\Plane.cpp" />
-    <ClCompile Include="Source\Render\Render.cpp" />
+    <ClCompile Include="Source\Engine\GUI\GUI.cpp" />
+    <ClCompile Include="Source\Engine\Main.cpp" />
+    <ClCompile Include="Source\Engine\Render\Camera\FPS_Camera.cpp" />
+    <ClCompile Include="Source\Engine\Render\Render.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Light\PointLight.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Object\Box.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Object\Material\Material.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Object\Material\Texture\texture.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Object\model.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Object\Plane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\imgui-master\examples\imgui_impl_glfw.h" />
@@ -171,29 +170,30 @@
     <ClInclude Include="Include\imgui-master\imstb_textedit.h" />
     <ClInclude Include="Include\imgui-master\imstb_truetype.h" />
     <ClInclude Include="Include\stb_image.h" />
-    <ClInclude Include="Source\Camera\Camera.h" />
-    <ClInclude Include="Source\Camera\Editor_Camera.h" />
-    <ClInclude Include="Source\Camera\FPS_Camera.h" />
-    <ClInclude Include="Source\GUI\GUI.h" />
-    <ClInclude Include="Source\Input\Input.h" />
-    <ClInclude Include="Source\Light\DirectionalLight.h" />
-    <ClInclude Include="Source\Light\Light.h" />
-    <ClInclude Include="Source\Light\PointLight.h" />
-    <ClInclude Include="Source\Material\Material.h" />
-    <ClInclude Include="Source\Material\texture.h" />
-    <ClInclude Include="Source\Material\texturesHolder.h" />
-    <ClInclude Include="Source\Misc\Time.h" />
-    <ClInclude Include="Source\Misc\WindowsUtil.h" />
-    <ClInclude Include="Source\Object\Box.h" />
-    <ClInclude Include="Source\Object\model.h" />
-    <ClInclude Include="Source\Object\Object.h" />
-    <ClInclude Include="Source\Object\Plane.h" />
-    <ClInclude Include="Source\Render\FBO.h" />
-    <ClInclude Include="Source\Render\Render.h" />
-    <ClInclude Include="Source\Scene\Scene.h" />
-    <ClInclude Include="Source\shader.h" />
-    <ClInclude Include="Source\Transformations\transformationObject.h" />
-    <ClInclude Include="Source\Utilities.h" />
+    <ClInclude Include="Source\Engine\GUI\GUI.h" />
+    <ClInclude Include="Source\Engine\Input\Input.h" />
+    <ClInclude Include="Source\Engine\Misc\Time.h" />
+    <ClInclude Include="Source\Engine\Misc\Utilities.h" />
+    <ClInclude Include="Source\Engine\Misc\WindowsUtil.h" />
+    <ClInclude Include="Source\Engine\Render\Camera\Camera.h" />
+    <ClInclude Include="Source\Engine\Render\Camera\Editor_Camera.h" />
+    <ClInclude Include="Source\Engine\Render\Camera\FPS_Camera.h" />
+    <ClInclude Include="Source\Engine\Render\FBO.h" />
+    <ClInclude Include="Source\Engine\Render\Render.h" />
+    <ClInclude Include="Source\Engine\Render\shader.h" />
+    <ClInclude Include="Source\Engine\Scene\Light\DirectionalLight.h" />
+    <ClInclude Include="Source\Engine\Scene\Light\Light.h" />
+    <ClInclude Include="Source\Engine\Scene\Light\PointLight.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\Box.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\Material\Material.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\Material\Texture\texture.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\Material\Texture\texturesHolder.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\Mesh.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\model.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\Object.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\Plane.h" />
+    <ClInclude Include="Source\Engine\Scene\Scene.h" />
+    <ClInclude Include="Source\Engine\Transformations\transformationObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

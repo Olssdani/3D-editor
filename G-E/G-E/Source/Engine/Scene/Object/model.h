@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 #include "Object.h"
-#include <Object/Mesh.h>
+#include <Scene/Object/Mesh.h>
 
 class shader;
 

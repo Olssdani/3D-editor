@@ -1,6 +1,6 @@
 #pragma once
 #include "glm/glm.hpp"
-#include "shader.h"
+#include "Render/shader.h"
 
 class texture;
 

@@ -5,7 +5,7 @@
 #include <glm/gtx/quaternion.hpp>
 #ifndef Utilities_H
 #define Utilities_H
-#include "Utilities.h"
+#include "Misc/Utilities.h"
 #endif
 class Editor_Camera: public Camera {
 private: 

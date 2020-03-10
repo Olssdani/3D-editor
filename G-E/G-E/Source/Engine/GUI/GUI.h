@@ -3,7 +3,7 @@
 #include "Render/Render.h"
 #ifndef Utilities_H
 #define Utilities_H
-#include "Utilities.h"
+#include "Misc/Utilities.h"
 #endif
 #include <stdlib.h>
 

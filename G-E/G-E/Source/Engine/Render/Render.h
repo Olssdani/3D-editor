@@ -6,13 +6,14 @@
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 #include <cstdio>
-#include "Camera/Editor_Camera.h"
-#include "Camera/FPS_Camera.h"
+#include "Camera/Camera.h"
 
 class GUI;
 class Input;
 class FBO;
 class Scene;
+class FPS_Camera;
+class Editor_Camera;
 
 class Render{
 public:

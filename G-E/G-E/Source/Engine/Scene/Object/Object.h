@@ -1,11 +1,11 @@
 #pragma once
 #ifndef Utilities_H
 #define Utilities_H
-#include "Utilities.h"
+#include "Misc/Utilities.h"
 #endif
 #include <vector>
-#include "Light/DirectionalLight.h"
-#include "Light/PointLight.h"
+#include "Scene/Light/DirectionalLight.h"
+#include "Scene/Light/PointLight.h"
 #include "Material/Material.h"
 #include "imgui.h"
 #include "Mesh.h"

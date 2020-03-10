@@ -1,7 +1,7 @@
 #include "Material.h"
 #include "Misc/WindowsUtil.h"
 #include "imgui.h"
-#include "texture.h"
+#include "Scene/Object/Material/Texture/texture.h"
 
 Material::Material(Shader *_shader) {
 	shader = _shader;

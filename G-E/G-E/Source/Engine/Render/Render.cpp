@@ -5,11 +5,12 @@
 #include "Input/Input.h"
 #include "FBO.h"
 #include <iostream>
-#include "Camera/Editor_Camera.h"
-#include "Object/Box.h"
-#include "Object/Object.h"
-#include "Object/Plane.h"
+#include "Scene/Object/Box.h"
+#include "Scene/Object/Object.h"
+#include "Scene/Object/Plane.h"
 #include "Scene/Scene.h"
+#include "Camera/Editor_Camera.h"
+#include "Camera/FPS_Camera.h"
 Render::Render() {
 	Init();
 }
