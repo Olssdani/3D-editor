@@ -146,6 +146,7 @@ void Render::Rendering() {
 			glEnable(GL_DEPTH_TEST);
 			scene->renderScene(projection, view, editorCamera->GetPosition());
 		} else if (gui->activeCamera() == GUI::cameraType::MAIN) {
+			
 			//Get the current projection matrix
 			glm::mat4 projection = glm::perspective(glm::radians(mainCamera->getFov()), (float)editorWidth / (float)editorHeight, 0.1f, 1000.0f);
 			//Get the current view matrix;
@@ -154,7 +155,11 @@ void Render::Rendering() {
 			glViewport(0, 0, editorWidth, editorHeight);
 			glEnable(GL_DEPTH_TEST);
 			scene->renderScene(projection, view, mainCamera->GetPosition());
-			printf("x: %f Y: %f z: %f \n", mainCamera->GetPosition().x, mainCamera->GetPosition().y, mainCamera->GetPosition().z);
+
+			if (input->getKeyStatus(KEY_R))
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			if (input->getKeyStatus(KEY_N))
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
 		glViewport(0, 0, width, height);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

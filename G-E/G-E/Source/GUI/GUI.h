@@ -21,6 +21,7 @@ public:
 		const unsigned int viewportWidth, const unsigned int viewportHeight,
 		const unsigned int textureWidth, const unsigned int textureHeight);
 	cameraType activeCamera();
+	void changeEditor(cameraType c);
 
 private:
 	void Intialize();

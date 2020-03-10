@@ -197,3 +197,7 @@ void GUI::guiRender(const unsigned int editorTexture, const unsigned int gameTex
 GUI::cameraType GUI::activeCamera(){
 	return cameraActiv;
 }
+
+void GUI::changeEditor(cameraType c) {
+	cameraActiv = c;
+}
