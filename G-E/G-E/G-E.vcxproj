@@ -158,6 +158,7 @@
     <ClCompile Include="Source\Engine\Scene\Object\Material\Material.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\Material\Texture\texture.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\model.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Object\Object.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\Plane.cpp" />
   </ItemGroup>
   <ItemGroup>

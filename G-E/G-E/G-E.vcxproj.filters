@@ -52,6 +52,9 @@
     <ClCompile Include="Source\Engine\Scene\Light\PointLight.cpp">
       <Filter>Engine\Scene\Light</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Engine\Scene\Object\Object.cpp">
+      <Filter>Engine\Scene\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\imgui-master\examples\imgui_impl_glfw.h">
