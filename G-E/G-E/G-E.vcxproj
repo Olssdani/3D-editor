@@ -142,7 +142,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c" />
+    <ClCompile Include="Include\glad\glad.c" />
     <ClCompile Include="Include\imgui-master\examples\imgui_impl_glfw.cpp" />
     <ClCompile Include="Include\imgui-master\examples\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Include\imgui-master\imgui.cpp" />

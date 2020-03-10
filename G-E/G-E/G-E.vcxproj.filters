@@ -32,9 +32,6 @@
     <ClCompile Include="Source\GUI\GUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="glad.c">
-      <Filter>External Libs</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Render\Render.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -52,6 +49,9 @@
     </ClCompile>
     <ClCompile Include="Source\Material\texture.cpp">
       <Filter>Scene\Objects\Material\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\glad\glad.c">
+      <Filter>External Libs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
