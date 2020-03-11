@@ -1,4 +1,10 @@
 #include "object.h"
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+#include "Material/Material.h"
+#include "Scene/Light/PointLight.h"
+#include "Scene/Light/DirectionalLight.h"
 
 int object::object_counter = 0;
 
@@ -64,9 +70,7 @@ void object::RenderNoLight(const glm::mat4& projection,
 }
 
 //Create shader with specified paths.
-void object::SetShader(const char* vertexPath,
-					   const char* fragmentPath,
-					   const char* geometryPath = nullptr) {
+void object::SetShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath) {
 	VertPath = vertexPath;
 	FragPath = fragmentPath;
 	GeoPath = geometryPath;
@@ -85,7 +89,7 @@ void object::UpdateShader() {
 //Change to another shader
 void object::ChangeShader(const char* vertexPath,
 						  const char* fragmentPath,
-						  const char* geometryPath = nullptr) {
+						  const char* geometryPath) {
 	VertPath = vertexPath;
 	FragPath = fragmentPath;
 	GeoPath = geometryPath;
@@ -138,7 +142,7 @@ Shader* object::getShader() {
 	return shader;
 }
 
-void object::renderGui() {
+void object::guiRender() {
 	ImGui::Text("Entity name: ");
 	ImGui::SameLine();
 	ImGui::Text(name.c_str());

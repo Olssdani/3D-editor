@@ -1,7 +1,7 @@
 #include "Render.h"
 #include "Misc/Time.h"
 #include <vector>
-#include "GUI/GUI.h"
+#include "GUI/guiEntity.h"
 #include "Input/Input.h"
 #include "FBO.h"
 #include <iostream>
@@ -11,6 +11,8 @@
 #include "Scene/scene.h"
 #include "Camera/Editor_Camera.h"
 #include "Camera/FPS_Camera.h"
+#include "imgui.h"
+
 Render::Render() {
 	Init();
 }
@@ -78,7 +80,7 @@ bool Render::Init() {
 	//Attach the camera to the window pointer for the scroll wheel callback
 	glfwSetWindowUserPointer(window, reinterpret_cast<void*>(this));
 	//Intialize GUI
-	gui = new GUI(window, this);
+	gui = new guiEntity(window, this);
 
 	//Initalize Input
 	input = new Input(window);
@@ -113,9 +115,9 @@ void Render::Rendering() {
 		//Evaluate inputs, must be done after input update!!!!
 		processEditorInputs(window);
 
-		if(gui->activeCamera() == GUI::cameraType::EDITOR) {
+		if(gui->activeCamera() == guiEntity::cameraType::EDITOR) {
 			editorCamera->processInput(input, xoffset, yoffset);
-		} else if(gui->activeCamera() == GUI::cameraType::MAIN) {
+		} else if(gui->activeCamera() == guiEntity::cameraType::MAIN) {
 			mainCamera->ProcessKeyboard(input, time.getDeltaTime());
 			mainCamera->ProcessMouseMovement(xoffset, yoffset, true);
 		}
@@ -130,7 +132,7 @@ void Render::Rendering() {
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		if(gui->activeCamera() == GUI::cameraType::EDITOR) {
+		if(gui->activeCamera() == guiEntity::cameraType::EDITOR) {
 			//Get the current projection matrix
 			glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()),
 													(float)editorWidth / (float)editorHeight,
@@ -142,7 +144,7 @@ void Render::Rendering() {
 			glViewport(0, 0, editorWidth, editorHeight);
 			glEnable(GL_DEPTH_TEST);
 			sceneObject->renderScene(projection, view, editorCamera->GetPosition());
-		} else if(gui->activeCamera() == GUI::cameraType::MAIN) {
+		} else if(gui->activeCamera() == guiEntity::cameraType::MAIN) {
 
 			//Get the current projection matrix
 			glm::mat4 projection = glm::perspective(glm::radians(mainCamera->getFov()),
@@ -217,9 +219,9 @@ void Render::mouse_callback() {
 }
 
 Camera* Render::getCamera() {
-	if(gui->activeCamera() == GUI::cameraType::EDITOR) {
+	if(gui->activeCamera() == guiEntity::cameraType::EDITOR) {
 		return editorCamera;
-	} else if(gui->activeCamera() == GUI::cameraType::MAIN) {
+	} else if(gui->activeCamera() == guiEntity::cameraType::MAIN) {
 		return mainCamera;
 	}
 }

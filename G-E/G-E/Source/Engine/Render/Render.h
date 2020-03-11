@@ -8,7 +8,7 @@
 #include <GLFW/glfw3.h>
 #include <cstdio>
 
-class GUI;
+class guiEntity;
 class Input;
 class FBO;
 class scene;
@@ -36,7 +36,7 @@ private:
 	GLFWmonitor* primaryMonitor;
 	const GLFWvidmode* primaryVidMode;
 	GLFWwindow* window;
-	GUI* gui;
+	guiEntity* gui;
 	int width, height;
 	Editor_Camera* editorCamera;
 	FPS_Camera* mainCamera;

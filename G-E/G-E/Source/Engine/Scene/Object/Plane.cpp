@@ -12,10 +12,10 @@ plane::plane(const glm::vec3& center,
 
 	createMesh();
 
-	Object::CreateBuffers(vertices, indices);
+	object::CreateBuffers(vertices, indices);
 	drawSize = indices.size();
 	SetShader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
-	Object::material = new Material(shader);
+	object::material = new Material(shader);
 
 	vertices.clear();
 	indices.clear();
@@ -60,4 +60,8 @@ void plane::createMesh() {
 			indices.push_back(i * vertX + j + 1);
 		}
 	}
+}
+
+void plane::guiRender() {
+	object::guiRender();
 }

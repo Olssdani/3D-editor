@@ -1,6 +1,6 @@
 #pragma once
-#include "Object.h"
-class plane : public Object {
+#include "object.h"
+class plane : public object {
 public:
 	plane(const glm::vec3& center,
 		  const float sizeX,
@@ -10,6 +10,7 @@ public:
 
 private:
 	void createMesh();
+	void guiRender();
 	std::vector<vertex> vertices;
 	std::vector<unsigned int> indices;
 	glm::vec3 center;

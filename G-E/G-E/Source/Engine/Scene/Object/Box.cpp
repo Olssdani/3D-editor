@@ -8,7 +8,7 @@ Box::Box(float _xSize, float _ySize, float _zSize) {
 	//Create mesh
 	CreateMesh();
 	//Connect mesh to buffers
-	Object::CreateBuffers(vertices, indices);
+	object::CreateBuffers(vertices, indices);
 
 	drawSize = indices.size();
 	//Clear unessary data
@@ -16,7 +16,7 @@ Box::Box(float _xSize, float _ySize, float _zSize) {
 	indices.clear();
 	//Set standard shader
 	SetShader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
-	Object::material = new Material(shader);
+	object::material = new Material(shader);
 }
 
 void Box::CreateMesh() {

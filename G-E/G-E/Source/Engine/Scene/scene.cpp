@@ -1,8 +1,10 @@
 #include "scene.h"
-#include "Object/Object.h"
+#include "Object/object.h"
 #include "Object/Box.h"
 #include "Object/plane.h"
 #include "Object/model.h"
+#include "Light/DirectionalLight.h"
+#include "Light/PointLight.h"
 
 scene::scene() {
 	plane* planeObject = new plane(glm::vec3(0, -5, 0), 50.0f, 50.0f, 10);
@@ -17,7 +19,7 @@ scene::~scene() {
 	delete dl;
 }
 
-void scene::addObject(Object* o) {
+void scene::addObject(object* o) {
 	objects.push_back(o);
 }
 void scene::addPointLight(PointLight* l) {
@@ -32,18 +34,18 @@ void scene::renderScene(const glm::mat4& projection,
 		p->renderVisualization(projection, view, cameraPosition);
 	}
 
-	for(Object* o : objects) {
+	for(object* o : objects) {
 		o->Render(projection, view, cameraPosition, dl, pl);
 	}
 }
 
 void scene::updateShaders() {
-	for(Object* o : objects) {
+	for(object* o : objects) {
 		o->UpdateShader();
 	}
 }
 
-std::vector<Object*>& scene::getObjectList() {
+std::vector<object*>& scene::getObjectList() {
 	return objects;
 }
 

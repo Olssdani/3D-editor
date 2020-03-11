@@ -1,40 +1,26 @@
 #pragma once
+#include "GUI/gui.h"
 #include <vector>
-#include "Scene/Light/DirectionalLight.h"
-#include "Scene/Light/PointLight.h"
-#include "Material/Material.h"
-#include "imgui.h"
 #include "Mesh.h"
+#include "Material/Material.h"
 
-class object {
+class Material;
+class PointLight;
+class DirectionalLight;
+
+class object : public gui {
 protected:
-	/*
-		Variable Definition
-	*/
-	//Shader
 	Shader* shader;
 	Material* material;
 	std::vector<Mesh> meshes;
-	//Buffer objects
-	unsigned int VBO, VAO, EBO;
-
-	//Shaderpaths
 	const char* VertPath;
 	const char* FragPath;
 	const char* GeoPath;
-	//Number of triangels that is being draw;
 	unsigned int drawSize;
 	glm::mat4 model = glm::mat4(1.0f);
-
 	std::string name;
 	int ID;
-
 	static int object_counter;
-
-	/*
-		Protected member functions
-	*/
-	//Create and fill buffers
 	void CreateBuffers(std::vector<vertex>& vert, std::vector<unsigned int>& ind);
 
 public:
@@ -65,5 +51,5 @@ public:
 	int getID();
 	Material* getMaterial();
 	Shader* getShader();
-	void renderGui();
+	void guiRender();
 };

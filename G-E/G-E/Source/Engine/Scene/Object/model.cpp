@@ -1,9 +1,7 @@
 #include <glad/glad.h>
 #include "model.h"
 #include <Render/shader.h>
-
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <stb_image.h>
 
 model::model(std::string const& path, bool gamma)

@@ -24,7 +24,7 @@ public:
 	float getConstant();
 	float getLinear();
 	float getQuadratic();
-	void renderGui();
+	void guiRender();
 	void renderVisualization(const glm::mat4& projection,
 							 const glm::mat4& view,
 							 const glm::vec3& cameraPosition);

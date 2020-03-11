@@ -2,10 +2,7 @@
 #include "gui.h"
 #include <stdio.h>
 #include "Render/Render.h"
-#ifndef Utilities_H
-#	define Utilities_H
-#	include "Misc/Utilities.h"
-#endif
+#include "Misc/Utilities.h"
 #include <stdlib.h>
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)
@@ -23,12 +20,14 @@ public:
 				   const unsigned int viewportHeight,
 				   const unsigned int textureWidth,
 				   const unsigned int textureHeight);
+
 	cameraType activeCamera();
 	void changeEditor(cameraType c);
 
+
 private:
 	void Intialize();
-
+	void guiRender();
 	const char* glsl_version = "#version 330";
 	GLFWwindow* window;
 	Render* render;

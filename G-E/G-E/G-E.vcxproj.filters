@@ -28,9 +28,6 @@
     <ClCompile Include="Source\Engine\Render\Camera\FPS_Camera.cpp">
       <Filter>Engine\Render\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Scene\Object\Box.cpp">
-      <Filter>Engine\Scene\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Engine\Scene\Object\model.cpp">
       <Filter>Engine\Scene\Object</Filter>
     </ClCompile>
@@ -60,6 +57,9 @@
     </ClCompile>
     <ClCompile Include="Source\Engine\GUI\guiEntity.cpp">
       <Filter>Engine\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Scene\Object\box.cpp">
+      <Filter>Engine\Scene\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -102,13 +102,7 @@
     <ClInclude Include="Source\Engine\Render\Camera\FPS_Camera.h">
       <Filter>Engine\Render\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Scene\Object\Box.h">
-      <Filter>Engine\Scene\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Object\model.h">
-      <Filter>Engine\Scene\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Scene\Object\Mesh.h">
       <Filter>Engine\Scene\Object</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Object\Material\Texture\texture.h">
@@ -164,6 +158,12 @@
     </ClInclude>
     <ClInclude Include="Source\Engine\GUI\guiEntity.h">
       <Filter>Engine\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Scene\Object\box.h">
+      <Filter>Engine\Scene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Scene\Object\mesh.h">
+      <Filter>Engine\Scene\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

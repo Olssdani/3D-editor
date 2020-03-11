@@ -1,5 +1,8 @@
 #include "PointLight.h"
-#include "Object/Box.h"
+#include "Object/box.h"
+#include "glm/glm.hpp"
+#include <glm\gtc\type_ptr.hpp>
+
 PointLight::PointLight(glm::vec3 _position, float _constant, float _linear, float _quadratic) {
 	position = _position;
 	constant = _constant;
@@ -55,7 +58,7 @@ float PointLight::getQuadratic() {
 	return quadratic;
 }
 
-void PointLight::renderGui() {
+void PointLight::guiRender() {
 	using namespace ImGui;
 
 	Text("Entity name: ");

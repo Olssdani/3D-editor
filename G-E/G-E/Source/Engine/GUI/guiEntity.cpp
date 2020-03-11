@@ -3,9 +3,8 @@
 #include "Object/box.h"
 #include "Object/model.h"
 #include "Scene/scene.h"
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
+#include "Light/DirectionalLight.h"
+#include "Light/PointLight.h"
 
 guiEntity::guiEntity(GLFWwindow* w, Render* r) {
 	window = w;
@@ -30,6 +29,8 @@ void guiEntity::Intialize() {
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 }
+//TODO fix virtual function
+void guiEntity::guiRender() {}
 
 void guiEntity::guiRender(const unsigned int editorTexture,
 						  const unsigned int gameTexture,
@@ -171,7 +172,7 @@ void guiEntity::guiRender(const unsigned int editorTexture,
 				}
 			}
 
-			std::vector<Object*> objects = render->getScene()->getObjectList();
+			std::vector<object*> objects = render->getScene()->getObjectList();
 			for(int i = 0; i < objects.size(); ++i) {
 				if(ImGui::Selectable(objects[i]->getName().c_str(),
 									 selectedItem == i && selectedClass == 2)) {
@@ -186,11 +187,11 @@ void guiEntity::guiRender(const unsigned int editorTexture,
 		{
 			ImGui::Text("Entity Properties");
 			if(selectedClass == 0) {
-				render->getScene()->getDirectionalLight()->renderGui();
+				render->getScene()->getDirectionalLight()->guiRender();
 			} else if(selectedClass == 1) {
-				render->getScene()->getPointLights()[selectedItem]->renderGui();
+				render->getScene()->getPointLights()[selectedItem]->guiRender();
 			} else if(selectedClass == 2) {
-				render->getScene()->getObjectList()[selectedItem]->renderGui();
+				render->getScene()->getObjectList()[selectedItem]->guiRender();
 			}
 		}
 		ImGui::EndChild();

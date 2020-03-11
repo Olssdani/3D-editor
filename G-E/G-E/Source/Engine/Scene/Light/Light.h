@@ -1,11 +1,12 @@
 #pragma once
 #include "Render/Shader.h"
+#include "GUI/gui.h"
 
-class Light {
+class Light : public gui {
 public:
 	static int counter;
 	virtual void send2Gpu(const Shader* shader, const unsigned int nr = 0) const = 0;
-	virtual void renderGui() = 0;
+	virtual void guiRender() = 0;
 	Light() {
 		ID = ++counter;
 		lightColor = glm::vec3(1.0f);

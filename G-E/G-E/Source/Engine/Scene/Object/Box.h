@@ -1,6 +1,6 @@
 #pragma once
-#include "Object.h"
-class Box : public Object {
+#include "object.h"
+class Box : public object {
 public:
 	Box(float _xSize = 1.0f, float _ySize = 1.0f, float _zSize = 1.0f);
 	~Box();

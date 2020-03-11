@@ -100,6 +100,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc142-mtd.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -130,6 +131,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -155,7 +157,7 @@
     <ClCompile Include="Source\Engine\Render\Render.cpp" />
     <ClCompile Include="Source\Engine\Scene\Light\Light.cpp" />
     <ClCompile Include="Source\Engine\Scene\Light\PointLight.cpp" />
-    <ClCompile Include="Source\Engine\Scene\Object\Box.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Object\box.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\Material\Material.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\Material\Texture\texture.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\model.cpp" />
@@ -188,11 +190,11 @@
     <ClInclude Include="Source\Engine\Scene\Light\DirectionalLight.h" />
     <ClInclude Include="Source\Engine\Scene\Light\Light.h" />
     <ClInclude Include="Source\Engine\Scene\Light\PointLight.h" />
-    <ClInclude Include="Source\Engine\Scene\Object\Box.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\box.h" />
     <ClInclude Include="Source\Engine\Scene\Object\Material\Material.h" />
     <ClInclude Include="Source\Engine\Scene\Object\Material\Texture\texture.h" />
     <ClInclude Include="Source\Engine\Scene\Object\Material\Texture\texturesHolder.h" />
-    <ClInclude Include="Source\Engine\Scene\Object\Mesh.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\mesh.h" />
     <ClInclude Include="Source\Engine\Scene\Object\model.h" />
     <ClInclude Include="Source\Engine\Scene\Object\object.h" />
     <ClInclude Include="Source\Engine\Scene\Object\plane.h" />

@@ -1,6 +1,8 @@
 #pragma once
 #include "Light.h"
 #include "imgui.h"
+#include "glm/glm.hpp"
+#include <glm\gtc\type_ptr.hpp>
 
 class DirectionalLight : public Light {
 private:
@@ -37,7 +39,7 @@ public:
 						specular * specularIntensity);
 	}
 
-	void renderGui() {
+	void guiRender() {
 		using namespace ImGui;
 
 		Text("Entity name: ");
