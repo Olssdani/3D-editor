@@ -4,9 +4,9 @@
 class Light {
 public:
 	static int counter;
-	virtual void send2Gpu(const Shader *shader, const unsigned int nr = 0) = 0;
+	virtual void send2Gpu(const Shader* shader, const unsigned int nr = 0) const = 0;
 	virtual void renderGui() = 0;
-	Light(){
+	Light() {
 		ID = ++counter;
 		lightColor = glm::vec3(1.0f);
 	}
@@ -57,4 +57,3 @@ protected:
 	std::string name;
 	int ID;
 };
-

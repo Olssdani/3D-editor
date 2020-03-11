@@ -8,21 +8,20 @@
 #include "Scene/Object/Box.h"
 #include "Scene/Object/Object.h"
 #include "Scene/Object/Plane.h"
-#include "Scene/Scene.h"
+#include "Scene/scene.h"
 #include "Camera/Editor_Camera.h"
 #include "Camera/FPS_Camera.h"
 Render::Render() {
 	Init();
 }
 
-
 bool Render::Init() {
-	
+
 	// glfw: initialize and configure
 	// ------------------------------
 	glfwSetErrorCallback(glfw_error_callback);
-	
-	if (!glfwInit())
+
+	if(!glfwInit())
 		return false;
 
 	// OpenGL 3.3
@@ -30,25 +29,26 @@ bool Render::Init() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	//Compatibility for apple computers
-	#ifdef __APPLE__
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
-	#endif
+//Compatibility for apple computers
+#ifdef __APPLE__
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT,
+				   GL_TRUE); // uncomment this statement to fix compilation on OS X
+#endif
 
 	//Get primary monitor information
 	primaryMonitor = glfwGetPrimaryMonitor();
 	primaryVidMode = glfwGetVideoMode(primaryMonitor);
-	// glfw window creation
-	// --------------------
-	#if defined(WINDOW_MODE_EXPLICIT)
-		window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_WIDTH, "Engine", NULL, NULL);
-	#elif defined(WINDOW_MODE_FULLSCREEN)
-		window = glfwCreateWindow(primaryVidMode->width, primaryVidMode->width, "Engine", primaryMonitor, NULL);
-	#elif defined(WINDOW_MODE_FULLSCREEN_WINDOWED)
-		window = glfwCreateWindow(primaryVidMode->width, primaryVidMode->width, "Engine", NULL, NULL);
-	#endif 
-	if (window == NULL)
-	{
+// glfw window creation
+// --------------------
+#if defined(WINDOW_MODE_EXPLICIT)
+	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_WIDTH, "Engine", NULL, NULL);
+#elif defined(WINDOW_MODE_FULLSCREEN)
+	window = glfwCreateWindow(
+		primaryVidMode->width, primaryVidMode->width, "Engine", primaryMonitor, NULL);
+#elif defined(WINDOW_MODE_FULLSCREEN_WINDOWED)
+	window = glfwCreateWindow(primaryVidMode->width, primaryVidMode->width, "Engine", NULL, NULL);
+#endif
+	if(window == NULL) {
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return false;
@@ -57,15 +57,12 @@ bool Render::Init() {
 
 	InitCallbackFunctions();
 
-
 	// Disable the mouse and capture it
 	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
+	if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
@@ -76,24 +73,23 @@ bool Render::Init() {
 
 	//Initialize Camera
 	editorCamera = new Editor_Camera(glm::vec3(0.0f, 0.0f, 10.0f));
-	mainCamera = new FPS_Camera(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, -1.0f, 0.0f), 90.0f, 0.0f );
+	mainCamera =
+		new FPS_Camera(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, -1.0f, 0.0f), 90.0f, 0.0f);
 	//Attach the camera to the window pointer for the scroll wheel callback
-	glfwSetWindowUserPointer(window, reinterpret_cast<void *>(this));
+	glfwSetWindowUserPointer(window, reinterpret_cast<void*>(this));
 	//Intialize GUI
 	gui = new GUI(window, this);
 
 	//Initalize Input
 	input = new Input(window);
 
-	scene = new Scene();
+	sceneObject = new scene();
 }
 
 void Render::InitCallbackFunctions() {
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 }
-
-
 
 void Render::Rendering() {
 	//Bakground color
@@ -106,8 +102,7 @@ void Render::Rendering() {
 	screenShader.setInt("screenTexture", 0);
 	FBO frameBuffer(editorWidth, editorHeight);
 
-	while (!glfwWindowShouldClose(window))
-	{
+	while(!glfwWindowShouldClose(window)) {
 		/*
 			Update critical classes first
 		*/
@@ -118,56 +113,64 @@ void Render::Rendering() {
 		//Evaluate inputs, must be done after input update!!!!
 		processEditorInputs(window);
 
-		if (gui->activeCamera() == GUI::cameraType::EDITOR) {
+		if(gui->activeCamera() == GUI::cameraType::EDITOR) {
 			editorCamera->processInput(input, xoffset, yoffset);
-		} else if (gui->activeCamera() == GUI::cameraType::MAIN) {
+		} else if(gui->activeCamera() == GUI::cameraType::MAIN) {
 			mainCamera->ProcessKeyboard(input, time.getDeltaTime());
 			mainCamera->ProcessMouseMovement(xoffset, yoffset, true);
 		}
-
 
 		/*
 			RENDERING
 		*/
 		//Bind FBO
 		frameBuffer.bind();
-	
 
 		//Clear screen
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		if (gui->activeCamera() == GUI::cameraType::EDITOR) {
+		if(gui->activeCamera() == GUI::cameraType::EDITOR) {
 			//Get the current projection matrix
-			glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()), (float)editorWidth / (float)editorHeight, 0.1f, 1000.0f);
+			glm::mat4 projection = glm::perspective(glm::radians(editorCamera->getFov()),
+													(float)editorWidth / (float)editorHeight,
+													0.1f,
+													1000.0f);
 			//Get the current view matrix;
 			glm::mat4 view = editorCamera->View();
 			//Render the scene
 			glViewport(0, 0, editorWidth, editorHeight);
 			glEnable(GL_DEPTH_TEST);
-			scene->renderScene(projection, view, editorCamera->GetPosition());
-		} else if (gui->activeCamera() == GUI::cameraType::MAIN) {
-			
+			sceneObject->renderScene(projection, view, editorCamera->GetPosition());
+		} else if(gui->activeCamera() == GUI::cameraType::MAIN) {
+
 			//Get the current projection matrix
-			glm::mat4 projection = glm::perspective(glm::radians(mainCamera->getFov()), (float)editorWidth / (float)editorHeight, 0.1f, 1000.0f);
+			glm::mat4 projection = glm::perspective(glm::radians(mainCamera->getFov()),
+													(float)editorWidth / (float)editorHeight,
+													0.1f,
+													1000.0f);
 			//Get the current view matrix;
 			glm::mat4 view = mainCamera->View();
 			//Render the scene
 			glViewport(0, 0, editorWidth, editorHeight);
 			glEnable(GL_DEPTH_TEST);
-			scene->renderScene(projection, view, mainCamera->GetPosition());
+			sceneObject->renderScene(projection, view, mainCamera->GetPosition());
 
-			if (input->getKeyStatus(KEY_R))
+			if(input->getKeyStatus(KEY_R))
 				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-			if (input->getKeyStatus(KEY_N))
+			if(input->getKeyStatus(KEY_N))
 				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
 		glViewport(0, 0, width, height);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-
 		//Render GUI
-		gui->guiRender(frameBuffer.getTexture(), frameBuffer.getTexture(), width, height, editorWidth, editorHeight);
+		gui->guiRender(frameBuffer.getTexture(),
+					   frameBuffer.getTexture(),
+					   width,
+					   height,
+					   editorWidth,
+					   editorHeight);
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
@@ -179,15 +182,14 @@ void Render::Rendering() {
 	glfwTerminate();
 }
 
-
-void Render::processEditorInputs(GLFWwindow *window){
+void Render::processEditorInputs(GLFWwindow* window) {
 	//Toggle wireframe or solid
-	if (input->getKeyStatus(KEY_1))
+	if(input->getKeyStatus(KEY_1))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	if (input->getKeyStatus(KEY_2))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);	
-	if (input->getKeyStatus(KEY_SPACE)) {
-		scene->updateShaders();
+	if(input->getKeyStatus(KEY_2))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	if(input->getKeyStatus(KEY_SPACE)) {
+		sceneObject->updateShaders();
 	}
 }
 
@@ -196,14 +198,12 @@ void Render::processEditorInputs(GLFWwindow *window){
 */
 
 //Get mouse movement
-void Render::mouse_callback(){
-
+void Render::mouse_callback() {
 
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 
-	if (firstMouse)
-	{
+	if(firstMouse) {
 		lastX = xpos;
 		lastY = ypos;
 		firstMouse = false;
@@ -217,9 +217,9 @@ void Render::mouse_callback(){
 }
 
 Camera* Render::getCamera() {
-	if (gui->activeCamera() == GUI::cameraType::EDITOR) {
+	if(gui->activeCamera() == GUI::cameraType::EDITOR) {
 		return editorCamera;
-	} else if (gui->activeCamera() == GUI::cameraType::MAIN) {
+	} else if(gui->activeCamera() == GUI::cameraType::MAIN) {
 		return mainCamera;
 	}
 }

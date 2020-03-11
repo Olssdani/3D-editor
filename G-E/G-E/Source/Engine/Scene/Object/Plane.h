@@ -1,12 +1,12 @@
 #pragma once
 #include "Object.h"
-class Plane :
-	public Object
-{
+class plane : public Object {
 public:
-	Plane(const glm::vec3 &_center, const float _sizeX, const float _sizeY, const unsigned int _squares);
-	~Plane();
-
+	plane(const glm::vec3& center,
+		  const float sizeX,
+		  const float sizeY,
+		  const unsigned int squares);
+	~plane();
 
 private:
 	void createMesh();
@@ -16,4 +16,3 @@ private:
 	float sizeX, sizeY;
 	unsigned int squares;
 };
-

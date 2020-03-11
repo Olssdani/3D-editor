@@ -22,9 +22,6 @@
     <ClCompile Include="Include\glad\glad.c">
       <Filter>External Libs</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Main.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Engine\Render\Render.cpp">
       <Filter>Engine\Render</Filter>
     </ClCompile>
@@ -35,9 +32,6 @@
       <Filter>Engine\Scene\Object</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Scene\Object\model.cpp">
-      <Filter>Engine\Scene\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Scene\Object\Plane.cpp">
       <Filter>Engine\Scene\Object</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Scene\Object\Material\Texture\texture.cpp">
@@ -53,6 +47,18 @@
       <Filter>Engine\Scene\Light</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Scene\Object\Object.cpp">
+      <Filter>Engine\Scene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Scene\Light\Light.cpp">
+      <Filter>Engine\Scene\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\main.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Scene\scene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Scene\Object\plane.cpp">
       <Filter>Engine\Scene\Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -96,16 +102,10 @@
     <ClInclude Include="Source\Engine\Render\Camera\FPS_Camera.h">
       <Filter>Engine\Render\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Scene\Scene.h">
-      <Filter>Engine\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Object\Box.h">
       <Filter>Engine\Scene\Object</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Object\Object.h">
-      <Filter>Engine\Scene\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Scene\Object\Plane.h">
       <Filter>Engine\Scene\Object</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Object\model.h">
@@ -155,6 +155,12 @@
     </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Light\PointLight.h">
       <Filter>Engine\Scene\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Scene\scene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Scene\Object\plane.h">
+      <Filter>Engine\Scene\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

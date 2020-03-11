@@ -1,9 +1,10 @@
+#include <glad/glad.h>s
 #include "texture.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
-#include <glad/glad.h> 
-#include <iostream>
 
+#include <iostream>
 
 texture::texture(const std::string& inPath, const std::string& inType) {
 	path = inPath;
@@ -36,14 +37,13 @@ unsigned int texture::textureFromFile(const std::string& path, bool gamma) {
 
 	int width, height, nrComponents;
 	unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrComponents, 0);
-	if (data)
-	{
+	if(data) {
 		GLenum format;
-		if (nrComponents == 1)
+		if(nrComponents == 1)
 			format = GL_RED;
-		else if (nrComponents == 3)
+		else if(nrComponents == 3)
 			format = GL_RGB;
-		else if (nrComponents == 4)
+		else if(nrComponents == 4)
 			format = GL_RGBA;
 
 		glBindTexture(GL_TEXTURE_2D, textureID);
@@ -55,12 +55,9 @@ unsigned int texture::textureFromFile(const std::string& path, bool gamma) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		stbi_image_free(data);
-	}
-	else {
+	} else {
 		std::cout << "Texture failed to load at path: " << path << std::endl;
 		stbi_image_free(data);
 	}
 	return textureID;
 }
-
-

@@ -1,4 +1,5 @@
 #pragma once
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
 class Time {
@@ -6,6 +7,7 @@ private:
 	float timeLastFrame;
 	float currentTime;
 	float deltaTime;
+
 public:
 	//Constructor
 	Time() {
@@ -16,6 +18,7 @@ public:
 	float getDeltaTime() {
 		return deltaTime;
 	}
+
 private:
 	//Get time from last read
 	void calculateDeltaTime() {
@@ -29,5 +32,4 @@ public:
 	void update() {
 		calculateDeltaTime();
 	}
-
 };

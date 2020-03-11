@@ -150,16 +150,18 @@
     <ClCompile Include="Include\imgui-master\imgui_draw.cpp" />
     <ClCompile Include="Include\imgui-master\imgui_widgets.cpp" />
     <ClCompile Include="Source\Engine\GUI\GUI.cpp" />
-    <ClCompile Include="Source\Engine\Main.cpp" />
+    <ClCompile Include="Source\Engine\main.cpp" />
     <ClCompile Include="Source\Engine\Render\Camera\FPS_Camera.cpp" />
     <ClCompile Include="Source\Engine\Render\Render.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Light\Light.cpp" />
     <ClCompile Include="Source\Engine\Scene\Light\PointLight.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\Box.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\Material\Material.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\Material\Texture\texture.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\model.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\Object.cpp" />
-    <ClCompile Include="Source\Engine\Scene\Object\Plane.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Object\plane.cpp" />
+    <ClCompile Include="Source\Engine\Scene\scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\imgui-master\examples\imgui_impl_glfw.h" />
@@ -192,8 +194,8 @@
     <ClInclude Include="Source\Engine\Scene\Object\Mesh.h" />
     <ClInclude Include="Source\Engine\Scene\Object\model.h" />
     <ClInclude Include="Source\Engine\Scene\Object\Object.h" />
-    <ClInclude Include="Source\Engine\Scene\Object\Plane.h" />
-    <ClInclude Include="Source\Engine\Scene\Scene.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\plane.h" />
+    <ClInclude Include="Source\Engine\Scene\scene.h" />
     <ClInclude Include="Source\Engine\Transformations\transformationObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
