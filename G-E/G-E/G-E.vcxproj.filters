@@ -40,14 +40,8 @@
     <ClCompile Include="Source\Engine\Scene\Object\Material\Material.cpp">
       <Filter>Engine\Scene\Object\Material</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\GUI\GUI.cpp">
-      <Filter>Engine\Gui</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Engine\Scene\Light\PointLight.cpp">
       <Filter>Engine\Scene\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Scene\Object\Object.cpp">
-      <Filter>Engine\Scene\Object</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Scene\Light\Light.cpp">
       <Filter>Engine\Scene\Light</Filter>
@@ -60,6 +54,12 @@
     </ClCompile>
     <ClCompile Include="Source\Engine\Scene\Object\plane.cpp">
       <Filter>Engine\Scene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Scene\Object\object.cpp">
+      <Filter>Engine\Scene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\GUI\guiEntity.cpp">
+      <Filter>Engine\Gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,9 +105,6 @@
     <ClInclude Include="Source\Engine\Scene\Object\Box.h">
       <Filter>Engine\Scene\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Scene\Object\Object.h">
-      <Filter>Engine\Scene\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Object\model.h">
       <Filter>Engine\Scene\Object</Filter>
     </ClInclude>
@@ -122,9 +119,6 @@
     </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Object\Material\Material.h">
       <Filter>Engine\Scene\Object\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\GUI\GUI.h">
-      <Filter>Engine\Gui</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Render\shader.h">
       <Filter>Engine\Render</Filter>
@@ -161,6 +155,15 @@
     </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Object\plane.h">
       <Filter>Engine\Scene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Scene\Object\object.h">
+      <Filter>Engine\Scene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\GUI\gui.h">
+      <Filter>Engine\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\GUI\guiEntity.h">
+      <Filter>Engine\Gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

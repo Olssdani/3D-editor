@@ -149,7 +149,7 @@
     <ClCompile Include="Include\imgui-master\imgui_demo.cpp" />
     <ClCompile Include="Include\imgui-master\imgui_draw.cpp" />
     <ClCompile Include="Include\imgui-master\imgui_widgets.cpp" />
-    <ClCompile Include="Source\Engine\GUI\GUI.cpp" />
+    <ClCompile Include="Source\Engine\GUI\guiEntity.cpp" />
     <ClCompile Include="Source\Engine\main.cpp" />
     <ClCompile Include="Source\Engine\Render\Camera\FPS_Camera.cpp" />
     <ClCompile Include="Source\Engine\Render\Render.cpp" />
@@ -159,7 +159,7 @@
     <ClCompile Include="Source\Engine\Scene\Object\Material\Material.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\Material\Texture\texture.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\model.cpp" />
-    <ClCompile Include="Source\Engine\Scene\Object\Object.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Object\object.cpp" />
     <ClCompile Include="Source\Engine\Scene\Object\plane.cpp" />
     <ClCompile Include="Source\Engine\Scene\scene.cpp" />
   </ItemGroup>
@@ -173,7 +173,8 @@
     <ClInclude Include="Include\imgui-master\imstb_textedit.h" />
     <ClInclude Include="Include\imgui-master\imstb_truetype.h" />
     <ClInclude Include="Include\stb_image.h" />
-    <ClInclude Include="Source\Engine\GUI\GUI.h" />
+    <ClInclude Include="Source\Engine\GUI\gui.h" />
+    <ClInclude Include="Source\Engine\GUI\guiEntity.h" />
     <ClInclude Include="Source\Engine\Input\Input.h" />
     <ClInclude Include="Source\Engine\Misc\Time.h" />
     <ClInclude Include="Source\Engine\Misc\Utilities.h" />
@@ -193,7 +194,7 @@
     <ClInclude Include="Source\Engine\Scene\Object\Material\Texture\texturesHolder.h" />
     <ClInclude Include="Source\Engine\Scene\Object\Mesh.h" />
     <ClInclude Include="Source\Engine\Scene\Object\model.h" />
-    <ClInclude Include="Source\Engine\Scene\Object\Object.h" />
+    <ClInclude Include="Source\Engine\Scene\Object\object.h" />
     <ClInclude Include="Source\Engine\Scene\Object\plane.h" />
     <ClInclude Include="Source\Engine\Scene\scene.h" />
     <ClInclude Include="Source\Engine\Transformations\transformationObject.h" />

@@ -1,4 +1,4 @@
-#include "GUI.h"
+#include "guiEntity.h"
 #include "Misc/WindowsUtil.h"
 #include "Object/box.h"
 #include "Object/model.h"
@@ -7,7 +7,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-GUI::GUI(GLFWwindow* w, Render* r) {
+guiEntity::guiEntity(GLFWwindow* w, Render* r) {
 	window = w;
 	Intialize();
 	render = r;
@@ -17,7 +17,7 @@ GUI::GUI(GLFWwindow* w, Render* r) {
 	addPosition[2] = 0;
 }
 
-void GUI::Intialize() {
+void guiEntity::Intialize() {
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -31,12 +31,12 @@ void GUI::Intialize() {
 	ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
-void GUI::guiRender(const unsigned int editorTexture,
-					const unsigned int gameTexture,
-					const unsigned int viewportWidth,
-					const unsigned int viewportHeight,
-					const unsigned int textureWidth,
-					const unsigned int textureHeight) {
+void guiEntity::guiRender(const unsigned int editorTexture,
+						  const unsigned int gameTexture,
+						  const unsigned int viewportWidth,
+						  const unsigned int viewportHeight,
+						  const unsigned int textureWidth,
+						  const unsigned int textureHeight) {
 	static bool no_titlebar = true;
 	static bool no_scrollbar = false;
 	static bool no_menu = false;
@@ -201,10 +201,10 @@ void GUI::guiRender(const unsigned int editorTexture,
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-GUI::cameraType GUI::activeCamera() {
+guiEntity::cameraType guiEntity::activeCamera() {
 	return cameraActiv;
 }
 
-void GUI::changeEditor(cameraType c) {
+void guiEntity::changeEditor(cameraType c) {
 	cameraActiv = c;
 }
