@@ -13,9 +13,7 @@
 #include "Camera/fpsCamera.h"
 #include "imgui.h"
 
-render::render() {
-	init();
-}
+render::render() {}
 
 bool render::init() {
 
@@ -61,7 +59,7 @@ bool render::init() {
 	// glad: load all OpenGL function pointers
 	if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "Failed to initialize GLAD" << std::endl;
-		return -1;
+		return false;
 	}
 
 	glEnable(GL_CULL_FACE);
@@ -179,8 +177,8 @@ void render::mouseCallback() {
 	glfwGetCursorPos(window, &xpos, &ypos);
 
 	if(firstMouse) {
-		lastX = xpos;
-		lastY = ypos;
+		lastX = static_cast<float>(xpos);
+		lastY = static_cast<float>(ypos);
 		firstMouse = false;
 	}
 
@@ -197,6 +195,7 @@ camera* render::getCamera() {
 	} else if(gui->activeCamera() == guiEntity::cameraType::MAIN) {
 		return mainCamera;
 	}
+	return editorCam;
 }
 
 scene* render::getScene() {

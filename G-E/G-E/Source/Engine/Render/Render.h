@@ -20,6 +20,7 @@ public:
 	void renderScene();
 	camera* getCamera();
 	scene* getScene();
+	bool init();
 
 private:
 	//For explicit window size
@@ -50,7 +51,6 @@ private:
 	float scroll_Xoffset = 0;
 	float xoffset, yoffset;
 
-	bool init();
 	void initCallbackFunctions();
 	void processEditorInputs(GLFWwindow* window);
 	void mouseCallback();

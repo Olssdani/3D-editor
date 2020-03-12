@@ -9,7 +9,7 @@ private:
 	float deltaTime;
 
 	void calculateDeltaTime() {
-		currentTime = glfwGetTime();
+		currentTime = static_cast<float>(glfwGetTime());
 		deltaTime = currentTime - timeLastFrame;
 		timeLastFrame = currentTime;
 	}
@@ -17,7 +17,7 @@ private:
 public:
 	//Constructor
 	time() {
-		timeLastFrame = currentTime = glfwGetTime();
+		timeLastFrame = currentTime = static_cast<float>(glfwGetTime());
 		deltaTime = 0;
 	}
 

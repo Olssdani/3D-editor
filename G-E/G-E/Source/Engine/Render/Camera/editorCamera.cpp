@@ -39,9 +39,9 @@ void editorCamera::rotateCamera(const double xpos, const double ypos) {
 	float angleY = 0;
 
 	if(abs(ypos) > abs(xpos)) {
-		angleX = ypos * 0.005f;
+		angleX = static_cast<float>(ypos) * 0.005f;
 	} else {
-		angleY = xpos * 0.005f;
+		angleY = static_cast<float>(xpos) * 0.005f;
 	}
 
 	glm::vec3 angle = glm::vec3(angleX, 0, 0);
@@ -57,9 +57,9 @@ void editorCamera::rotatelookPosition(const double xpos, const double ypos) {
 	float angleX = 0;
 	float angleY = 0;
 	if(abs(ypos) > abs(xpos)) {
-		angleX = ypos * 0.005;
+		angleX = static_cast<float>(ypos) * 0.005f;
 	} else {
-		angleY = xpos * 0.005;
+		angleY = static_cast<float>(xpos) * 0.005f;
 	}
 
 	glm::vec3 lookDirection = glm::normalize(lookPosition - position);

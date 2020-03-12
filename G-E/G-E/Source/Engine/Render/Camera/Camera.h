@@ -13,7 +13,7 @@ protected:
 	glm::vec3 worldUp;
 	glm::vec3 right;
 	glm::mat4 view;
-	float fov;
+	float fov = 0;
 
 public:
 	glm::mat4 getView() {
