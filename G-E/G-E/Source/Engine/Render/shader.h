@@ -8,12 +8,12 @@
 #include <iostream>
 
 //Shader class taken from https://learnopengl.com/Getting-started/Shaders
-class Shader {
+class shader {
 public:
 	unsigned int ID;
 	// constructor generates the shader on the fly
 	// ------------------------------------------------------------------------
-	Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr) {
+	shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr) {
 		// 1. retrieve the vertex/fragment source code from filePath
 		std::string vertexCode;
 		std::string fragmentCode;

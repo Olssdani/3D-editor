@@ -1,30 +1,32 @@
-#include "PointLight.h"
+#include "pointLight.h"
 #include "Object/box.h"
 #include "glm/glm.hpp"
 #include <glm\gtc\type_ptr.hpp>
+#include "Object/Material/material.h"
 
-PointLight::PointLight(glm::vec3 _position, float _constant, float _linear, float _quadratic) {
-	position = _position;
-	constant = _constant;
-	linear = _linear;
-	quadratic = _quadratic;
-	ambientIntensity = 0.01f;
-	diffuseIntensity = 0.8f, specularIntensity = 1.0f;
-	Light::ambient = glm::vec3(1.0f);
-	Light::diffuse = glm::vec3(1.0f);
-	Light::specular = glm::vec3(1.0f);
+pointLight::pointLight(glm::vec3 position, float constant, float linear, float quadratic) {
+	this->position = position;
+	this->constant = constant;
+	this->linear = linear;
+	this->quadratic = quadratic;
+	this->ambientIntensity = 0.01f;
+	this->diffuseIntensity = 0.8f;
+	this->specularIntensity = 1.0f;
+	light::ambient = glm::vec3(1.0f);
+	light::diffuse = glm::vec3(1.0f);
+	light::specular = glm::vec3(1.0f);
 
-	box = new Box(1.0f, 1.0f, 1.0f);
-	box->Scale(glm::vec3(0.2, 0.2, 0.2));
-	box->Translate(position);
-	box->ChangeShader("Shaders/Light_Vert.glsl", "Shaders/Light_Frag.glsl");
+	b = new box(1.0f, 1.0f, 1.0f);
+	b->scale(glm::vec3(0.2, 0.2, 0.2));
+	b->translate(position);
+	b->changeShader("Shaders/Light_Vert.glsl", "Shaders/Light_Frag.glsl");
 }
 
-Box* PointLight::getBox() {
-	return box;
+box* pointLight::getBox() {
+	return b;
 }
 
-void PointLight::send2Gpu(const Shader* shader, const unsigned int nr) const {
+void pointLight::send2Gpu(const shader* shader, const unsigned int nr) const {
 	shader->setVec3("pointLights[" + std::to_string(nr) + "].position", position);
 	shader->setFloat("pointLights[" + std::to_string(nr) + "].constant", constant);
 	shader->setFloat("pointLights[" + std::to_string(nr) + "].linear", linear);
@@ -36,29 +38,29 @@ void PointLight::send2Gpu(const Shader* shader, const unsigned int nr) const {
 	shader->setBool("pointLights[" + std::to_string(nr) + "].init", true);
 }
 
-void PointLight::setConstant(float _constant) {
-	constant = _constant;
+void pointLight::setConstant(float constant) {
+	this->constant = constant;
 }
-void PointLight::setLinear(float _linear) {
-	linear = _linear;
+void pointLight::setLinear(float linear) {
+	this->linear = linear;
 }
-void PointLight::setQuadratic(float _quadratic) {
-	quadratic = _quadratic;
+void pointLight::setQuadratic(float quadratic) {
+	this->quadratic = quadratic;
 }
 
-float PointLight::getConstant() {
+float pointLight::getConstant() {
 	return constant;
 }
 
-float PointLight::getLinear() {
+float pointLight::getLinear() {
 	return linear;
 }
 
-float PointLight::getQuadratic() {
+float pointLight::getQuadratic() {
 	return quadratic;
 }
 
-void PointLight::guiRender() {
+void pointLight::guiRender() {
 	using namespace ImGui;
 
 	Text("Entity name: ");
@@ -106,10 +108,10 @@ void PointLight::guiRender() {
 	Separator();
 }
 
-void PointLight::renderVisualization(const glm::mat4& projection,
+void pointLight::renderVisualization(const glm::mat4& projection,
 									 const glm::mat4& view,
 									 const glm::vec3& cameraPosition) {
-	box->setTranslation(position);
-	box->getMaterial()->setColor(lightColor);
-	box->RenderNoLight(projection, view, cameraPosition);
+	b->setTranslation(position);
+	b->getMaterial()->setColor(lightColor);
+	b->renderNoLight(projection, view, cameraPosition);
 }

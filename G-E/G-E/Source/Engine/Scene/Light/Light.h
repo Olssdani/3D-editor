@@ -1,51 +1,22 @@
 #pragma once
-#include "Render/Shader.h"
+#include "Render/shader.h"
 #include "GUI/gui.h"
 
-class Light : public gui {
+class light : public gui {
 public:
-	static int counter;
-	virtual void send2Gpu(const Shader* shader, const unsigned int nr = 0) const = 0;
+	virtual void send2Gpu(const shader* shader, const unsigned int nr = 0) const = 0;
 	virtual void guiRender() = 0;
-	Light() {
-		ID = ++counter;
-		lightColor = glm::vec3(1.0f);
-	}
 
-	void setAmbient(glm::vec3 a) {
-		ambient = a;
-	}
-
-	void setDiffuse(glm::vec3 d) {
-		diffuse = d;
-	}
-
-	void setSpecular(glm::vec3 s) {
-		specular = s;
-	}
-
-	void setName(std::string _name) {
-		name = _name;
-	}
-
-	std::string getName() {
-		return name;
-	}
-	int getID() {
-		return ID;
-	}
-
-	glm::vec3 getDiffuse() {
-		return diffuse;
-	}
-
-	glm::vec3 getAmbient() {
-		return ambient;
-	}
-
-	glm::vec3 getSpecular() {
-		return specular;
-	}
+	light();
+	void setAmbient(glm::vec3 a);
+	void setDiffuse(glm::vec3 d);
+	void setSpecular(glm::vec3 s);
+	void setName(std::string name);
+	std::string getName();
+	int getID();
+	glm::vec3 getDiffuse();
+	glm::vec3 getAmbient();
+	glm::vec3 getSpecular();
 
 protected:
 	glm::vec3 ambient;
@@ -56,5 +27,6 @@ protected:
 	float diffuseIntensity;
 	float specularIntensity;
 	std::string name;
-	int ID;
+	int id;
+	static int counter;
 };

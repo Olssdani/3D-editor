@@ -22,26 +22,11 @@
     <ClCompile Include="Include\glad\glad.c">
       <Filter>External Libs</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Render\Render.cpp">
-      <Filter>Engine\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Render\Camera\FPS_Camera.cpp">
-      <Filter>Engine\Render\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Engine\Scene\Object\model.cpp">
       <Filter>Engine\Scene\Object</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Scene\Object\Material\Texture\texture.cpp">
       <Filter>Engine\Scene\Object\Material\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Scene\Object\Material\Material.cpp">
-      <Filter>Engine\Scene\Object\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Scene\Light\PointLight.cpp">
-      <Filter>Engine\Scene\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Scene\Light\Light.cpp">
-      <Filter>Engine\Scene\Light</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\main.cpp">
       <Filter>Engine</Filter>
@@ -60,6 +45,24 @@
     </ClCompile>
     <ClCompile Include="Source\Engine\Scene\Object\box.cpp">
       <Filter>Engine\Scene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Scene\Object\Material\material.cpp">
+      <Filter>Engine\Scene\Object\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Scene\Light\light.cpp">
+      <Filter>Engine\Scene\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Scene\Light\pointLight.cpp">
+      <Filter>Engine\Scene\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Render\render.cpp">
+      <Filter>Engine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Render\Camera\fpsCamera.cpp">
+      <Filter>Engine\Render\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Render\Camera\editorCamera.cpp">
+      <Filter>Engine\Render\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,18 +93,6 @@
     <ClInclude Include="Include\stb_image.h">
       <Filter>External Libs</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Render\Render.h">
-      <Filter>Engine\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Render\Camera\Camera.h">
-      <Filter>Engine\Render\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Render\Camera\Editor_Camera.h">
-      <Filter>Engine\Render\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Render\Camera\FPS_Camera.h">
-      <Filter>Engine\Render\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Object\model.h">
       <Filter>Engine\Scene\Object</Filter>
     </ClInclude>
@@ -111,38 +102,11 @@
     <ClInclude Include="Source\Engine\Scene\Object\Material\Texture\texturesHolder.h">
       <Filter>Engine\Scene\Object\Material\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Scene\Object\Material\Material.h">
-      <Filter>Engine\Scene\Object\Material</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\Render\shader.h">
-      <Filter>Engine\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Render\FBO.h">
       <Filter>Engine\Render</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Transformations\transformationObject.h">
       <Filter>Engine\Transformation</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Misc\Time.h">
-      <Filter>Engine\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Input\Input.h">
-      <Filter>Engine\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Misc\WindowsUtil.h">
-      <Filter>Engine\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Misc\Utilities.h">
-      <Filter>Engine\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Scene\Light\DirectionalLight.h">
-      <Filter>Engine\Scene\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Scene\Light\Light.h">
-      <Filter>Engine\Scene\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Scene\Light\PointLight.h">
-      <Filter>Engine\Scene\Light</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Scene\scene.h">
       <Filter>Engine\Scene</Filter>
@@ -164,6 +128,45 @@
     </ClInclude>
     <ClInclude Include="Source\Engine\Scene\Object\mesh.h">
       <Filter>Engine\Scene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Scene\Object\Material\material.h">
+      <Filter>Engine\Scene\Object\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Scene\Light\directionalLight.h">
+      <Filter>Engine\Scene\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Scene\Light\light.h">
+      <Filter>Engine\Scene\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Scene\Light\pointLight.h">
+      <Filter>Engine\Scene\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Render\Render.h">
+      <Filter>Engine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Render\fbo.h">
+      <Filter>Engine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Render\Camera\fpsCamera.h">
+      <Filter>Engine\Render\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Render\Camera\camera.h">
+      <Filter>Engine\Render\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Render\Camera\editorCamera.h">
+      <Filter>Engine\Render\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Misc\time.h">
+      <Filter>Engine\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Misc\utilities.h">
+      <Filter>Engine\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Misc\windowsUtil.h">
+      <Filter>Engine\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Input\input.h">
+      <Filter>Engine\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

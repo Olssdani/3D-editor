@@ -1,14 +1,5 @@
 #pragma once
-#ifndef MODEL_H
-#	define MODEL_H
-#	include <assimp/Importer.hpp>
-#	include <assimp/scene.h>
-#	include <assimp/postprocess.h>
-#	include <string>
-#	include <vector>
-#	include "object.h"
-#	include <Scene/Object/Mesh.h>
-
+#include "object.h"
 class shader;
 
 class model : public object {
@@ -20,11 +11,10 @@ public:
 
 	model(std::string const& path, bool gamma = false);
 	~model();
-	void Draw(Shader* shader);
+	void Draw(shader* shader);
 
 private:
 	void loadModel(std::string const& path);
 	void processNode(aiNode* node, const aiScene* scene);
-	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+	mesh processMesh(aiMesh* aimesh, const aiScene* scene);
 };
-#endif

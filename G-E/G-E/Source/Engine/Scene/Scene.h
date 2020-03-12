@@ -3,26 +3,26 @@
 #include "glm/glm.hpp"
 
 class object;
-class DirectionalLight;
-class PointLight;
+class directionalLight;
+class pointLight;
 
 class scene {
 private:
 	std::vector<object*> objects;
-	DirectionalLight* dl;
-	std::vector<PointLight*> pl;
+	directionalLight* dl;
+	std::vector<pointLight*> pl;
 
 public:
 	scene();
 	~scene();
 	void addObject(object* o);
-	void addPointLight(PointLight* l);
+	void addPointLight(pointLight* l);
 	void renderScene(const glm::mat4& projection,
 					 const glm::mat4& view,
 					 const glm::vec3& cameraPosition);
 	void updateShaders();
 	std::vector<object*>& getObjectList();
 	void removeObject(const unsigned int index);
-	std::vector<PointLight*>& getPointLights();
-	DirectionalLight* getDirectionalLight();
+	std::vector<pointLight*>& getPointLights();
+	directionalLight* getDirectionalLight();
 };

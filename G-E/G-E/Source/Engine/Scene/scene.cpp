@@ -1,10 +1,11 @@
 #include "scene.h"
 #include "Object/object.h"
-#include "Object/Box.h"
+#include "Object/box.h"
 #include "Object/plane.h"
 #include "Object/model.h"
-#include "Light/DirectionalLight.h"
-#include "Light/PointLight.h"
+#include "Light/directionalLight.h"
+#include "Light/pointLight.h"
+#include "Object/Material/material.h"
 
 scene::scene() {
 	plane* planeObject = new plane(glm::vec3(0, -5, 0), 50.0f, 50.0f, 10);
@@ -12,7 +13,7 @@ scene::scene() {
 	planeObject->getMaterial()->setTexture("Resources/Textures/wall.jpg");
 	planeObject->getMaterial()->setShininess(32);
 	objects.push_back(planeObject);
-	dl = new DirectionalLight();
+	dl = new directionalLight();
 }
 
 scene::~scene() {
@@ -22,7 +23,7 @@ scene::~scene() {
 void scene::addObject(object* o) {
 	objects.push_back(o);
 }
-void scene::addPointLight(PointLight* l) {
+void scene::addPointLight(pointLight* l) {
 	pl.push_back(l);
 }
 
@@ -30,18 +31,18 @@ void scene::renderScene(const glm::mat4& projection,
 						const glm::mat4& view,
 						const glm::vec3& cameraPosition) {
 
-	for(PointLight* p : pl) {
+	for(pointLight* p : pl) {
 		p->renderVisualization(projection, view, cameraPosition);
 	}
 
 	for(object* o : objects) {
-		o->Render(projection, view, cameraPosition, dl, pl);
+		o->render(projection, view, cameraPosition, dl, pl);
 	}
 }
 
 void scene::updateShaders() {
 	for(object* o : objects) {
-		o->UpdateShader();
+		o->updateShader();
 	}
 }
 
@@ -53,10 +54,10 @@ void scene::removeObject(const unsigned int index) {
 	objects.erase(objects.begin() + index);
 }
 
-std::vector<PointLight*>& scene::getPointLights() {
+std::vector<pointLight*>& scene::getPointLights() {
 	return pl;
 }
 
-DirectionalLight* scene::getDirectionalLight() {
+directionalLight* scene::getDirectionalLight() {
 	return dl;
 }

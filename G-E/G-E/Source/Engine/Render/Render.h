@@ -3,80 +3,71 @@
 //#define WINDOW_MODE_FULLSCREEN
 #define WINDOW_MODE_FULLSCREEN_WINDOWED
 #include <glad/glad.h>
-#include "Camera/Camera.h"
-
+#include "Camera/camera.h"
 #include <GLFW/glfw3.h>
 #include <cstdio>
 
 class guiEntity;
-class Input;
+class input;
 class FBO;
 class scene;
-class FPS_Camera;
-class Editor_Camera;
+class fpsCamera;
+class editorCamera;
 
-class Render {
+class render {
 public:
-	Render();
-	void Rendering();
-	Camera* getCamera();
-
-	scene* getScene() {
-		return sceneObject;
-	}
+	render();
+	void renderScene();
+	camera* getCamera();
+	scene* getScene();
 
 private:
-	/*
-		Variables 
-	*/
-	const unsigned int SCREEN_WIDTH = 800;
-	const unsigned int SCREEN_HEIGHT = 800;
-	const unsigned int editorWidth = 1080;
-	const unsigned int editorHeight = 720;
+	//For explicit window size
+	const unsigned int SCREENWIDTH = 800;
+	const unsigned int SCREENHEIGHT = 800;
+
+	//Editor Variables
+	const unsigned int EDITORWIDTH = 1080;
+	const unsigned int EDITORHEIGHT = 720;
+
+	//GLFW variable
 	GLFWmonitor* primaryMonitor;
 	const GLFWvidmode* primaryVidMode;
 	GLFWwindow* window;
-	guiEntity* gui;
-	int width, height;
-	Editor_Camera* editorCamera;
-	FPS_Camera* mainCamera;
-	Input* input;
 
+	editorCamera* editorCam;
+	fpsCamera* mainCamera;
+	input* inputObject;
+	guiEntity* gui;
+	int viewportWidth = 0, viewportHeight = 0;
 	scene* sceneObject;
+
 	//Mouse
 	bool firstMouse = true;
-	float lastX = SCREEN_WIDTH / 2.0f;
-	float lastY = SCREEN_HEIGHT / 2.0f;
+	float lastX = SCREENWIDTH / 2.0f;
+	float lastY = SCREENHEIGHT / 2.0f;
 	float scroll_Yoffset = 0;
 	float scroll_Xoffset = 0;
 	float xoffset, yoffset;
 
-	/*
-		Methods
-	*/
-	bool Init();
-	void InitCallbackFunctions();
+	bool init();
+	void initCallbackFunctions();
 	void processEditorInputs(GLFWwindow* window);
-	void mouse_callback();
+	void mouseCallback();
 
 	/*
 		Static callbacks Functions
 	*/
-
-	//Callback function for errors in glfw
-	static void glfw_error_callback(int error, const char* description) {
+	static void glfwErrorCallback(int error, const char* description) {
 		fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 	}
 
-	// glfw: whenever the window size changed (by OS or user resize) this callback function executes
-	// ---------------------------------------------------------------------------------------------
-	static void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+	static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 		glViewport(0, 0, width, height);
 	}
 
-	//scroll input
-	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
-		Render* handler = reinterpret_cast<Render*>(glfwGetWindowUserPointer(window));
-		handler->getCamera()->ProcessMouseScroll(yoffset);
+	static void scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
+		render* handler = reinterpret_cast<render*>(glfwGetWindowUserPointer(window));
+		handler->getCamera()->processMouseScroll(yoffset);
 	}
 };

@@ -1,4 +1,5 @@
 #include "plane.h"
+#include "Material/material.h"
 
 plane::plane(const glm::vec3& center,
 			 const float sizeX,
@@ -12,10 +13,10 @@ plane::plane(const glm::vec3& center,
 
 	createMesh();
 
-	object::CreateBuffers(vertices, indices);
+	object::createBuffers(vertices, indices);
 	drawSize = indices.size();
-	SetShader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
-	object::material = new Material(shader);
+	setShader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
+	object::materialObject = new material(shaderObject);
 
 	vertices.clear();
 	indices.clear();
@@ -60,8 +61,4 @@ void plane::createMesh() {
 			indices.push_back(i * vertX + j + 1);
 		}
 	}
-}
-
-void plane::guiRender() {
-	object::guiRender();
 }

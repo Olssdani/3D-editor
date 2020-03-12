@@ -2,17 +2,16 @@
 #include <glad/glad.h>
 #include <iostream>
 
-class FBO {
+class fbo {
 private:
-	unsigned int fbo;
+	unsigned int fboObject;
 	unsigned int texture;
 	unsigned int rbo;
 
 public:
-	FBO(unsigned int width, unsigned int height) {
-		glGenFramebuffers(1, &fbo);
-		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-		// create a color attachment texture
+	fbo(unsigned int width, unsigned int height) {
+		glGenFramebuffers(1, &fboObject);
+		glBindFramebuffer(GL_FRAMEBUFFER, fboObject);
 
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
@@ -32,19 +31,19 @@ public:
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	~FBO() {
-		glDeleteFramebuffers(1, &fbo);
+	~fbo() {
+		glDeleteFramebuffers(1, &fboObject);
 	}
 
 	void bind() {
-		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+		glBindFramebuffer(GL_FRAMEBUFFER, fboObject);
 	}
 
-	void unbind() {
+	void unBind() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 	unsigned int get() {
-		return fbo;
+		return fboObject;
 	}
 
 	unsigned int getTexture() {

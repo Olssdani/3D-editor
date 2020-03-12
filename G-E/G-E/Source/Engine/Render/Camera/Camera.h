@@ -2,41 +2,31 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-#include <iostream>
-#include "Input/Input.h"
 
-class Camera
-{
+class camera {
 protected:
-	Camera() {
+	camera() {}
 
-	}
-
-	//glm::mat4 perspective;
 	glm::vec3 position;
 	glm::vec3 forward;
 	glm::vec3 up;
 	glm::vec3 worldUp;
 	glm::vec3 right;
-
 	glm::mat4 view;
-
 	float fov;
+
 public:
-	//Return the view matrix
-	glm::mat4 View() {
+	glm::mat4 getView() {
 		return glm::lookAt(position, position + forward, up);
 	}
 
-	glm::vec3 GetPosition() {
+	glm::vec3 getPosition() {
 		return position;
 	}
 
-	float getFov(){
+	float getFov() {
 		return fov;
 	}
 
-	virtual void ProcessMouseScroll(float yoffset) = 0;
-
-
+	virtual void processMouseScroll(float yoffset) = 0;
 };

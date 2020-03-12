@@ -3,11 +3,17 @@
 #include <Render/shader.h>
 #include <glm/glm.hpp>
 #include <stb_image.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <string>
+#include <Object/Mesh.h>
+#include "Material/material.h"
 
 model::model(std::string const& path, bool gamma)
 	: gammaCorrection(gamma) {
 	texturesLoaded = new textureHolder();
-	shader = new Shader("Shaders/Vert.glsl", "Shaders/textureFrag.fs", "Shaders/Geo.glsl");
+	shaderObject = new shader("Shaders/Vert.glsl", "Shaders/textureFrag.fs", "Shaders/Geo.glsl");
 	loadModel(path);
 }
 
@@ -15,13 +21,12 @@ model::~model() {
 	delete texturesLoaded;
 }
 
-void model::Draw(Shader* shader) {
+void model::Draw(shader* shaderIn) {
 	for(unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(shader);
+		meshes[i].Draw(shaderIn);
 }
 
 void model::loadModel(std::string const& path) {
-
 	Assimp::Importer importer;
 
 	const aiScene* scene = importer.ReadFile(
@@ -31,14 +36,12 @@ void model::loadModel(std::string const& path) {
 		std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
 		return;
 	}
+
 	directory = path.substr(0, path.find_last_of('/'));
-	// process ASSIMP's root node recursively
 	this->processNode(scene->mRootNode, scene);
 }
 
-// processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
 void model::processNode(aiNode* node, const aiScene* scene) {
-	// process each mesh located at the current node
 	for(unsigned int i = 0; i < node->mNumMeshes; i++) {
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		meshes.push_back(processMesh(mesh, scene));
@@ -49,49 +52,43 @@ void model::processNode(aiNode* node, const aiScene* scene) {
 	}
 }
 
-Mesh model::processMesh(aiMesh* mesh, const aiScene* scene) {
-	// data to fill
+mesh model::processMesh(aiMesh* aimesh, const aiScene* scene) {
 	std::vector<vertex> vertices;
 	std::vector<unsigned int> indices;
 	textureHolder textures;
 
 	// Walk through each of the mesh's vertices
-	for(unsigned int i = 0; i < mesh->mNumVertices; i++) {
+	for(unsigned int i = 0; i < aimesh->mNumVertices; i++) {
 		vertex vert;
 
-		vert.Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-		vert.Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+		vert.Position =
+			glm::vec3(aimesh->mVertices[i].x, aimesh->mVertices[i].y, aimesh->mVertices[i].z);
+		vert.Normal =
+			glm::vec3(aimesh->mNormals[i].x, aimesh->mNormals[i].y, aimesh->mNormals[i].z);
 
-		// texture coordinates
-		if(mesh->mTextureCoords[0]) {
-			vert.TexCoords = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+		if(aimesh->mTextureCoords[0]) {
+			vert.TexCoords =
+				glm::vec2(aimesh->mTextureCoords[0][i].x, aimesh->mTextureCoords[0][i].y);
 		} else {
 			vert.TexCoords = glm::vec2(0.0f, 0.0f);
 		}
-		if(mesh->mTangents != nullptr)
+		if(aimesh->mTangents != nullptr)
 			vert.Tangent =
-				glm::vec3(mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z);
-		if(mesh->mBitangents != nullptr)
-			vert.Bitangent =
-				glm::vec3(mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z);
+				glm::vec3(aimesh->mTangents[i].x, aimesh->mTangents[i].y, aimesh->mTangents[i].z);
+		if(aimesh->mBitangents != nullptr)
+			vert.Bitangent = glm::vec3(
+				aimesh->mBitangents[i].x, aimesh->mBitangents[i].y, aimesh->mBitangents[i].z);
 
 		vertices.push_back(vert);
 	}
-	// Faces
-	for(unsigned int i = 0; i < mesh->mNumFaces; i++) {
-		aiFace face = mesh->mFaces[i];
+
+	for(unsigned int i = 0; i < aimesh->mNumFaces; i++) {
+		aiFace face = aimesh->mFaces[i];
 		for(unsigned int j = 0; j < face.mNumIndices; j++)
 			indices.push_back(face.mIndices[j]);
 	}
-	// process materials
-	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-	// we assume a convention for sampler names in the shaders. Each diffuse texture should be named
-	// as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER.
-	// Same applies to other texture as the following list summarizes:
-	// diffuse: texture_diffuseN
-	// specular: texture_specularN
-	// normal: texture_normalN
+	aiMaterial* material = scene->mMaterials[aimesh->mMaterialIndex];
 
 	// 1. diffuse maps
 	textures.loadMaterialTextures(
@@ -106,6 +103,5 @@ Mesh model::processMesh(aiMesh* mesh, const aiScene* scene) {
 	textures.loadMaterialTextures(
 		material, aiTextureType_AMBIENT, "texture_height", directory, texturesLoaded);
 
-	// return a mesh object created from the extracted mesh data
-	return Mesh(vertices, indices, textures);
+	return mesh(vertices, indices, textures);
 }

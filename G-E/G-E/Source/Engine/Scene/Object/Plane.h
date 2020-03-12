@@ -10,7 +10,6 @@ public:
 
 private:
 	void createMesh();
-	void guiRender();
 	std::vector<vertex> vertices;
 	std::vector<unsigned int> indices;
 	glm::vec3 center;

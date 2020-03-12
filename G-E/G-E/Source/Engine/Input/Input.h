@@ -1,7 +1,7 @@
 #pragma once
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
-class Input {
+class input {
 public:
 #define KEY_0 0
 #define KEY_1 1
@@ -96,7 +96,7 @@ public:
 #define MOUSE_MIDDLE 2
 private:
 	bool keyStatus[87];
-	bool MouseStatus[3];
+	bool mouseStatus[3];
 	GLFWwindow* window;
 
 public:
@@ -188,20 +188,20 @@ public:
 		keyStatus[KEY_RIGHT_CONTROL] = glfwGetKey(window, GLFW_KEY_RIGHT_CONTROL);
 		keyStatus[KEY_RIGHT_ALT] = glfwGetKey(window, GLFW_KEY_RIGHT_ALT);
 
-		MouseStatus[MOUSE_LEFT] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
-		MouseStatus[MOUSE_RIGHT] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
-		MouseStatus[MOUSE_MIDDLE] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE);
-	}
-	//Keyboard status
-	const bool getKeyStatus(const unsigned int key) {
-		return keyStatus[key];
-	}
-	//Mouse status
-	const bool getMouseStatus(const unsigned int key) {
-		return MouseStatus[key];
+		mouseStatus[MOUSE_LEFT] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+		mouseStatus[MOUSE_RIGHT] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
+		mouseStatus[MOUSE_MIDDLE] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE);
 	}
 
-	Input(GLFWwindow* _window) {
+	const bool getKeyStatus(const unsigned int key) const {
+		return keyStatus[key];
+	}
+
+	const bool getMouseStatus(const unsigned int key) const {
+		return mouseStatus[key];
+	}
+
+	input(GLFWwindow* _window) {
 		window = _window;
 		update();
 	}

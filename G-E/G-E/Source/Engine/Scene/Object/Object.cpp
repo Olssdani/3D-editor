@@ -2,101 +2,91 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
-#include "Material/Material.h"
-#include "Scene/Light/PointLight.h"
-#include "Scene/Light/DirectionalLight.h"
+#include "Material/material.h"
+#include "Scene/Light/pointLight.h"
+#include "Scene/Light/directionalLight.h"
 
-int object::object_counter = 0;
+int object::objectCounter = 0;
 
-void object::CreateBuffers(std::vector<vertex>& vert, std::vector<unsigned int>& ind) {
-	meshes.push_back(Mesh(vert, ind));
+void object::createBuffers(std::vector<vertex>& vert, std::vector<unsigned int>& ind) {
+	meshes.push_back(mesh(vert, ind));
 }
 
 object::object() {
-	material = new Material(shader);
-	ID = object_counter++;
+	materialObject = new material(shaderObject);
+	id = objectCounter++;
 }
 
-/*
-	public member functions
-	*/
-//Render the scene
-void object::Render(const glm::mat4& projection,
+void object::render(const glm::mat4& projection,
 					const glm::mat4& view,
-					const glm::vec3 CameraPos,
-					const DirectionalLight* Dirligth,
-					const std::vector<PointLight*>& PointLights) {
-	//Start shader
-	shader->use();
+					const glm::vec3& cameraPos,
+					const directionalLight* dirligth,
+					const std::vector<pointLight*>& pointLights) {
+	shaderObject->use();
 
-	//Send Lights to shader
-	Dirligth->send2Gpu(shader, 0);
-	int counter = 0;
+	dirligth->send2Gpu(shaderObject, 0);
 
-	for(PointLight* p : PointLights) {
-		p->send2Gpu(shader, counter);
+	unsigned int counter = 0;
+	for(pointLight* p : pointLights) {
+		p->send2Gpu(shaderObject, counter);
 		counter++;
 	}
 
 	//Send variable to shader
-	shader->setMat4("projection", projection);
-	shader->setMat4("view", view);
-	shader->setMat4("model", model);
-	shader->setVec3("CameraPos", CameraPos);
+	shaderObject->setMat4("projection", projection);
+	shaderObject->setMat4("view", view);
+	shaderObject->setMat4("model", model);
+	shaderObject->setVec3("CameraPos", cameraPos);
 
-	material->send2GPU(shader);
+	materialObject->send2GPU(shaderObject);
 
-	for(auto m : meshes) {
-		m.Draw(shader);
+	for(mesh m : meshes) {
+		m.Draw(shaderObject);
 	}
 }
 
-void object::RenderNoLight(const glm::mat4& projection,
+void object::renderNoLight(const glm::mat4& projection,
 						   const glm::mat4& view,
-						   const glm::vec3 CameraPos) {
-	//Start shader
-	shader->use();
+						   const glm::vec3& CameraPos) {
+	shaderObject->use();
 
-	//Sendvairable to shader
-	shader->setMat4("projection", projection);
-	shader->setMat4("view", view);
-	shader->setMat4("model", model);
-	shader->setVec3("CameraPos", CameraPos);
-	material->send2GPU(shader);
-	//Bind the VAO and draw the vertex
+	shaderObject->setMat4("projection", projection);
+	shaderObject->setMat4("view", view);
+	shaderObject->setMat4("model", model);
+	shaderObject->setVec3("CameraPos", CameraPos);
+	materialObject->send2GPU(shaderObject);
+
 	for(auto m : meshes) {
-		m.Draw(shader);
+		m.Draw(shaderObject);
 	}
 }
 
-//Create shader with specified paths.
-void object::SetShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath) {
-	VertPath = vertexPath;
-	FragPath = fragmentPath;
-	GeoPath = geometryPath;
-	shader = new Shader(vertexPath, fragmentPath, geometryPath);
+void object::setShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath) {
+	vertPath = vertexPath;
+	fragPath = fragmentPath;
+	geoPath = geometryPath;
+	shaderObject = new shader(vertexPath, fragmentPath, geometryPath);
 }
 
-//Update the shader with same shaderlink
-void object::UpdateShader() {
-	glDeleteProgram(shader->ID);
-	shader = new Shader(VertPath, FragPath, GeoPath);
-	if(material->isTextureSet()) {
-		shader->use();
-		shader->setInt("material.diffuse", 0);
+void object::updateShader() {
+	glDeleteProgram(shaderObject->ID);
+	shaderObject = new shader(vertPath, fragPath, geoPath);
+	if(materialObject->isTextureSet()) {
+		shaderObject->use();
+		shaderObject->setInt("material.diffuse", 0);
 	}
 }
-//Change to another shader
-void object::ChangeShader(const char* vertexPath,
+
+void object::changeShader(const char* vertexPath,
 						  const char* fragmentPath,
 						  const char* geometryPath) {
-	VertPath = vertexPath;
-	FragPath = fragmentPath;
-	GeoPath = geometryPath;
-	UpdateShader();
+	vertPath = vertexPath;
+	fragPath = fragmentPath;
+	geoPath = geometryPath;
+	updateShader();
 }
 
-void object::Translate(glm::vec3& T) {
+void object::translate(glm::vec3& T) {
 	model = glm::translate(T) * model;
 }
 
@@ -106,24 +96,24 @@ void object::setTranslation(glm::vec3& T) {
 	model[3][2] = T.z;
 }
 
-void object::RotateX(float angle) {
+void object::rotateX(float angle) {
 	model = glm::rotate(angle, glm::vec3(1.0, 0.0, 0.0)) * model;
 }
 
-void object::RotateY(float angle) {
+void object::rotateY(float angle) {
 	model = glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0)) * model;
 }
 
-void object::RotateZ(float angle) {
+void object::rotateZ(float angle) {
 	model = glm::rotate(angle, glm::vec3(0.0, 0.0, 1.0)) * model;
 }
 
-void object::Scale(glm::vec3 S) {
+void object::scale(glm::vec3 S) {
 	model = glm::scale(S) * model;
 }
 
-void object::setName(const std::string _name) {
-	name = _name;
+void object::setName(const std::string& name) {
+	this->name = name;
 }
 
 std::string object::getName() {
@@ -131,15 +121,15 @@ std::string object::getName() {
 }
 
 int object::getID() {
-	return ID;
+	return id;
 }
 
-Material* object::getMaterial() {
-	return material;
+material* object::getMaterial() {
+	return materialObject;
 }
 
-Shader* object::getShader() {
-	return shader;
+shader* object::getShader() {
+	return shaderObject;
 }
 
 void object::guiRender() {
@@ -170,5 +160,5 @@ void object::guiRender() {
 	ImGui::Separator();
 
 	ImGui::Text("Material: ");
-	{ material->renderGui(); }
+	{ materialObject->renderGui(); }
 }

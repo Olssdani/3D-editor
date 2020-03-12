@@ -1,9 +1,10 @@
 #pragma once
 #include "object.h"
-class Box : public object {
+
+class box : public object {
 public:
-	Box(float _xSize = 1.0f, float _ySize = 1.0f, float _zSize = 1.0f);
-	~Box();
+	box(float _xSize = 1.0f, float _ySize = 1.0f, float _zSize = 1.0f);
+	~box();
 
 private:
 	float xSize, ySize, zSize;

@@ -1,9 +1,7 @@
-#include <glad/glad.h>s
-#include "texture.h"
-
+#include <glad/glad.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
-
+#include "texture.h"
 #include <iostream>
 
 texture::texture(const std::string& inPath, const std::string& inType) {

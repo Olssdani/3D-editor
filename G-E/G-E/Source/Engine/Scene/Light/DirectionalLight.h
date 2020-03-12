@@ -1,37 +1,37 @@
 #pragma once
-#include "Light.h"
+#include "light.h"
 #include "imgui.h"
 #include "glm/glm.hpp"
 #include <glm\gtc\type_ptr.hpp>
 
-class DirectionalLight : public Light {
+class directionalLight : public light {
 private:
 	glm::vec3 direction;
 
 public:
-	DirectionalLight() {
-		direction = glm::vec3(0.0, -1.0, 0.0);
-		ambient = diffuse = specular = glm::vec3(1.0f);
-		ambientIntensity = 0.1f;
-		diffuseIntensity = 0.3f;
-		specularIntensity = 0.1f;
-		name = "Directional Light";
+	directionalLight() {
+		this->direction = glm::vec3(0.0, -1.0, 0.0);
+		this->ambient = diffuse = specular = glm::vec3(1.0f);
+		this->ambientIntensity = 0.1f;
+		this->diffuseIntensity = 0.3f;
+		this->specularIntensity = 0.1f;
+		this->name = "Directional Light";
 	}
-	DirectionalLight(glm::vec3 _direction,
-					 glm::vec3 _ambient = glm::vec3(1.0),
-					 glm::vec3 _diffuse = glm::vec3(1.0),
-					 glm::vec3 _specular = glm::vec3(1.0))
-		: direction(_direction) {
-		ambientIntensity = 0.1f;
-		diffuseIntensity = 0.3f;
-		specularIntensity = 0.1f;
-		ambient = _ambient;
-		diffuse = _diffuse;
-		specular = _specular;
-		name = "Directional Light";
+	directionalLight(glm::vec3 direction,
+					 glm::vec3 ambient = glm::vec3(1.0),
+					 glm::vec3 diffuse = glm::vec3(1.0),
+					 glm::vec3 specular = glm::vec3(1.0))
+		: direction(direction) {
+		this->ambientIntensity = 0.1f;
+		this->diffuseIntensity = 0.3f;
+		this->specularIntensity = 0.1f;
+		this->ambient = ambient;
+		this->diffuse = diffuse;
+		this->specular = specular;
+		this->name = "Directional Light";
 	}
 
-	void send2Gpu(const Shader* shader, const unsigned int nr) const override {
+	void send2Gpu(const shader* shader, const unsigned int nr) const override {
 		shader->setVec3("dirLight[" + std::to_string(nr) + "].direction", direction);
 		shader->setVec3("dirLight[" + std::to_string(nr) + "].ambient", ambient * ambientIntensity);
 		shader->setVec3("dirLight[" + std::to_string(nr) + "].diffuse", diffuse * diffuseIntensity);

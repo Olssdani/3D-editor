@@ -1,8 +1,7 @@
-#define GLFW_INCLUDE_NONE
-#include "Render/Render.h"
+#include "Render/render.h"
 
 int main() {
-	Render render;
-	render.Rendering();
+	render r;
+	r.renderScene();
 	return 0;
 }

@@ -1,27 +1,25 @@
-#include "Box.h"
+#include "box.h"
+#include "Material/material.h"
 
-Box::Box(float _xSize, float _ySize, float _zSize) {
-	//Set variavle
+box::box(float _xSize, float _ySize, float _zSize) {
 	xSize = _xSize;
 	ySize = _ySize;
 	zSize = _zSize;
-	//Create mesh
-	CreateMesh();
-	//Connect mesh to buffers
-	object::CreateBuffers(vertices, indices);
 
+	CreateMesh();
+	object::createBuffers(vertices, indices);
 	drawSize = indices.size();
-	//Clear unessary data
+
 	vertices.clear();
 	indices.clear();
-	//Set standard shader
-	SetShader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
-	object::material = new Material(shader);
+
+	setShader("Shaders/Vert.glsl", "Shaders/Frag.glsl", "Shaders/Geo.glsl");
+	object::materialObject = new material(shaderObject);
 }
 
-void Box::CreateMesh() {
-	//Resize vector and set vertex position
+void box::CreateMesh() {
 	vertices.resize(24);
+
 	//FRONT, RIGHT, UP
 	vertices[0] = vertex{
 		glm::vec3(xSize / 2, ySize / 2, zSize / 2), glm::vec3(0.0, 0.0, 1.0), glm::vec2(1.0, 1.0)};
@@ -29,6 +27,7 @@ void Box::CreateMesh() {
 		glm::vec3(xSize / 2, ySize / 2, zSize / 2), glm::vec3(0.0, 1.0, 0.0), glm::vec2(1.0, 0.0)};
 	vertices[2] = vertex{
 		glm::vec3(xSize / 2, ySize / 2, zSize / 2), glm::vec3(1.0, 0.0, 0.0), glm::vec2(0.0, 1.0)};
+
 	//FRONT, RIGHT, DOWN
 	vertices[3] = vertex{
 		glm::vec3(xSize / 2, -ySize / 2, zSize / 2), glm::vec3(0.0, 0.0, 1.0), glm::vec2(1.0, 0.0)};
@@ -37,6 +36,7 @@ void Box::CreateMesh() {
 						 glm::vec2(1.0, 1.0)};
 	vertices[5] = vertex{
 		glm::vec3(xSize / 2, -ySize / 2, zSize / 2), glm::vec3(1.0, 0.0, 0.0), glm::vec2(0.0, 0.0)};
+
 	//FRONT, LEFT, DOWN
 	vertices[6] = vertex{glm::vec3(-xSize / 2, -ySize / 2, zSize / 2),
 						 glm::vec3(0.0, 0.0, 1.0),
@@ -155,8 +155,4 @@ void Box::CreateMesh() {
 	indices[35] = 20;
 }
 
-Box::~Box() {
-	delete material;
-	indices.clear();
-	vertices.clear();
-}
+box::~box() {}

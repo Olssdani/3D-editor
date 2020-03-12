@@ -1,23 +1,26 @@
 #include "guiEntity.h"
-#include "Misc/WindowsUtil.h"
+#include "Misc/windowsUtil.h"
 #include "Object/box.h"
 #include "Object/model.h"
 #include "Scene/scene.h"
-#include "Light/DirectionalLight.h"
-#include "Light/PointLight.h"
+#include "Light/directionalLight.h"
+#include "Light/pointLight.h"
+#include "Render/render.h"
+#include "Misc/Utilities.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-guiEntity::guiEntity(GLFWwindow* w, Render* r) {
+guiEntity::guiEntity(GLFWwindow* w, render* r) {
 	window = w;
-	Intialize();
-	render = r;
+	intialize();
+	renderObject = r;
 
 	addPosition[0] = 0;
 	addPosition[1] = 0;
 	addPosition[2] = 0;
 }
 
-void guiEntity::Intialize() {
-	// Setup Dear ImGui context
+void guiEntity::intialize() {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
@@ -127,10 +130,10 @@ void guiEntity::guiRender(const unsigned int editorTexture,
 			if(ImGui::BeginPopup("Popup_Add")) {
 				if(ImGui::BeginMenu("Object")) {
 					if(ImGui::Selectable("Box")) {
-						Box* b = new Box();
+						box* b = new box();
 						const char default[ 5 ] = "Box";
 						b->setName(default + std::to_string(b->getID()));
-						render->getScene()->addObject(b);
+						renderObject->getScene()->addObject(b);
 					}
 					if(ImGui::Selectable("Load object")) {
 						std::string fileName = wUtil::openFileExplorer();
@@ -140,7 +143,7 @@ void guiEntity::guiRender(const unsigned int editorTexture,
 							const char default[ 6 ] = "Model";
 							m->setName("Model");
 							m->setName(default + std::to_string(m->getID()));
-							render->getScene()->addObject(m);
+							renderObject->getScene()->addObject(m);
 						} else {
 							std::cout << "Not load";
 						}
@@ -149,9 +152,9 @@ void guiEntity::guiRender(const unsigned int editorTexture,
 				}
 				if(ImGui::BeginMenu("Lights")) {
 					if(ImGui::Selectable("Point Light")) {
-						PointLight* l = new PointLight(glm::vec3(0, 0, 0));
+						pointLight* l = new pointLight(glm::vec3(0, 0, 0));
 						l->setName("Point Light " + std::to_string(l->getID()));
-						render->getScene()->addPointLight(l);
+						renderObject->getScene()->addPointLight(l);
 					}
 					ImGui::EndMenu();
 				}
@@ -159,11 +162,11 @@ void guiEntity::guiRender(const unsigned int editorTexture,
 			}
 			ImGui::Separator();
 
-			DirectionalLight* dl = render->getScene()->getDirectionalLight();
+			directionalLight* dl = renderObject->getScene()->getDirectionalLight();
 			if(ImGui::Selectable(dl->getName().c_str(), selectedClass == 0)) {
 				selectedClass = 0;
 			}
-			std::vector<PointLight*> lights = render->getScene()->getPointLights();
+			std::vector<pointLight*> lights = renderObject->getScene()->getPointLights();
 			for(int i = 0; i < lights.size(); ++i) {
 				if(ImGui::Selectable(lights[i]->getName().c_str(),
 									 selectedItem == i && selectedClass == 1)) {
@@ -172,7 +175,7 @@ void guiEntity::guiRender(const unsigned int editorTexture,
 				}
 			}
 
-			std::vector<object*> objects = render->getScene()->getObjectList();
+			std::vector<object*> objects = renderObject->getScene()->getObjectList();
 			for(int i = 0; i < objects.size(); ++i) {
 				if(ImGui::Selectable(objects[i]->getName().c_str(),
 									 selectedItem == i && selectedClass == 2)) {
@@ -187,11 +190,11 @@ void guiEntity::guiRender(const unsigned int editorTexture,
 		{
 			ImGui::Text("Entity Properties");
 			if(selectedClass == 0) {
-				render->getScene()->getDirectionalLight()->guiRender();
+				renderObject->getScene()->getDirectionalLight()->guiRender();
 			} else if(selectedClass == 1) {
-				render->getScene()->getPointLights()[selectedItem]->guiRender();
+				renderObject->getScene()->getPointLights()[selectedItem]->guiRender();
 			} else if(selectedClass == 2) {
-				render->getScene()->getObjectList()[selectedItem]->guiRender();
+				renderObject->getScene()->getObjectList()[selectedItem]->guiRender();
 			}
 		}
 		ImGui::EndChild();
