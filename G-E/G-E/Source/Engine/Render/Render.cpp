@@ -2,8 +2,8 @@
 #include "Misc/Time.h"
 #include <vector>
 #include "GUI/guiEntity.h"
-#include "Input/Input.h"
-#include "FBO.h"
+#include "Input/input.h"
+#include "FBO/colorFbo.h"
 #include <iostream>
 #include "Object/box.h"
 #include "Object/object.h"
@@ -90,7 +90,8 @@ void render::renderScene() {
 	time timeObject;
 
 	glfwGetWindowSize(window, &viewportWidth, &viewportHeight);
-	fbo frameBuffer(EDITORWIDTH, EDITORHEIGHT);
+	fbo* frameBuffer = new colorFbo(EDITORWIDTH, EDITORHEIGHT);
+	//fbo depthMapFbo(1024, 1024);
 
 	while(!glfwWindowShouldClose(window)) {
 
@@ -113,7 +114,7 @@ void render::renderScene() {
 		/*
 			RENDERING
 		*/
-		frameBuffer.bind();
+		frameBuffer->bind();
 
 		//Clear screen
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
@@ -146,8 +147,8 @@ void render::renderScene() {
 		glViewport(0, 0, viewportWidth, viewportHeight);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		gui->guiRender(frameBuffer.getTexture(),
-					   frameBuffer.getTexture(),
+		gui->guiRender(frameBuffer->getTexture(),
+					   frameBuffer->getTexture(),
 					   viewportWidth,
 					   viewportHeight,
 					   EDITORWIDTH,

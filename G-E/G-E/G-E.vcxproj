@@ -185,7 +185,9 @@
     <ClInclude Include="Source\Engine\Render\Camera\camera.h" />
     <ClInclude Include="Source\Engine\Render\Camera\editorCamera.h" />
     <ClInclude Include="Source\Engine\Render\Camera\fpsCamera.h" />
-    <ClInclude Include="Source\Engine\Render\fbo.h" />
+    <ClInclude Include="Source\Engine\Render\FBO\colorFbo.h" />
+    <ClInclude Include="Source\Engine\Render\FBO\depthFbo.h" />
+    <ClInclude Include="Source\Engine\Render\FBO\fbo.h" />
     <ClInclude Include="Source\Engine\Render\Render.h" />
     <ClInclude Include="Source\Engine\Render\shader.h" />
     <ClInclude Include="Source\Engine\Scene\Light\directionalLight.h" />

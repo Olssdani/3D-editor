@@ -144,9 +144,6 @@
     <ClInclude Include="Source\Engine\Render\Render.h">
       <Filter>Engine\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Render\fbo.h">
-      <Filter>Engine\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\Render\Camera\fpsCamera.h">
       <Filter>Engine\Render\Camera</Filter>
     </ClInclude>
@@ -167,6 +164,15 @@
     </ClInclude>
     <ClInclude Include="Source\Engine\Input\input.h">
       <Filter>Engine\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Render\FBO\colorFbo.h">
+      <Filter>Engine\Render\FBO</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Render\FBO\depthFbo.h">
+      <Filter>Engine\Render\FBO</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Render\FBO\fbo.h">
+      <Filter>Engine\Render\FBO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +211,9 @@
     </Filter>
     <Filter Include="Engine\Transformation">
       <UniqueIdentifier>{78578938-345a-4215-9601-324b075a1c4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Render\FBO">
+      <UniqueIdentifier>{1e046359-8ffd-4636-a696-c34d2877608d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

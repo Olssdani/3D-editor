@@ -1,17 +1,13 @@
 #pragma once
-#include <glad/glad.h>
-#include <iostream>
+#include "fbo.h"
 
-class fbo {
+class colorFbo : public fbo {
 private:
-	unsigned int fboObject;
-	unsigned int texture;
-	unsigned int rbo;
+	uint32_t rbo;
 
 public:
-	fbo(unsigned int width, unsigned int height) {
-		glGenFramebuffers(1, &fboObject);
-		glBindFramebuffer(GL_FRAMEBUFFER, fboObject);
+	colorFbo(const uint32_t width, const uint32_t height)
+		: fbo() {
 
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
@@ -31,22 +27,7 @@ public:
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	~fbo() {
-		glDeleteFramebuffers(1, &fboObject);
-	}
-
-	void bind() {
-		glBindFramebuffer(GL_FRAMEBUFFER, fboObject);
-	}
-
-	void unBind() {
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	}
-	unsigned int get() {
-		return fboObject;
-	}
-
-	unsigned int getTexture() {
-		return texture;
+	~colorFbo() {
+		glDeleteFramebuffers(1, &rbo);
 	}
 };
